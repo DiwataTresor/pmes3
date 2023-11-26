@@ -6,7 +6,8 @@ import {useRouter} from "next/navigation"
 import Link from "next/link"
 import Cookies from "js-cookie"
 const page=()=>{
-    const [profil,setProfil]=useState(JSON.parse(Cookies.get("profil")) || {nom:'',emailAdresse:''});
+    // const [profil,setProfil]=useState(JSON.parse(Cookies.get("profil")));
+    const [profil,setProfil]=useState({nom:"",emailAdresse:"okk@gmail.com"});
     const router=useRouter();
     // const {nom,emailAdresse}=JSON.parse(localStorage.getItem("profil")?localStorage.getItem("profil") : "[{'nom':'','emailAdresse':''}]")[0];
 //    try {
