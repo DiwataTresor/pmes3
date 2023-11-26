@@ -7,7 +7,7 @@ import Link from "next/link"
 import Cookies from "js-cookie"
 const page=()=>{
     // const [profil,setProfil]=useState(JSON.parse(Cookies.get("profil")));
-    const [profil,setProfil]=useState({nom:"",emailAdresse:"okk@gmail.com"});
+    const [profil,setProfil]=useState(null);
     const router=useRouter();
     // const {nom,emailAdresse}=JSON.parse(localStorage.getItem("profil")?localStorage.getItem("profil") : "[{'nom':'','emailAdresse':''}]")[0];
 //    try {
@@ -17,7 +17,8 @@ const page=()=>{
 //    }
     const message=`${profil?.nom?.toUpperCase()} votre inscription s'est bien faite`;
     useEffect(()=>{
-        Cookies.get("profil") && router.push("/home");
+        // Cookies.get("profil") && router.push("/home");
+        setProfil(JSON.parse(Cookies.get("profil")));
     },[])
     return(
         <div className="bg-white pb-6">
