@@ -63,7 +63,7 @@ const page=()=>{
     const [optionSuspendre, setOptionSuspendre] = useState(false);
     const [isSelected, setIsSelected] = useState(false);
 
-    // const profil=JSON.parse(localStorage.getItem("profil")) || {};
+
     const [profil,setProfil]=useState(null);
     const [_profil,set_profil] = useState(null);
     const router=useRouter();
