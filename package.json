@@ -1,0 +1,49 @@
+{
+  "name": "pmes",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "NODE_ENV=production node server.js",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.2.6",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.9",
+    "@nextui-org/react": "^2.1.7",
+    "@szhsin/react-menu": "^4.0.3",
+    "antd": "^5.9.2",
+    "autoprefixer": "10.4.14",
+    "bootstrap": "^5.3.1",
+    "framer-motion": "^10.16.1",
+    "js-cookie": "^3.0.5",
+    "lucide-react": "^0.263.1",
+    "moment": "^2.29.4",
+    "next": "13.4.12",
+    "next-google-fonts": "^2.2.0",
+    "nodemailer": "^6.9.7",
+    "postcss": "8.4.27",
+    "react": "18.2.0",
+    "react-bootstrap": "^2.8.0",
+    "react-countup": "^6.4.2",
+    "react-dom": "18.2.0",
+    "react-fast-marquee": "^1.6.1",
+    "react-google-recaptcha": "^3.1.0",
+    "react-js-nl2br": "^1.0.1",
+    "react-medium-image-zoom": "^5.1.8",
+    "react-scroll-parallax": "^3.4.2",
+    "react-sticky-el": "^2.1.0",
+    "react-visibility-sensor": "^5.1.1",
+    "sharp": "^0.32.6",
+    "sonner": "^1.0.3",
+    "swiper": "^10.3.0",
+    "tailwindcss": "3.3.3",
+    "typewriter-effect": "^2.21.0"
+  },
+  "devDependencies": {
+    "daisyui": "^3.6.4"
+  }
+}
