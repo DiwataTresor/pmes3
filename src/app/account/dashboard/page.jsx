@@ -62,8 +62,6 @@ const SectionTreeItem=({t,icone, lien})=>{
 const page=()=>{
     const [optionSuspendre, setOptionSuspendre] = useState(false);
     const [isSelected, setIsSelected] = useState(false);
-
-
     const [profil,setProfil]=useState(null);
     const [_profil,set_profil] = useState(null);
     const router=useRouter();
