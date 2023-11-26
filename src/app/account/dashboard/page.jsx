@@ -64,11 +64,13 @@ const page=()=>{
     const [isSelected, setIsSelected] = useState(false);
 
     // const profil=JSON.parse(localStorage.getItem("profil")) || {};
-    const [profil,setProfil]=useState(Cookies.get("profil"));
-    const [_profil,set_profil] = useState(JSON.parse(profil));
+    const [profil,setProfil]=useState(null);
+    const [_profil,set_profil] = useState(null);
     const router=useRouter();
     useEffect(()=>{
        
+        setProfil(Cookies.get("profil"));
+        set_profil(JSON.parse(Cookies.get("profil")));
         try {
         getData("propreProfil",
                 {"id":_profil.id})
