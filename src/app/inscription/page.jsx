@@ -68,9 +68,9 @@ const page=()=> {
                     .then(r=>{
                         if(r.success)
                         {
-                            localStorage.setItem("profil",JSON.stringify(r.profil));
-                            Cookies.set("profil",JSON.stringify(r.profil))
-                            localStorage.setItem("connected","yes");
+                            // localStorage.setItem("profil",JSON.stringify(r.profil));
+                            Cookies.set("profil",JSON.stringify(r.profil));
+                            Cookies.set("connected","yes");
                             window.location.href="confirminscription";
                             // router.push('/confirminscription', { scroll: false })
                         }else

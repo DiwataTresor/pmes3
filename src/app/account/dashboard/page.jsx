@@ -67,7 +67,7 @@ const page=()=>{
     const router=useRouter();
     useEffect(()=>{
        
-        setProfil(Cookies.get("profil"));
+        // setProfil(Cookies.get("profil"));
         set_profil(JSON.parse(Cookies.get("profil")));
         try {
         getData("propreProfil",
