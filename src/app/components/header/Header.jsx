@@ -52,16 +52,11 @@ const Header = () => {
   const inputStyle =
     "border border-gray-100 rounded-sm h-[35px] py-1 min-w-[280px] px-3";
   const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
+    {item:"Accueil",href:"/home"},
+    {item:"Accueil",href:"/secteurbtb"},
+    {item:"Accueil",href:"/infoutile"},
+    {item:"Accueil",href:"/evenement"},
+    {item:"Accueil",href:"/contact"}
   ];
   const router = useRouter();
 
@@ -408,7 +403,7 @@ const Header = () => {
             }
             <NavbarMenu>
               {menuItems.map((item, index) => (
-                <NavbarMenuItem key={`${item}-${index}`}>
+                <NavbarMenuItem key={`${item.item}-${index}`}>
                   <Link
                     color={
                       index === 2
@@ -418,10 +413,10 @@ const Header = () => {
                           : "foreground"
                     }
                     className="w-full"
-                    href="#"
+                    href={item.href}
                     size="lg"
                   >
-                    {item}
+                    {item.item}
                   </Link>
                 </NavbarMenuItem>
               ))}
