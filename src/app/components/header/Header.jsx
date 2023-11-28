@@ -53,10 +53,10 @@ const Header = () => {
     "border border-gray-100 rounded-sm h-[35px] py-1 min-w-[280px] px-3";
   const menuItems = [
     {item:"Accueil",href:"/home"},
-    {item:"Accueil",href:"/secteurbtb"},
-    {item:"Accueil",href:"/infoutile"},
-    {item:"Accueil",href:"/evenement"},
-    {item:"Accueil",href:"/contact"}
+    {item:"Secteur B2B",href:"/secteurbtb"},
+    {item:"Info utile",href:"/infoutile"},
+    {item:"Evénement",href:"/evenement"},
+    {item:"Contact",href:"/contact"}
   ];
   const router = useRouter();
 
