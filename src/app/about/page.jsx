@@ -52,46 +52,85 @@ const radiusList = [
 export default function Component() {
   return (
     <Layout
-      header={<ParallaxProvider>
-        <ParallaxBanner style={{ aspectRatio: "4 / 1" }}>
-          <ParallaxBannerLayer
-            speed={-20}
-            image="https://images.unsplash.com/photo-1695031060519-270c2128a5c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            // image="https://images.unsplash.com/photo-1695031060519-270c2128a5c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            
-          />
-          <ParallaxBannerLayer speed={-4}>
-            <div
-              className={
-                myContainer +
-                " flex flex-col items-center justify-center text-white pt-[140px]"
-              }
-            >
-                <h1 className="text-[30px]">A Propos</h1>
-                <h1 className="text-[14px] border border-white rounded-full px-3 py-1 mt-6">{"Accueil >> A Propos"}</h1>
-                <p className={`font-bold text-xl text-center mb-8 text-white mt-[32px] mx-auto`}>
-                {/* " Nous vous aidons à développer votre entreprise partant de nos meilleurs services et en économisez du temps et de l'argent partout où vous pouvez vous retrouver." */}
-                <Typewriter
-                options={{
-                    strings: ['" Nous vous aidons à développer votre entreprise partant de nos meilleurs services et en économisez du temps et de l\'argent partout où vous pouvez vous retrouver."'],
-                    autoStart: true,
-                    loop: true,
-                }}
+      header={
+        <div>
+          <div className="hidden lg:block"> 
+            <ParallaxProvider>
+              <ParallaxBanner style={{ aspectRatio: "4 / 1" }}>
+                <ParallaxBannerLayer
+                  speed={-20}
+                  image="https://images.unsplash.com/photo-1695031060519-270c2128a5c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  // image="https://images.unsplash.com/photo-1695031060519-270c2128a5c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  
                 />
-                </p>
-            </div>
-          </ParallaxBannerLayer>
-        </ParallaxBanner>
-      </ParallaxProvider>}
+                <ParallaxBannerLayer speed={-4}>
+                  <div
+                    className={
+                      myContainer +
+                      " flex flex-col items-center justify-center text-white pt-[140px]"
+                    }
+                  >
+                      <h1 className="text-[30px]">A Propos</h1>
+                      <h1 className="text-[14px] border border-white rounded-full px-3 py-1 mt-6">{"Accueil >> A Propos"}</h1>
+                      <p className={`font-bold text-xl text-center mb-8 text-white mt-[32px] mx-auto`}>
+                      {/* " Nous vous aidons à développer votre entreprise partant de nos meilleurs services et en économisez du temps et de l'argent partout où vous pouvez vous retrouver." */}
+                      <Typewriter
+                      options={{
+                          strings: ['" Nous vous aidons à développer votre entreprise partant de nos meilleurs services et en économisez du temps et de l\'argent partout où vous pouvez vous retrouver."'],
+                          autoStart: true,
+                          loop: true,
+                      }}
+                      />
+                      </p>
+                  </div>
+                </ParallaxBannerLayer>
+              </ParallaxBanner>
+            </ParallaxProvider>
+          </div>
+          <div className="block lg:hidden">
+            <ParallaxProvider>
+              <ParallaxBanner style={{ aspectRatio: "4 / 1" }}>
+                <ParallaxBannerLayer
+                  speed={-20}
+                  image="https://images.unsplash.com/photo-1695031060519-270c2128a5c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  // image="https://images.unsplash.com/photo-1695031060519-270c2128a5c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  
+                />
+                <ParallaxBannerLayer speed={-4}>
+                  <div
+                    className={
+                      myContainer +
+                      " flex flex-col items-center justify-center text-white pt-[140px]"
+                    }
+                  >
+                      <h1 className="text-[30px]">A Propos</h1>
+                      <h1 className="text-[14px] border border-white rounded-full px-3 py-1 mt-6">{"Accueil >> A Propos"}</h1>
+                      <p className={`font-bold text-xl text-center mb-8 text-white mt-[32px] mx-auto`}>
+                      {/* " Nous vous aidons à développer votre entreprise partant de nos meilleurs services et en économisez du temps et de l'argent partout où vous pouvez vous retrouver." */}
+                      <Typewriter
+                      options={{
+                          strings: ['" Nous vous aidons à développer votre entreprise partant de nos meilleurs services et en économisez du temps et de l\'argent partout où vous pouvez vous retrouver."'],
+                          autoStart: true,
+                          loop: true,
+                      }}
+                      />
+                      </p>
+                  </div>
+                </ParallaxBannerLayer>
+              </ParallaxBanner>
+            </ParallaxProvider>
+          </div>
+        </div>
+       }
     >
       <div className={myContainer + " py-[30px] bg-white"}>
         
-        <div className="flex flex-row gap-9 justify-between">
+        <div className="flex flex-col lg:flex-row gap-9 justify-between">
             <div className="w-full text-justify items-center flex flex-col gap-5">
                 <div animateIn="fadeIn">
                     <div className={`flex flex-col gap-2 text-gray-600 items-center justify-center`}>
                     <Divider><h3 className={"text-lg font-bold"}>Qui sommes-nous ?</h3></Divider>
-                        <p className="items-center">
+                    <p className="items-center">
                         Index RDC est une entreprise des annuaires des pmes de droit congolais ;
                         enregistrée au tribunal de commerce de la République Démocratique du
                         Congo. Nous vous offrons des solutions pour booster vos grandes et
@@ -112,7 +151,7 @@ export default function Component() {
                     </div>
                 </div>
             </div>
-            <div className="pt-[40px] flex flex-row justify-center items-center">
+            <div className="pt-[40px] flex flex-row justify-center items-center order-1">
               {/* <div className="bg-white py-[30px] rounded-md shadow-md h-full px-30"> */}
               <Image src={logo} width={600} alt="Logo"  />
               {/* </div> */}

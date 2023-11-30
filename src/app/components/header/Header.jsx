@@ -32,7 +32,7 @@ import { LockIcon } from "@/app/components/icons/LockIcon"
 import { Modal as ModalAnt, notification, Alert } from "antd"
 import moment from "moment"
 import Cookies from "js-cookie";
-import { MenuIcon, Search } from "lucide-react";
+import { Filter, MenuIcon, Search, SearchIcon } from "lucide-react";
 
 const Header = () => {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -54,7 +54,13 @@ const Header = () => {
   const inputStyle =
     "border border-gray-100 rounded-sm h-[35px] py-1 min-w-[280px] px-3";
   const menuItems = [
+    { item: "", href: "#" },
+    { item: "", href: "#" },
+    { item: "", href: "#" },
+    { item: "", href: "#" },
+    { item: "", href: "#" },
     { item: "Accueil", href: "/home" },
+    { item: "A Propos", href: "/about" },
     { item: "Secteur B2B", href: "/secteurbtb" },
     { item: "Info utile", href: "/infoutile" },
     { item: "Evénement", href: "/evenement" },
@@ -443,6 +449,14 @@ const Header = () => {
                   </Link>
                 </NavbarMenuItem>
               ))}
+                <NavbarItem >
+                    <Divider />
+                </NavbarItem>
+                <NavbarItem>
+                  <div>
+                    Notre email: {email}
+                  </div>
+                </NavbarItem>
             </NavbarMenu>
           </Navbar>
         </div>
@@ -486,11 +500,31 @@ const Header = () => {
         </div>
         <div className="lg:hidden">
           <Sticky>
-            <form onSubmit={handleSearch}>
-              <div className="flex flex-row gap-2 bg-blue-800 px-[10px] lg:px-[300px] py-5 items-center justify-center text-gray-400 border-blue-600 z-40 ">
-                <Input onPress={onOpen2} startContent={<Search />} autoComplete="off" labelPlacement="outside" name="terme" type="search" isRequired size="lg" placeholder="Rechercher..." />
-              </div>
-            </form>
+            <div className="flex flex-row gap-3 bg-blue-800 py-2 px-[10px]">
+              <button className="bg-non outline-none border-0" onClick={onOpen2}>
+                <svg width="34px" height="34px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="white" stroke="white">
+                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                  <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+                  <g id="SVGRepo_iconCarrier"> <title>filter-horizontal-solid</title> 
+                  <g id="Layer_2" data-name="Layer 2"> <g id="invisible_box" data-name="invisible box"> 
+                    <rect width="48" height="48" fill="none"></rect> 
+                  </g> 
+                  <g id="icons_Q2" data-name="icons Q2"> 
+                    <path d="M41.8,8H21.7A6.2,6.2,0,0,0,16,4a6,6,0,0,0-5.6,4H6.2A2.1,2.1,0,0,0,4,10a2.1,2.1,0,0,0,2.2,2h4.2A6,6,0,0,0,16,16a6.2,6.2,0,0,0,5.7-4H41.8A2.1,2.1,0,0,0,44,10,2.1,2.1,0,0,0,41.8,8Z"></path> 
+                    <path d="M41.8,22H37.7A6.2,6.2,0,0,0,32,18a6,6,0,0,0-5.6,4H6.2a2,2,0,1,0,0,4H26.4A6,6,0,0,0,32,30a6.2,6.2,0,0,0,5.7-4h4.1a2,2,0,1,0,0-4Z"></path> 
+                    <path d="M41.8,36H24.7A6.2,6.2,0,0,0,19,32a6,6,0,0,0-5.6,4H6.2a2,2,0,1,0,0,4h7.2A6,6,0,0,0,19,44a6.2,6.2,0,0,0,5.7-4H41.8a2,2,0,1,0,0-4Z"></path> 
+                  </g> 
+                  </g> 
+                  </g>
+                </svg>
+              </button>
+              <form onSubmit={handleSearch}>
+                <div className="flex flex-row gap-2 bg-blue-800 lg:px-[300px]  items-center justify-center text-gray-400 border-blue-600 z-40 ">
+                  <Input onPress={onOpen2} startContent={<Search />} autoComplete="off" labelPlacement="outside" name="terme" type="search" isRequired size="size" placeholder="Rechercher..." />
+                  <Button><SearchIcon /></Button>
+                </div>
+              </form>
+            </div>
           </Sticky>
         </div>
         {/* Modal Login */}
@@ -572,48 +606,31 @@ const Header = () => {
                   <ModalBody className="">
 
                     <form onSubmit={handleSearch}>
-                      <div className="flex flex-row gap-2 bg-blue-800 px-[10px] lg:px-[300px] py-5 items-center justify-center text-gray-400 border-blue-600 z-40 ">
-                        <Input name="terme" type="search" isRequired size="sm" label="Trouver par nom de l'entreprise" />
-                        <Select name="lieu" size={"sm"} label="Localisation" className="max-w-xs">
+                      <div className="flex flex-col gap-2 px-[10px] lg:px-[300px] py-5 items-center justify-center text-gray-400 border-blue-600 z-40 ">
+                        <Input name="terme" type="search" fullWidth={true} isRequired size="sm" label="Trouver par nom de l'entreprise" />
+                        <Select name="lieu" size={"sm"} fullWidth={true} label="Localisation" className="max-w-lg">
                           <SelectItem key="*" value="*">Partout</SelectItem>
                           {provinces?.sort((a, b) => { return a.province > b.province })?.map(s => { return (<SelectItem key={s.id} value={s.id}>{s.province}</SelectItem>) })}
                         </Select>
                         {/* <div className="bg-orange-500 w-[7px] h-[70px]">&nbsp;</div> */}
-                        <Select name="secteur" label="Secteur d'activité" size="sm">
+                        <Select name="secteur" fullWidth={true} label="Secteur d'activité" size="sm">
                           <SelectItem key="*" value="*">Tous</SelectItem>
                           {secteurs?.sort((a, b) => { return a.secteur > b.secteur })?.map(s => { return (<SelectItem key={s.id} value={s.id}>{s.secteur}</SelectItem>) })}
                         </Select>
-                        <Button type="submit" color="success" size={"lg"} radius="md" className="text-white">
+                        <Button type="submit" fullWidth={true} color="success" size={"lg"} radius="md" className="text-white">
                           Trouver
-                          {/* <svg
-                  width="20px"
-                  height="20px"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.4"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  color="#fff"
-                >
-                  <path
-                    d="M17 17l4 4M3 11a8 8 0 1016 0 8 8 0 00-16 0z"
-                    stroke="#fff"
-                    strokeWidth="1.4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  ></path>
-                </svg> */}
                         </Button>
                       </div>
                     </form>
                   </ModalBody>
-                  <ModalFooter>
+                  {/* <ModalFooter>
                     <Button type="button" color="danger" variant="light" onPress={(e) => { setIsLoading(false); onClose(e) }}>
                       Annuler
                     </Button>
                     <Button type="submit" isLoading={isLoading} color="primary">
                       Se connecter
                     </Button>
-                  </ModalFooter>
+                  </ModalFooter> */}
                 </>
               </form>
             )}

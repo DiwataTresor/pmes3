@@ -32,7 +32,7 @@ const Entreprise=({detail})=>{
 
                 {detail.utilisateurVille || detail.ville}
             </h2>
-            <div className="py-2 flex flex-row">
+            <div className="py-2 flex flex-col lg:flex-row">
 
                 <div className="mr-7 px-6 border-r border-white">
                     {

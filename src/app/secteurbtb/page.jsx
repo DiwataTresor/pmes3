@@ -113,11 +113,11 @@ export default function Component() {
             titre={"Tous les secteurs B2B"}
             titreIcone={<AppstoreOutlined style={{ fontSize: 30 }} />}
           >
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mt-8">
+            <div className="flex gap-3 mt-8 flex-wrap">
               {
                 secteurs?.sort((a, b) => { a.secteur > b.secteur })?.map((s, i) => {
                   return (
-                    <div className="mb-5" key={i}>
+                    <div className="mb-5 flex-1" key={i}>
                       <Link href={`/secteurbtb/${s.slug}`}>
                         <Badge content={s.secteurNb} color={s.secteurNb > 0 ? "success" : "danger"} placement="top-right" className="text-white">
                           <Button variant="flat" color="primary" startContent={<Svg />} className="w-full">

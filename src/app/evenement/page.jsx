@@ -113,7 +113,7 @@ export default function Component() {
                 Filtrer par : 
               </div>
           </p>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
              {
               evnts.map((e,i)=>{
                 return(

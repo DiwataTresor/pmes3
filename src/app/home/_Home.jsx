@@ -205,12 +205,12 @@ const Component = () => {
         <div className="flex gap-4  mb-5">
           <div className="w-full flex flex-col gap-7">
             <h3 className="text-center font-bold text-xl underline">
-              Explorez nos {secteurs.length || null} secteurs BTB
+              Explorez nos {secteurs?.length || 0} secteurs BTB
             </h3>
-            <div className={`w-full overflow-x-hidden ${secteurs.length>1?"flex flex-row gap-5 flex-wrap justify-start items-start ":"justify-center items-center flex"}  py-2 px-3 rounded`}>
+            <div className={`w-full overflow-x-hidden ${secteurs?.length>1?"flex flex-row gap-5 flex-wrap justify-start items-start ":"justify-center items-center flex"}  py-2 px-3 rounded`}>
 
               {
-                secteurs.map((s, i) => {
+                secteurs?.map((s, i) => {
                   return (
                     <SecteurItem key={i} item={s.secteur} v={s.secteurNb} slug={s.slug} className="flex-1" />
                   )
