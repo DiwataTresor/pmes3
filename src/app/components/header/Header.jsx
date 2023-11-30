@@ -32,31 +32,33 @@ import { LockIcon } from "@/app/components/icons/LockIcon"
 import { Modal as ModalAnt, notification, Alert } from "antd"
 import moment from "moment"
 import Cookies from "js-cookie";
+import { MenuIcon, Search } from "lucide-react";
 
 const Header = () => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [msgNL, setMsgNL] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
   const [api, contextHolder] = notification.useNotification();
   const [feedBack, setFeedBack] = React.useState("");
   const [secteurs, setSecteurs] = React.useState([]);
   const [provinces, setProvinces] = React.useState([]);
-  const [profil,setProfil] = useState(Cookies.get("profil") || null);
-  const [connected,setConnected]=useState(Cookies.get("connected") || null);
-  const [visiteSite,setVisiteSite]=useState("visiteSite","");
-  const [store,setStore]=useState({
+  const [profil, setProfil] = useState(Cookies.get("profil") || null);
+  const [connected, setConnected] = useState(Cookies.get("connected") || null);
+  const [visiteSite, setVisiteSite] = useState("visiteSite", "");
+  const [store, setStore] = useState({
     connected: connected,
-    profil:profil
+    profil: profil
   });
   const inputStyle =
     "border border-gray-100 rounded-sm h-[35px] py-1 min-w-[280px] px-3";
   const menuItems = [
-    {item:"Accueil",href:"/home"},
-    {item:"Secteur B2B",href:"/secteurbtb"},
-    {item:"Info utile",href:"/infoutile"},
-    {item:"Evénement",href:"/evenement"},
-    {item:"Contact",href:"/contact"}
+    { item: "Accueil", href: "/home" },
+    { item: "Secteur B2B", href: "/secteurbtb" },
+    { item: "Info utile", href: "/infoutile" },
+    { item: "Evénement", href: "/evenement" },
+    { item: "Contact", href: "/contact" }
   ];
   const router = useRouter();
 
@@ -77,9 +79,9 @@ const Header = () => {
             message: "Authentification",
             description: "Connexion bien établie"
           });
-         
-          Cookies.set('connected',"true");
-          Cookies.set('profil',JSON.stringify(r.profil));
+
+          Cookies.set('connected', "true");
+          Cookies.set('profil', JSON.stringify(r.profil));
           router.push('/account/dashboard', { scroll: false });
           window.location.reload();
 
@@ -109,32 +111,32 @@ const Header = () => {
   }
 
   useEffect(() => {
-   
+
     getSecteurs().then(r => { setSecteurs(r.data) });
     getProvinces().then(r => { setProvinces(r.data) });
-    
+
   }, []);
 
-  const getMessage=()=>{
+  const getMessage = () => {
 
-    setTimeout(() =>{
+    setTimeout(() => {
       if (connected === "true") {
-        setStore({...store, connected:"true"})
+        setStore({ ...store, connected: "true" })
         let _profil = JSON.parse(profil);
         getData("messageUser&id=" + _profil?.id)
           .then(r => {
             setMsgNL(r?.msgRecus?.filter((m) => { return m.statut == 'NL' })?.length)
           }).catch(err => console.log(err));
       }
-    },3000)
+    }, 3000)
   }
   useEffect(() => {
     getMessage();
-  },[connected])
+  }, [connected])
 
   // Pour visiteur du site
   useEffect(() => {
-    if (visiteSite!=="") {
+    if (visiteSite !== "") {
       if (setVisiteSite("visiteSite") !== moment().format("YYYY-MM-DD")) {
         setVisiteSite(`${moment().format("YYYY-MM-DD")}`);
         postData("visiteSite").then(r => {
@@ -161,7 +163,7 @@ const Header = () => {
         style={{ backgroundColor: bgPrimary }}
       >
 
-        <div className="bg-blue-700 border-b border-gray-100 w-full h-[40px] px-[300px]  flex flex-row justify-between text-sm pt-3">
+        <div className="all-unset bg-blue-700 border-b border-gray-100 w-full h-[40px] lg:px-[300px] md:px-[20px] flex flex-row justify-between text-sm pt-3">
           <div className="flex gap-3">
             <div className="border-r-0 border-gray-100 pr-4 justify-center flex flex-row gap-2">
               <svg
@@ -176,7 +178,7 @@ const Header = () => {
                 <path
                   d="M18 2v5M22 2v5M18.118 14.702L14 15.5c-2.782-1.396-4.5-3-5.5-5.5l.77-4.13L7.815 2H4.064c-1.128 0-2.016.932-1.847 2.047.42 2.783 1.66 7.83 5.283 11.453 3.805 3.805 9.286 5.456 12.302 6.113 1.165.253 2.198-.655 2.198-1.848v-3.584l-3.882-1.479z"
                   stroke="#fff"
-                  
+
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -184,7 +186,7 @@ const Header = () => {
               </svg>
               <div className="">{telephone}</div>
             </div>
-            <div className="border-r-0 border-gray-100 pr-4">
+            <div className="border-r-0 border-gray-100 pr-4 hidden lg:block">
               <div className="">{email}</div>
             </div>
           </div>
@@ -284,11 +286,19 @@ const Header = () => {
           <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-blue-800">
             <NavbarContent>
               <NavbarMenuToggle
+                // icon={<MenuIcon />}
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                 className="sm:hidden"
               />
               <NavbarBrand className="h-full rounded-sm">
-                <Link href="/home" className="pt-5"><Image src={logo4} width={230} height={90} alt='' /></Link>
+                <Link href="/home" className="pt-5">
+                  <div className="hidden lg:block">
+                    <Image src={logo4} width={230} height={90} alt='' />
+                  </div>
+                  <div className="block lg:hidden">
+                    <Image src={logo4} width={130} height={60} alt='' />
+                  </div>
+                </Link>
                 {/* <p className="font-bold text-inherit">ACME</p> */}
               </NavbarBrand>
             </NavbarContent>
@@ -326,9 +336,9 @@ const Header = () => {
               </NavbarItem>
             </NavbarContent>
             {
-              connected ==="true" ?
+              connected === "true" ?
                 <NavbarContent as="div" className="items-center" justify="end">
-                  <NavbarItem className="hidden lg:flex">
+                  <NavbarItem className="lg:flex">
                     <Badge content={msgNL} color="danger">
                       <Link href="/account/message">
                         <Button color="primary" size="sm" variant="flat" radius="full" className="text-white">
@@ -343,7 +353,9 @@ const Header = () => {
 
                     <Dropdown placement="bottom-end">
                       <DropdownTrigger>
-                        <svg width="34px" height="34px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#1c3b7d"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fillRule="evenodd" clipRule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9ZM12 20.5C13.784 20.5 15.4397 19.9504 16.8069 19.0112C17.4108 18.5964 17.6688 17.8062 17.3178 17.1632C16.59 15.8303 15.0902 15 11.9999 15C8.90969 15 7.40997 15.8302 6.68214 17.1632C6.33105 17.8062 6.5891 18.5963 7.19296 19.0111C8.56018 19.9503 10.2159 20.5 12 20.5Z" fill="#ffffff"></path> </g></svg>
+                        <svg width="34px" height="34px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#1c3b7d">
+                          <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fillRule="evenodd" clipRule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9ZM12 20.5C13.784 20.5 15.4397 19.9504 16.8069 19.0112C17.4108 18.5964 17.6688 17.8062 17.3178 17.1632C16.59 15.8303 15.0902 15 11.9999 15C8.90969 15 7.40997 15.8302 6.68214 17.1632C6.33105 17.8062 6.5891 18.5963 7.19296 19.0111C8.56018 19.9503 10.2159 20.5 12 20.5Z" fill="#ffffff"></path> </g>
+                        </svg>
                       </DropdownTrigger>
                       <DropdownMenu aria-label="Profile Actions" variant="flat">
                         <DropdownItem key="profile" className="h-14 gap-2">
@@ -386,20 +398,31 @@ const Header = () => {
                   </NavbarItem>
                 </NavbarContent>
                 :
-                <NavbarContent justify="end">
-                  <NavbarItem className="hidden lg:flex">
-                    <Button onPress={onOpen} as={Link} color="primary" href="#" variant="flat" radius="full" className="text-white">
-                      Connexion
-                    </Button>
-                  </NavbarItem>
-                  <NavbarItem>
+                <div>
+                  <div className="hidden lg:block">
+                    <NavbarContent justify="end">
+                      <NavbarItem className="lg:flex">
+                        <Button onPress={onOpen} as={Link} color="primary" href="#" variant="flat" radius="full" className="text-white">
+                          Connexion
+                        </Button>
+                      </NavbarItem>
+                      <NavbarItem>
 
-                    <Button as={Link} color="success" href="/inscription" variant="bordered" radius="full">
-                      S'inscrire
-                    </Button>
+                        <Button as={Link} color="success" href="/inscription" variant="bordered" radius="full">
+                          S'inscrire
+                        </Button>
 
-                  </NavbarItem>
-                </NavbarContent>
+                      </NavbarItem>
+                    </NavbarContent>
+                  </div>
+                  <div className="block lg:hidden r-0">
+                    <div className="flex text-sm">
+                      <Button as={Link} size="sm" href={"#"} onPress={onOpen} variant="light" className="text-white">Connexion</Button>
+                      <Button as={Link} size="sm" href="/inscription" variant="light" className="text-white">S'incrire</Button>
+                    </div>
+                  </div>
+                </div>
+
             }
             <NavbarMenu>
               {menuItems.map((item, index) => (
@@ -423,43 +446,53 @@ const Header = () => {
             </NavbarMenu>
           </Navbar>
         </div>
-        <Sticky>
-        
-          <form onSubmit={handleSearch}>
-            <div className="flex flex-row gap-2 bg-blue-800 px-[300px] py-5 items-center justify-center text-gray-400 border-blue-600 z-40 ">
-              <Input name="terme" type="search" isRequired size="sm" label="Trouver par nom de l'entreprise" />
-              <Select name="lieu" size={"sm"} label="Localisation" className="max-w-xs">
-                <SelectItem key="*" value="*">Partout</SelectItem>
-                {provinces?.sort((a, b) => { return a.province > b.province })?.map(s => { return (<SelectItem key={s.id} value={s.id}>{s.province}</SelectItem>) })}
-              </Select>
-              {/* <div className="bg-orange-500 w-[7px] h-[70px]">&nbsp;</div> */}
-              <Select name="secteur" label="Secteur d'activité" size="sm">
-                <SelectItem key="*" value="*">Tous</SelectItem>
-                {secteurs?.sort((a, b) => { return a.secteur > b.secteur })?.map(s => { return (<SelectItem key={s.id} value={s.id}>{s.secteur}</SelectItem>) })}
-              </Select>
-              <Button type="submit" color="success" size={"lg"} radius="md" className="text-white">
-                Trouver
-                {/* <svg
-                width="20px"
-                height="20px"
-                viewBox="0 0 24 24"
-                strokeWidth="1.4"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                color="#fff"
-              >
-                <path
-                  d="M17 17l4 4M3 11a8 8 0 1016 0 8 8 0 00-16 0z"
-                  stroke="#fff"
+        <div className="lg:block hidden">
+          <Sticky>
+            <form onSubmit={handleSearch}>
+              <div className="flex flex-row gap-2 bg-blue-800 px-[10px] lg:px-[300px] py-5 items-center justify-center text-gray-400 border-blue-600 z-40 ">
+                <Input name="terme" type="search" isRequired size="sm" label="Trouver par nom de l'entreprise" />
+                <Select name="lieu" size={"sm"} label="Localisation" className="max-w-xs">
+                  <SelectItem key="*" value="*">Partout</SelectItem>
+                  {provinces?.sort((a, b) => { return a.province > b.province })?.map(s => { return (<SelectItem key={s.id} value={s.id}>{s.province}</SelectItem>) })}
+                </Select>
+                {/* <div className="bg-orange-500 w-[7px] h-[70px]">&nbsp;</div> */}
+                <Select name="secteur" label="Secteur d'activité" size="sm">
+                  <SelectItem key="*" value="*">Tous</SelectItem>
+                  {secteurs?.sort((a, b) => { return a.secteur > b.secteur })?.map(s => { return (<SelectItem key={s.id} value={s.id}>{s.secteur}</SelectItem>) })}
+                </Select>
+                <Button type="submit" color="success" size={"lg"} radius="md" className="text-white">
+                  Trouver
+                  {/* <svg
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
                   strokeWidth="1.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                ></path>
-              </svg> */}
-              </Button>
-            </div>
-          </form>
-        </Sticky>
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  color="#fff"
+                >
+                  <path
+                    d="M17 17l4 4M3 11a8 8 0 1016 0 8 8 0 00-16 0z"
+                    stroke="#fff"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></path>
+                </svg> */}
+                </Button>
+              </div>
+            </form>
+          </Sticky>
+        </div>
+        <div className="lg:hidden">
+          <Sticky>
+            <form onSubmit={handleSearch}>
+              <div className="flex flex-row gap-2 bg-blue-800 px-[10px] lg:px-[300px] py-5 items-center justify-center text-gray-400 border-blue-600 z-40 ">
+                <Input onPress={onOpen2} startContent={<Search />} autoComplete="off" labelPlacement="outside" name="terme" type="search" isRequired size="lg" placeholder="Rechercher..." />
+              </div>
+            </form>
+          </Sticky>
+        </div>
         {/* Modal Login */}
         <Modal
           isOpen={isOpen}
@@ -511,6 +544,67 @@ const Header = () => {
                       </Link>
                     </div>
                     <div className="text-center items-center">{feedBack}</div>
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button type="button" color="danger" variant="light" onPress={(e) => { setIsLoading(false); onClose(e) }}>
+                      Annuler
+                    </Button>
+                    <Button type="submit" isLoading={isLoading} color="primary">
+                      Se connecter
+                    </Button>
+                  </ModalFooter>
+                </>
+              </form>
+            )}
+          </ModalContent>
+        </Modal>
+        {/* Modal Recherche */}
+        <Modal
+          isOpen={isOpen2}
+          onOpenChange={onOpenChange2}
+          placement="top-center"
+        >
+          <ModalContent>
+            {(onClose) => (
+              <form onSubmit={handleLogin}>
+                <>
+                  <ModalHeader className="flex flex-col gap-1">Recherche</ModalHeader>
+                  <ModalBody className="">
+
+                    <form onSubmit={handleSearch}>
+                      <div className="flex flex-row gap-2 bg-blue-800 px-[10px] lg:px-[300px] py-5 items-center justify-center text-gray-400 border-blue-600 z-40 ">
+                        <Input name="terme" type="search" isRequired size="sm" label="Trouver par nom de l'entreprise" />
+                        <Select name="lieu" size={"sm"} label="Localisation" className="max-w-xs">
+                          <SelectItem key="*" value="*">Partout</SelectItem>
+                          {provinces?.sort((a, b) => { return a.province > b.province })?.map(s => { return (<SelectItem key={s.id} value={s.id}>{s.province}</SelectItem>) })}
+                        </Select>
+                        {/* <div className="bg-orange-500 w-[7px] h-[70px]">&nbsp;</div> */}
+                        <Select name="secteur" label="Secteur d'activité" size="sm">
+                          <SelectItem key="*" value="*">Tous</SelectItem>
+                          {secteurs?.sort((a, b) => { return a.secteur > b.secteur })?.map(s => { return (<SelectItem key={s.id} value={s.id}>{s.secteur}</SelectItem>) })}
+                        </Select>
+                        <Button type="submit" color="success" size={"lg"} radius="md" className="text-white">
+                          Trouver
+                          {/* <svg
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.4"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  color="#fff"
+                >
+                  <path
+                    d="M17 17l4 4M3 11a8 8 0 1016 0 8 8 0 00-16 0z"
+                    stroke="#fff"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></path>
+                </svg> */}
+                        </Button>
+                      </div>
+                    </form>
                   </ModalBody>
                   <ModalFooter>
                     <Button type="button" color="danger" variant="light" onPress={(e) => { setIsLoading(false); onClose(e) }}>

@@ -147,8 +147,8 @@ const Component = () => {
   }, []);
   return (
     <Layout
-      header={<div className="h-[500px] overflow-hidden relative bg-black" >
-        <Image src={kinshasa4} style={{ opacity: 0.2 }} className="w-screen bg-gradient-to-tr z-3" alt="Sahara Desert landscape" loading="lazy" />
+      header={<div className="h-[250px] lg:h-[500px] overflow-hidden relative bg-black" >
+        <Image src={kinshasa4} style={{ opacity: 0.2 }} className="w-screen bg-gradient-to-tr z-3" alt="Kinshasa-centre-ville" loading="lazy" />
         {/* <div className={`top-[200px] absolute rounded-full overflow-hidden blue mx-[40%] w-content flex flex-row bg-white pl-8 h-120px items-center justify-center`}>
           <svg width="20px" height="20px" viewBox="0 0 24 24" strokeWidth="1.4" fill="none" xmlns="http://www.w3.org/2000/svg" color="#ccc">
               <path d="M17 17l4 4M3 11a8 8 0 1016 0 8 8 0 00-16 0z" stroke="#ccc" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"></path>
@@ -157,7 +157,7 @@ const Component = () => {
           <button className="h-[50px] px-4 text-white bg-blue-500">Trouver</button>
         </div> */}
         <p
-          className={`font-bold text-xl text-center text-white top-[302px] ml-[40%] absolute`}
+          className={`font-bold text-xl text-center text-white lg:top-[302px] top-[42px] lg:ml-[40%] ml-[10%] absolute`}
         >
           {/* " Nous vous aidons à développer votre entreprise partant de nos meilleurs services et en économisez du temps et de l'argent partout où vous pouvez vous retrouver." */}
           <Typewriter
@@ -212,7 +212,7 @@ const Component = () => {
               {
                 secteurs.map((s, i) => {
                   return (
-                    <SecteurItem key={i} item={s.secteur} v={s.secteurNb} slug={s.slug} />
+                    <SecteurItem key={i} item={s.secteur} v={s.secteurNb} slug={s.slug} className="flex-1" />
                   )
                 })
               }
@@ -249,7 +249,7 @@ const Component = () => {
             <h1 className="text-xl underline">Pourquoi adhérer à l’Index RDC</h1>
           </div>
           
-          <div className={"grid grid-cols-3 gap-3"}>
+          <div className={"grid grid-cols-1 lg:grid-cols-3 gap-3"}>
             <Card img={book2} titre={"Annuaire des PMES"} contenu={"Il est un référentiel décrivant l’ensemble de ressources des entreprises, synchronisées au sein d’un système d’information."} />
             <Card img={who} titre={"Pour qui ? "} contenu={"Entreprises Entrepreneurs, Start up, Organisation des financements, Média, Homme et Femme d’affaire, structures internationales."} />
             <Card img={success} titre={"Pour quels avantages ?"} contenu={"Service marketing pour l’accès des Informations économiques et financières en relation aux partenaires."} />
@@ -264,45 +264,89 @@ const Component = () => {
       >
         {/* <TitrePrincipal /> */}
         <div className="pb-8">
-          <Swiper
-            spaceBetween={20}
-            slidesPerView={4}
-            onSlideChange={() => console.log('slide change')}
-            onSwiper={(swiper) => console.log(swiper)}
-            autoplay={{
-              delay: 4500,
-              disableOnInteraction: false,
-            }}
-            pagination={{
-              clickable: false,
-            }}
-            navigation={true}
-            modules={[Autoplay, Pagination, Navigation]}
-          >
-            {/* <SwiperSlide><ProduitItem adresse="Adresse 1" text="produit 1" description="Nam at tortor in tellus interdum sagittis. Quisque rutrum. Etiam feugiat lorem non metus.Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Pellentesque auctor neque nec urna. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum." img={connexion4} /></SwiperSlide>
-            <SwiperSlide><ProduitItem adresse="Adresse 2" text="Produit 2" description="Nam at tortor in tellus interdum sagittis. Quisque rutrum. Etiam feugiat lorem non metus.Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Pellentesque auctor neque nec urna. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum." img={connexion1} /></SwiperSlide>
-            <SwiperSlide><ProduitItem adresse="Adresse 3" text="Produit 3" description="Nam at tortor in tellus interdum sagittis. Quisque rutrum. Etiam feugiat lorem non metus.Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Pellentesque auctor neque nec urna. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum." img={connexion3} /></SwiperSlide>
-            <SwiperSlide><ProduitItem adresse="Adresse 4" text="Produit 4" description="Nam at tortor in tellus interdum sagittis. Quisque rutrum. Etiam feugiat lorem non metus.Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Pellentesque auctor neque nec urna. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum." img={connexion2} /></SwiperSlide>
-            <SwiperSlide><ProduitItem adresse="Adresse 5" text="Produit 5" description="Nam at tortor in tellus interdum sagittis. Quisque rutrum. Etiam feugiat lorem non metus.Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Pellentesque auctor neque nec urna. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum." img={connexion2} /></SwiperSlide> */}
-            {
-              produits?.map((p,i)=>{
-                return(
-                    <SwiperSlide key={i}>
-                      <div className="px-0.5 py-1">
-                      <ProduitItem 
-                        adresse={p?.lieu} 
-                        text={p.nom}
-                        description={nl2br(p?.description.substr(0,100))}
-                        proprietaire={p?.proprietaire}
-                        img={p?.img} 
-                      />
-                      </div>
-                    </SwiperSlide>
-                  )
-              })
-            }
+          <div className="hidden lg:block">
+            <Swiper
+              spaceBetween={20}
+              slidesPerView={4}
+              onSlideChange={() => console.log('slide change')}
+              onSwiper={(swiper) => console.log(swiper)}
+              autoplay={{
+                delay: 4500,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: false,
+              }}
+              navigation={true}
+              modules={[Autoplay, Pagination, Navigation]}
+            >
+              {/* <SwiperSlide><ProduitItem adresse="Adresse 1" text="produit 1" description="Nam at tortor in tellus interdum sagittis. Quisque rutrum. Etiam feugiat lorem non metus.Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Pellentesque auctor neque nec urna. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum." img={connexion4} /></SwiperSlide>
+              <SwiperSlide><ProduitItem adresse="Adresse 2" text="Produit 2" description="Nam at tortor in tellus interdum sagittis. Quisque rutrum. Etiam feugiat lorem non metus.Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Pellentesque auctor neque nec urna. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum." img={connexion1} /></SwiperSlide>
+              <SwiperSlide><ProduitItem adresse="Adresse 3" text="Produit 3" description="Nam at tortor in tellus interdum sagittis. Quisque rutrum. Etiam feugiat lorem non metus.Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Pellentesque auctor neque nec urna. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum." img={connexion3} /></SwiperSlide>
+              <SwiperSlide><ProduitItem adresse="Adresse 4" text="Produit 4" description="Nam at tortor in tellus interdum sagittis. Quisque rutrum. Etiam feugiat lorem non metus.Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Pellentesque auctor neque nec urna. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum." img={connexion2} /></SwiperSlide>
+              <SwiperSlide><ProduitItem adresse="Adresse 5" text="Produit 5" description="Nam at tortor in tellus interdum sagittis. Quisque rutrum. Etiam feugiat lorem non metus.Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Pellentesque auctor neque nec urna. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum." img={connexion2} /></SwiperSlide> */}
+              {
+                produits?.map((p,i)=>{
+                  return(
+                      <SwiperSlide key={i}>
+                        <div className="px-0.5 py-1">
+                        <ProduitItem 
+                          adresse={p?.lieu} 
+                          text={p.nom}
+                          description={nl2br(p?.description.substr(0,100))}
+                          proprietaire={p?.proprietaire}
+                          img={p?.img} 
+                        />
+                        </div>
+                      </SwiperSlide>
+                    )
+                })
+              }
 
-          </Swiper>
+            </Swiper>
+          </div>
+          <div className="block lg:hidden">
+            <Swiper
+              spaceBetween={20}
+              slidesPerView={1}
+              onSlideChange={() => console.log('slide change')}
+              onSwiper={(swiper) => console.log(swiper)}
+              autoplay={{
+                delay: 4500,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: false,
+              }}
+              navigation={true}
+              modules={[Autoplay, Pagination, Navigation]}
+            >
+              {/* <SwiperSlide><ProduitItem adresse="Adresse 1" text="produit 1" description="Nam at tortor in tellus interdum sagittis. Quisque rutrum. Etiam feugiat lorem non metus.Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Pellentesque auctor neque nec urna. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum." img={connexion4} /></SwiperSlide>
+              <SwiperSlide><ProduitItem adresse="Adresse 2" text="Produit 2" description="Nam at tortor in tellus interdum sagittis. Quisque rutrum. Etiam feugiat lorem non metus.Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Pellentesque auctor neque nec urna. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum." img={connexion1} /></SwiperSlide>
+              <SwiperSlide><ProduitItem adresse="Adresse 3" text="Produit 3" description="Nam at tortor in tellus interdum sagittis. Quisque rutrum. Etiam feugiat lorem non metus.Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Pellentesque auctor neque nec urna. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum." img={connexion3} /></SwiperSlide>
+              <SwiperSlide><ProduitItem adresse="Adresse 4" text="Produit 4" description="Nam at tortor in tellus interdum sagittis. Quisque rutrum. Etiam feugiat lorem non metus.Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Pellentesque auctor neque nec urna. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum." img={connexion2} /></SwiperSlide>
+              <SwiperSlide><ProduitItem adresse="Adresse 5" text="Produit 5" description="Nam at tortor in tellus interdum sagittis. Quisque rutrum. Etiam feugiat lorem non metus.Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Pellentesque auctor neque nec urna. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum." img={connexion2} /></SwiperSlide> */}
+              {
+                produits?.map((p,i)=>{
+                  return(
+                      <SwiperSlide key={i}>
+                        <div className="px-0.5 py-1">
+                        <ProduitItem 
+                          adresse={p?.lieu} 
+                          text={p.nom}
+                          description={nl2br(p?.description.substr(0,100))}
+                          proprietaire={p?.proprietaire}
+                          img={p?.img} 
+                        />
+                        </div>
+                      </SwiperSlide>
+                    )
+                })
+              }
+
+            </Swiper>
+          </div>
+          
         </div>
       </Section>
     </Layout>

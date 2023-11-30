@@ -60,7 +60,7 @@ const Footer = () => {
         </div>
         <div className="pt-5">
 
-          <div className="px-[10px] pb-[25px] md:px-4 lg:px-[150px] flex flex-row text-[12px]" style={{ backgroundColor: bgPrimary }}>
+          <div className="px-[10px] pb-[25px] md:px-4 lg:px-[150px] flex lg:flex-row flex-col text-[12px]" style={{ backgroundColor: bgPrimary }}>
             <div className={styles.colone + " max-w-[320px] mr-[40px] xs:w-4/4 flex flex-col gap-4  items-start"}>
               <Image src={logo} width={200} height={80} alt='' />
               <p className="text-justify text-white text-[11px]">
