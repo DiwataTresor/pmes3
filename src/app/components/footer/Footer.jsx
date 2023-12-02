@@ -48,7 +48,7 @@ const Footer = () => {
             <Spin spinning={spinningNewsletters}>
               <form onSubmit={handleNewsletters}>
                 <div className="border flex flex-row rounded-tl-lg rounded-br-lg flex-wrap overflow-hidden" style={{ borderColor: bgSecondary }}>
-                  <input required name='mailAdress' type="email" className={`text-black w-[120px] md:w-[120px] lg:w-[300px] outline-none flex-1 text-sm pl-4 ${colorSecondary}`} placeholder="Votre adresse Email" />
+                  <input required name='mailAdress' type="email" className={`text-black w-[120px] md:w-[120px] rounded-none lg:w-[300px] outline-none flex-1 text-sm pl-4 ${colorSecondary}`} placeholder="Votre adresse Email" />
                   <button type="submit" className={`${bgSecondaryColor} h-[40px] text-white px-2`}>S'INSCRIRE</button>
                 </div>
               </form>

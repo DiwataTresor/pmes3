@@ -63,20 +63,20 @@ const page = () => {
     const [optionSuspendre, setOptionSuspendre] = useState(false);
     const [isSelected, setIsSelected] = useState(false);
     const [profil, setProfil] = useState(null);
-    const [_profil, set_profil] = useState(null);
+    const [_profil, set_profil] = useState(Cookies.get("profil"));
     const router = useRouter();
     useEffect(() => {
 
-        // setProfil(Cookies.get("profil"));
+        console.log(JSON.parse(Cookies.get("profil")));
         set_profil(JSON.parse(Cookies.get("profil")));
-        try {
-            getData("propreProfil",
-                { "id": _profil.id })
-                .then(r => {
-                    setProfil(r.data);
-                })
-        } catch (e) {
-        }
+        // try {
+        //     getData("propreProfil",
+        //         { "id": _profil.id })
+        //         .then(r => {
+        //             setProfil(r.data);
+        //         })
+        // } catch (e) {
+        // }
     }, []);
 
 
@@ -84,8 +84,15 @@ const page = () => {
     return (
         <MainLayout showNavigation navigationBar="">
             <Toaster position="bottom-center" />
-            <Layout titre={`Votre Abonnement | ${profil?.idUser}`} titreIcone={<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10.5 13.5H7.5M10.5 13.5V16.5M10.5 13.5L7 17" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.5 10.5H16.5M13.5 10.5V7.5M13.5 10.5L17 7" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M10.5 10.5H7.5M10.5 10.5V7.5M10.5 10.5L7 7" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.5 13.5H16.5M13.5 13.5V16.5M13.5 13.5L17 17" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" stroke="#1C274C" stroke-width="1.5"></path> </g></svg>}>
+            <Layout headerBg={"bg-black"} titre={`Votre Abonnement | ${_profil?.nom}`} titreIcone={<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10.5 13.5H7.5M10.5 13.5V16.5M10.5 13.5L7 17" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.5 10.5H16.5M13.5 10.5V7.5M13.5 10.5L17 7" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M10.5 10.5H7.5M10.5 10.5V7.5M10.5 10.5L7 7" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.5 13.5H16.5M13.5 13.5V16.5M13.5 13.5L17 17" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" stroke="#1C274C" stroke-width="1.5"></path> </g></svg>}>
                 <div className="flex flex-col gap-6">
+                    <div className="flex flex-row gap-4 text-gray-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25" />
+                        </svg>
+                        ID : <span className="text-blue-400 hover:underline">{_profil?.idUser}</span>
+
+                    </div>
                     <div className="flex flex-row gap-4 text-gray-800">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25" />
@@ -106,7 +113,7 @@ const page = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
                             </svg>
-                            Debut de votre abonnement actuel : {moment(profil?.dateabonnement).format("DD/MM/YYYY")}
+                            Debut de votre abonnement actuel : {moment(_profil?.dateabonnement).format("DD/MM/YYYY")}
                         </h2>
                         <h2 className="flex flex-row gap-4 mt-6 ">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

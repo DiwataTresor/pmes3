@@ -9,38 +9,42 @@ import {postData} from "@/app/fcts/helper"
 import Entreprise from "@/app/components/profil/Entreprise"
 const page=()=>{
     const [resultat,setResultat]=useState([]);
-    const [searchDone,setSearchDone]=useState("false");
-    const [spinning,setSpinning]=useState(true)
+    const [searchDone,setSearchDone]=useState(false);
+    const [spinning,setSpinning]=useState(false);
     
     const [queryString,setQueryString]=useState('');
-    const [urlParams,setUrlParams]=useState(new URLSearchParams(""));
+    const [urlParams,setUrlParams]=useState({q:"",lieu:"",secteur:""});
     const router=useRouter();
     const params=useSearchParams();
     
        
 
-    const search=async(lieu=null,secteur=null)=>{
+    const search=async()=>{
         setSearchDone(false);
-        await postData("search",{q:urlParams.get('q'),lieu:urlParams.get('lieu'),secteur:urlParams.get('secteur')})
+        let q=params.get("q")?params.get("q"):"";
+        let lieu=params.get("lieu")?params.get("lieu"):"";
+        let secteur=params.get("secteur")?params.get("secteur"):"";
+        await postData("search",{q:q,lieu:lieu,secteur:secteur})
         .then(r=>{
             setSearchDone(true);
             setResultat(r.data);
             setSpinning(false);
             setSearchDone(true);
         }).catch(err=>{
+            alert("non");
             setSearchDone(true);
+        }).finally(()=>{
+            setSearchDone(true)
         })
     }
     useEffect(()=>{
-        try
-        {
-            setQueryString(window?.location?.search);
-            
-            setUrlParams(new URLSearchParams(queryString));
-            search();
-        }catch(err){
+       setUrlParams({
+        q:params.get("q"),
+        lieu:params.get("lieu")!==''?params.get("lieu"):"",
+        secteur:params.get("secteur")!==''?params.get("secteur"):""
+       });
+      search()
 
-        }
     },[]);
 
     return(
@@ -48,7 +52,7 @@ const page=()=>{
             <div className="flex flex-col gap-2 justify-center items-center mt-5  px-2">
                 <Card className="w-full ">
                     <CardBody>
-                        <div className="flex gap-4"><SearchIcon /> Recherche : <span className="text-xl font-bold">" {urlParams?.get('q')} "</span></div>
+                        <div className="flex gap-4"><SearchIcon /> Recherche : <span className="text-xl font-bold">« {urlParams.q} »</span></div>
                     </CardBody>
                 </Card>
                 <Card className="w-full ">

@@ -1,9 +1,9 @@
 import {Card, CardHeader, CardBody, CardFooter,Button,Switch, Image,Divider} from "@nextui-org/react"
-const LayoutDashboard=({children,titre,titreIcone,center,footer,footerCenter})=>{
+const LayoutDashboard=({children,titre,titreIcone,center,footer,footerCenter,headerBg})=>{
     return (
         <>
         <Card className="mb-3">
-            <CardHeader className="flex gap-3 border-b border-white shadow-sm bg-slate-300 text-white font-bold">
+            <CardHeader className={`flex gap-3 border-b border-white shadow-sm ${headerBg?headerBg:"bg-slate-300"} text-white font-bold`}>
                 {titreIcone || <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="text-white" class="w-3 h-3"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" /></svg>}
                 {titre}
             </CardHeader>

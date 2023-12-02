@@ -46,7 +46,9 @@ const Header = () => {
   const [provinces, setProvinces] = React.useState([]);
   const [profil, setProfil] = useState(Cookies.get("profil") || null);
   const [connected, setConnected] = useState(Cookies.get("connected") || null);
-  const [visiteSite, setVisiteSite] = useState("visiteSite", "");
+  const [visiteSite, setVisiteSite] = useState(Cookies.get("visiteSite") || null);
+  const [visiteSiteJourn, setVisiteSiteJourn] = useState(Cookies.get("visiteSiteJourn") || null);
+
   const [store, setStore] = useState({
     connected: connected,
     profil: profil
@@ -85,7 +87,7 @@ const Header = () => {
             message: "Authentification",
             description: "Connexion bien établie"
           });
-
+          console.log(r);
           Cookies.set('connected', "true");
           Cookies.set('profil', JSON.stringify(r.profil));
           router.push('/account/dashboard', { scroll: false });
@@ -137,27 +139,32 @@ const Header = () => {
     }, 3000)
   }
   useEffect(() => {
+
     getMessage();
   }, [connected])
-
   // Pour visiteur du site
+  
   useEffect(() => {
-    if (visiteSite !== "") {
-      if (setVisiteSite("visiteSite") !== moment().format("YYYY-MM-DD")) {
-        setVisiteSite(`${moment().format("YYYY-MM-DD")}`);
-        postData("visiteSite").then(r => {
-
-        }).catch(r => {
-
-        })
+    // Ancien dans le site
+    if (visiteSite !== null) {
+      if(Cookies.get("visiteSiteJourn"))
+      {
+        if (Cookies.get("visiteSiteJourn") !== moment().format("YYYY-MM-DD")) {
+          Cookies.set('visiteSiteJourn',`${moment().format("YYYY-MM-DD")}`);
+          postData("visiteSiteJourn").then(r => {}).catch(r => {})
+        }
+      }else
+      {
+        Cookies.set("visiteSiteJourn",`${moment().format("YYYY-MM-DD")}`);
+        postData("visiteSiteJourn").then(r => {}).catch(r => {});
       }
-    } else {
-      setVisiteSite(`${moment().format("YYYY-MM-DD")}`);
-      postData("visiteSite").then(r => {
-
-      }).catch(r => {
-
-      });
+      
+    } //Nouveau dans le site
+    else {
+        Cookies.set("visiteSite",`${moment().format("YYYY-MM-DD")}`);
+        // setVisiteSite(`${moment().format("YYYY-MM-DD")}`);
+        postData("visiteSite").then(r => {}).catch(r => {});
+        
     }
   }, [])
 
