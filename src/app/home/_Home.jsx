@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react"
+import { Inter, Poppins, Poiret_One, Nunito } from 'next/font/google'
 import { Parallax } from "react-scroll-parallax";
 import {
   ParallaxProvider,
@@ -49,7 +50,10 @@ import { nl2br } from "react-js-nl2br";
 import { User } from "../components/icons/User";
 import { User2Icon } from "lucide-react";
 
-
+const inter = Inter({ subsets: ['latin'] })
+const poppins = Poppins({ subsets: ['latin'], weight: "300" })
+const poiret = Poiret_One({ subsets: ['latin'], weight: "400" })
+const nunito = Nunito({ subsets: ['latin'], weight: "400" })
 
 const partenaires = [
   {
@@ -204,8 +208,8 @@ const Component = () => {
         */}
         <div className="flex gap-4  mb-5">
           <div className="w-full flex flex-col gap-7">
-            <h3 className="text-center font-bold text-xl underline">
-              Explorez nos {secteurs?.length || 0} secteurs BTB
+            <h3 className="text-center font-bold text-xl ">
+              <span className={inter.className}>Explorez nos {secteurs?.length || 0} secteurs BTB</span>
             </h3>
             <div className={`w-full overflow-x-hidden ${secteurs?.length>1?"flex flex-row gap-5 flex-wrap justify-start items-start ":"justify-center items-center flex"}  py-2 px-3 rounded`}>
 

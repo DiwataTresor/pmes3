@@ -2,7 +2,7 @@
 import {useState,useEffect} from "react"
 import {useRouter,usePathname,useSearchParams} from "next/navigation"
 import Layout from "@/app/components/layouts/LayoutClient"
-import {Card,CardBody,Divider} from "@nextui-org/react"
+import {Card,CardBody,Divider, Skeleton, skeleton} from "@nextui-org/react"
 import {SearchIcon} from "@/app/components/icons/SearchIcon"
 import {Spin} from "antd"
 import {postData} from "@/app/fcts/helper"
@@ -50,30 +50,48 @@ const page=()=>{
     return(
         <Layout hideHeader>
             <div className="flex flex-col gap-2 justify-center items-center mt-5  px-2">
-                <Card className="w-full ">
+                <Card className="w-full">
                     <CardBody>
-                        <div className="flex gap-4"><SearchIcon /> Recherche : <span className="text-xl font-bold">« {urlParams.q} »</span></div>
+                        <div className="flex gap-4"><SearchIcon /> Recherche : <span className="text-xl font-bold">« {params.get("q")} »</span></div>
                     </CardBody>
                 </Card>
-                <Card className="w-full ">
+                <Card className="w-full mb-4">
                     <CardBody className="bg-slate-100">
                         <div>
                             <div className="flex gap-4 mb-4">
                                 Resultat : {searchDone ? resultat?.length+" Trouvé(s)":''}
                             </div>
-                            <Divider />
-
-                            <div>
-                                <Spin spinning={spinning}>
-                                    {
-                                        resultat?.map((r,i)=>{
-                                            return(
-                                                <Entreprise key={i} detail={r} />
-                                            )
-                                        })
-                                    }
-                                </Spin>
-                            </div>
+                            {/* <Divider /> */}
+                            {
+                                searchDone?
+                                    <div>
+                                        <Spin spinning={spinning}>
+                                            {
+                                                resultat?.map((r,i)=>{
+                                                    return(
+                                                        <Entreprise key={i} detail={r} />
+                                                    )
+                                                })
+                                            }
+                                        </Spin>
+                                    </div>:
+                                    <Card className="w-full space-y-5 p-4" radius="lg">
+                                        <Skeleton className="rounded-lg">
+                                        <div className="h-24 rounded-lg bg-default-300"></div>
+                                        </Skeleton>
+                                        <div className="space-y-3">
+                                        <Skeleton className="w-3/5 rounded-lg">
+                                            <div className="h-3 w-3/5 rounded-lg bg-default-200"></div>
+                                        </Skeleton>
+                                        <Skeleton className="w-4/5 rounded-lg">
+                                            <div className="h-3 w-4/5 rounded-lg bg-default-200"></div>
+                                        </Skeleton>
+                                        <Skeleton className="w-2/5 rounded-lg">  
+                                            <div className="h-3 w-2/5 rounded-lg bg-default-300"></div>
+                                        </Skeleton>
+                                        </div>
+                                    </Card>
+                            }
                         </div>
                     </CardBody>
                 </Card>

@@ -10,7 +10,7 @@ import {
 } from "@/app/style/global";
 import Sticky from "react-sticky-el";
 import { API_URL } from "@/app/fcts/helper"
-import { useRouter } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 import { getSecteurs, getProvinces } from "@/app/utils/data"
 import { postData, getData } from "@/app/fcts/helper"
 import "@szhsin/react-menu/dist/index.css";
@@ -33,6 +33,7 @@ import { Modal as ModalAnt, notification, Alert } from "antd"
 import moment from "moment"
 import Cookies from "js-cookie";
 import { Filter, MenuIcon, Search, SearchIcon } from "lucide-react";
+import filtersortfilteringsvgrepocom from "@/assets/filtersortfilteringsvgrepocom.png"
 
 const Header = () => {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -48,6 +49,7 @@ const Header = () => {
   const [connected, setConnected] = useState(Cookies.get("connected") || null);
   const [visiteSite, setVisiteSite] = useState(Cookies.get("visiteSite") || null);
   const [visiteSiteJourn, setVisiteSiteJourn] = useState(Cookies.get("visiteSiteJourn") || null);
+  
 
   const [store, setStore] = useState({
     connected: connected,
@@ -87,7 +89,6 @@ const Header = () => {
             message: "Authentification",
             description: "Connexion bien établie"
           });
-          console.log(r);
           Cookies.set('connected', "true");
           Cookies.set('profil', JSON.stringify(r.profil));
           router.push('/account/dashboard', { scroll: false });
@@ -115,7 +116,16 @@ const Header = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     let formulaire = Object.fromEntries(new FormData(e.target));
-    window.location.href = `/search?q=${formulaire.terme}&lieu=${formulaire.lieu}&secteur=${formulaire.secteur}`;
+    alert("test")
+    router.push(`/search?q=${formulaire.terme}&lieu=${formulaire.lieu}&secteur=${formulaire.secteur}`);
+    // window.location.href = `/search?q=${formulaire.terme}&lieu=${formulaire.lieu}&secteur=${formulaire.secteur}`;
+  }
+  const handleSearchSimpleMobile=(e)=>{
+    e.preventDefault();
+    let formulaire = Object.fromEntries(new FormData(e.target));
+  
+    window.location.href = `/search?q=${formulaire.terme}&lieu=&secteur=`;
+    // redirect( `/search?q=${formulaire.terme}&lieu=&secteur=`);
   }
 
   useEffect(() => {
@@ -139,7 +149,6 @@ const Header = () => {
     }, 3000)
   }
   useEffect(() => {
-
     getMessage();
   }, [connected])
   // Pour visiteur du site
@@ -509,26 +518,12 @@ const Header = () => {
           <Sticky>
             <div className="flex flex-row gap-3 bg-blue-800 py-2 px-[10px]">
               <button className="bg-non outline-none border-0" onClick={onOpen2}>
-                <svg width="34px" height="34px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="white" stroke="white">
-                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                  <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-                  <g id="SVGRepo_iconCarrier"> <title>filter-horizontal-solid</title> 
-                  <g id="Layer_2" data-name="Layer 2"> <g id="invisible_box" data-name="invisible box"> 
-                    <rect width="48" height="48" fill="none"></rect> 
-                  </g> 
-                  <g id="icons_Q2" data-name="icons Q2"> 
-                    <path d="M41.8,8H21.7A6.2,6.2,0,0,0,16,4a6,6,0,0,0-5.6,4H6.2A2.1,2.1,0,0,0,4,10a2.1,2.1,0,0,0,2.2,2h4.2A6,6,0,0,0,16,16a6.2,6.2,0,0,0,5.7-4H41.8A2.1,2.1,0,0,0,44,10,2.1,2.1,0,0,0,41.8,8Z"></path> 
-                    <path d="M41.8,22H37.7A6.2,6.2,0,0,0,32,18a6,6,0,0,0-5.6,4H6.2a2,2,0,1,0,0,4H26.4A6,6,0,0,0,32,30a6.2,6.2,0,0,0,5.7-4h4.1a2,2,0,1,0,0-4Z"></path> 
-                    <path d="M41.8,36H24.7A6.2,6.2,0,0,0,19,32a6,6,0,0,0-5.6,4H6.2a2,2,0,1,0,0,4h7.2A6,6,0,0,0,19,44a6.2,6.2,0,0,0,5.7-4H41.8a2,2,0,1,0,0-4Z"></path> 
-                  </g> 
-                  </g> 
-                  </g>
-                </svg>
+                <Image src={filtersortfilteringsvgrepocom} width={40} height={40} />
               </button>
-              <form onSubmit={handleSearch}>
+              <form onSubmit={handleSearchSimpleMobile}>
                 <div className="flex flex-row gap-2 bg-blue-800 lg:px-[300px]  items-center justify-center text-gray-400 border-blue-600 z-40 ">
                   <Input onPress={onOpen2} startContent={<Search />} autoComplete="off" labelPlacement="outside" name="terme" type="search" isRequired size="size" placeholder="Rechercher..." />
-                  <Button><SearchIcon /></Button>
+                  <button type="submit" className="bg-none w-fit bg-blue-300 rounded-lg h-10 px-3"><SearchIcon color="white" /></button>
                 </div>
               </form>
             </div>

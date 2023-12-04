@@ -94,7 +94,7 @@ const page=({params})=>{
                 </div> */}
                 <Image src={connexion1} className="h-[200px] w-full" />
                 <div className="flex flex-col justify-center items-center bg-gray-100">
-                    <h2 className="flex items-center justify-center -mt-[250px] text-white font-bold text-5xl">
+                    <h2 className="flex items-center justify-center -mt-[250px] text-white font-bold text-2xl lg:text-5xl">
                         {/* <Skeleton className="h-3 w-[200px] rounded-lg"/> */}
                         {profil?.nom || "[Organisation]"}
                     </h2>
@@ -112,7 +112,7 @@ const page=({params})=>{
                 <div className="mt-[70px] bg-gray-100">
                     
                     <h4 className="flex items-center justify-center text-[10px]">
-                    {profil?.description? <div className="text-[12px]">{profil?.description}</div> : 
+                    {profil?.description? <div className="text-[12px] pl-3">{profil?.description}</div> : 
                         <div>
                             <Skeleton className="w-full" />
                             <Skeleton className="w-full" />
