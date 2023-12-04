@@ -2,11 +2,15 @@
 
 import Cookies from "js-cookie";
 
-export const SITEWEB_URL="http://localhost:3000/";
-export const CONFIRM_INSCRIPTION_URL="http://localhost:3000/confirminscription/validation/";
-export const BACKEND_URL="http://192.168.0.102/root/backend-annuaire-pmes/";
+export const SITEWEB_URL="http://pmes.vercel.app/";
+// export const SITEWEB_URL="http://localhost:3000/";
+
+export const CONFIRM_INSCRIPTION_URL="http://pmes.vercel.app/confirminscription/validation/";
+// export const CONFIRM_INSCRIPTION_URL="http://localhost:3000/confirminscription/validation/";
+
+// export const BACKEND_URL="http://192.168.0.102/root/backend-annuaire-pmes/";
 // export const BACKEND_URL="http://localhost/root/backend-annuaire-pmes/";
-// export const BACKEND_URL="https://bac.indexrdc.com/";
+export const BACKEND_URL="https://bac.indexrdc.com/";
 export const API_URL=BACKEND_URL+"api.php";
 export const isMobile=()=>{
   try
