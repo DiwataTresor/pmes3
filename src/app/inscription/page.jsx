@@ -66,7 +66,7 @@ const page = () => {
                         .then(r => {
                             if (r.success) {
                                 // localStorage.setItem("profil",JSON.stringify(r.profil));
-                               
+                                Cookies.set("profil",JSON.stringify(r.profil));
                                 // ENVOI MAIL
                                     emailjs.init("XPPLXXUmFq2vZZjHu");
                                     emailjs.send("service_5wqjced","template_ckkjg8x",{
@@ -75,7 +75,7 @@ const page = () => {
                                         mail_to: form.email,
                                         href_url: CONFIRM_INSCRIPTION_URL+"?u="+r.profil.idcrypte
                                         }).then((r) => {
-                                            window.location.href = "confirminscription";
+                                            router.push("/confirminscription");
                                             console.log("Mail bien envoyer")
                                         }).catch((err)=>{
                                             console.log("Erreur mail"+err.message)
