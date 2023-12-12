@@ -196,7 +196,7 @@ const page = () => {
                                 >
                                     <form onSubmit={handleSubmitEntreprise}>
                                         <div className="flex flex-col gap-8 mt-5">
-                                            <div className="flex flex-row gap-6">
+                                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                                 <Select name="secteur" isRequired className="w-full" label="Secteur Activité" labelPlacement="outside">
                                                     {
                                                         secteurs?.sort((a, b) => a.secteur > b.secteur).map((s) => { return <SelectItem key={s.id} value={s.id}>{s.secteur}</SelectItem> })
@@ -214,7 +214,7 @@ const page = () => {
                                                 <Input type="password" name="password" isRequired className="w-full" label="Mot de passe" labelPlacement="outside" />
                                                 <Input type="password" name="passwordRepeat" isRequired className="w-full" label="Retaper mot de passe" labelPlacement="outside" />
                                             </div>
-                                            <div className="flex flex-row gap-6">
+                                            <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
                                                 <Select name="province" isRequired className="w-full" label="Province" labelPlacement="outside">
                                                     {
                                                         provinces?.sort((a, b) => a.province > b.province).map((s) => { return <SelectItem key={s.id} value={s.id}>{s.province}</SelectItem> })

@@ -69,14 +69,14 @@ const page = () => {
 
         console.log(JSON.parse(Cookies.get("profil")));
         set_profil(JSON.parse(Cookies.get("profil")));
-        // try {
-        //     getData("propreProfil",
-        //         { "id": _profil.id })
-        //         .then(r => {
-        //             setProfil(r.data);
-        //         })
-        // } catch (e) {
-        // }
+        try {
+            getData("propreProfil",
+                { "id": _profil.id })
+                .then(r => {
+                    setProfil(r.data);
+                })
+        } catch (e) {
+        }
     }, []);
 
 
