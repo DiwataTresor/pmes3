@@ -1,5 +1,5 @@
 export const oldUrl="http://projetsite.oxerode.com/"
-export const telephone="(+243) 89991759"
-export const email="info@pmes.cd"
-export const adresse="Tombalbay Nr 44-48, Immeuble ACP, 3é étage, Local 49 10004453 Kinshasa Gombe, RD Congo"
+export const telephone="(+243) 899917959"
+export const email="info@indexrdc.com"
+export const adresse="Avenue Colonel Ebeya Nr 3, Immeuble Ave Maria, 5é étage, Local 510 1003071 Kinshasa/Gombe - RDC"
 // export const oldUrl="http://192.168.0.103/root/sw/"

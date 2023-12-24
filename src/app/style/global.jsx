@@ -15,7 +15,7 @@ export const borderThird="border-[rgb(30 58 138 / 1)]";
 export const menuPrincipal="border-0 px-2 py-1"
 export const titrePrincipal=`text-large md:text-2xl lg:text-3xl text-black my-5 border-b-0 border-blue-500 rounded-sm bbg-white shadow-sm py-2 px-2 `
 
-export const myContainer="px-[20px] lg:px-[160px]";
+export const myContainer="px-[20px] lg:px-[190px]";
 export const myContainerDashboard="px-[20px] lg:px-[230px]";
 export const container="px-[30px] md:px-[50px] lg:px-[200px]";
 

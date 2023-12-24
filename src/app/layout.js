@@ -15,8 +15,11 @@ const poiret = Poiret_One({ subsets: ['latin'], weight: "400" })
 const nunito = Nunito({ subsets: ['latin'], weight: "400" })
 
 export const metadata = {
-  title: 'Annuaire - PMES',
-  description: 'République Démocratique du Congo',
+  title: {
+    default:"Index RDC",
+    template:"%s - Index RDC"
+  },
+  description: 'Annuaire des PMES en RDC',
   icons: {
     icon: '/logo.png'
   }

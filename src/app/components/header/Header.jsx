@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react"
 import logo4 from "@/assets/logo4.png";
+import logo_sans_fond from "@/assets/logo_sans_fond.png";
 import Menu from "./Menu";
 import Image from "next/image";
 import Link from "next/link";
@@ -32,8 +33,9 @@ import { LockIcon } from "@/app/components/icons/LockIcon"
 import { Modal as ModalAnt, notification, Alert } from "antd"
 import moment from "moment"
 import Cookies from "js-cookie";
-import { Filter, MenuIcon, Search, SearchIcon } from "lucide-react";
+import { Filter, MenuIcon, Search, SearchIcon, Sliders } from "lucide-react";
 import filtersortfilteringsvgrepocom from "@/assets/filtersortfilteringsvgrepocom.png"
+
 
 const Header = () => {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -182,10 +184,10 @@ const Header = () => {
       {contextHolder}
       <div
         className=" w-screen  text-white"
-        style={{ backgroundColor: bgPrimary }}
+        style={{ backgroundColor: "white" }}
       >
 
-        <div className="all-unset bg-blue-700 border-b border-gray-100 w-full h-[40px] lg:px-[300px] md:px-[20px] flex flex-row justify-between text-sm pt-3">
+        <div className="all-unset bg-blue-900 border-b border-gray-100 w-full h-[40px] lg:px-[300px] md:px-[20px] flex flex-row justify-between text-sm pt-3">
           <div className="flex gap-3">
             <div className="border-r-0 border-gray-100 pr-4 justify-center flex flex-row gap-2">
               <svg
@@ -304,28 +306,30 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <div>
-          <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-blue-800">
+        <div className="h-[80px]">
+          <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-white">
             <NavbarContent>
-              <NavbarMenuToggle
-                // icon={<MenuIcon />}
+              <NavbarMenuToggle 
+                icon={<MenuIcon color="blue" />}
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                className="sm:hidden"
+                className="sm:hidden pt-4"
               />
               <NavbarBrand className="h-full rounded-sm">
                 <Link href="/home" className="pt-5">
                   <div className="hidden lg:block">
-                    <Image src={logo4} width={230} height={90} alt='' />
+                    {/* <Image src={logo4} width={230} height={90} alt='' /> */}
+                    <Image src={logo_sans_fond} width={210} height={70} alt='' />
                   </div>
                   <div className="block lg:hidden">
-                    <Image src={logo4} width={130} height={60} alt='' />
+                    {/* <Image src={logo4} width={130} height={60} alt='' /> */}
+                    <Image src={logo_sans_fond} width={130} height={60} alt='' />
                   </div>
                 </Link>
                 {/* <p className="font-bold text-inherit">ACME</p> */}
               </NavbarBrand>
             </NavbarContent>
 
-            <NavbarContent className="hidden sm:flex gap-4">
+            <NavbarContent className="hidden sm:flex gap-4 text-blue-700">
               <NavbarItem>
                 <Link color="foreground" href="/about">
                   A Propos
@@ -363,7 +367,7 @@ const Header = () => {
                   <NavbarItem className="lg:flex">
                     <Badge content={msgNL} color="danger">
                       <Link href="/account/message">
-                        <Button color="primary" size="sm" variant="flat" radius="full" className="text-white">
+                        <Button color="primary" size="sm" variant="flat" radius="full" className="text-white bg-blue-700">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                           </svg>
@@ -424,13 +428,13 @@ const Header = () => {
                   <div className="hidden lg:block">
                     <NavbarContent justify="end">
                       <NavbarItem className="lg:flex">
-                        <Button onPress={onOpen} as={Link} color="primary" href="#" variant="flat" radius="full" className="text-white">
+                        <Button onPress={onOpen} as={Link} color="info" href="#" variant="flat" radius="full" className="text-white bg-blue-800 ">
                           Connexion
                         </Button>
                       </NavbarItem>
                       <NavbarItem>
 
-                        <Button as={Link} color="success" href="/inscription" variant="bordered" radius="full">
+                        <Button as={Link} color="success" href="/inscription" variant="bordered" className="border-blue-800 text-blue-800" radius="full">
                           S'inscrire
                         </Button>
 
@@ -439,8 +443,8 @@ const Header = () => {
                   </div>
                   <div className="block lg:hidden r-0">
                     <div className="flex text-sm">
-                      <Button as={Link} size="sm" href={"#"} onPress={onOpen} variant="light" className="text-white">Connexion</Button>
-                      <Button as={Link} size="sm" href="/inscription" variant="light" className="text-white">S'incrire</Button>
+                      <Button as={Link} size="sm" href={"#"} onPress={onOpen} variant="light" className="bg-blue-800 text-white">Connexion</Button>
+                      <Button as={Link} size="sm" href="/inscription" variant="light" className="border-blue-800 text-blue-800">S'incrire</Button>
                     </div>
                   </div>
                 </div>
@@ -479,14 +483,14 @@ const Header = () => {
         <div className="lg:block hidden">
           <Sticky>
             <form onSubmit={handleSearch}>
-              <div className="flex flex-row gap-2 bg-blue-800 px-[10px] lg:px-[300px] py-5 items-center justify-center text-gray-400 border-blue-600 z-40 ">
+              <div className="flex flex-row gap-2 bg-gray-300 px-[10px] lg:px-[300px] py-5 items-center justify-center text-gray-400 border-blue-600 z-40 ">
                 <Input name="terme" type="search" isRequired size="sm" label="Trouver par nom de l'entreprise" />
                 <Select name="lieu" size={"sm"} label="Localisation" className="max-w-xs">
                   <SelectItem key="*" value="*">Partout</SelectItem>
                   {provinces?.sort((a, b) => { return a.province > b.province })?.map(s => { return (<SelectItem key={s.id} value={s.id}>{s.province}</SelectItem>) })}
                 </Select>
                 {/* <div className="bg-orange-500 w-[7px] h-[70px]">&nbsp;</div> */}
-                <Select name="secteur" label="Secteur d'activité" size="sm">
+                <Select name="secteur" color="bg-gra-700" className="" label="Secteur d'activité" size="sm">
                   <SelectItem key="*" value="*">Tous</SelectItem>
                   {secteurs?.sort((a, b) => { return a.secteur > b.secteur })?.map(s => { return (<SelectItem key={s.id} value={s.id}>{s.secteur}</SelectItem>) })}
                 </Select>
@@ -516,12 +520,13 @@ const Header = () => {
         </div>
         <div className="lg:hidden">
           <Sticky>
-            <div className="flex flex-row gap-3 bg-blue-800 py-2 px-[10px]">
+            <div className="flex flex-row gap-3 bg-white py-2 px-[10px]">
               <button className="bg-non outline-none border-0" onClick={onOpen2}>
-                <Image src={filtersortfilteringsvgrepocom} width={40} height={40} />
+                {/* <Image src={filtersortfilteringsvgrepocom} width={40} height={40} /> */}
+                <Sliders color="black" />
               </button>
               <form onSubmit={handleSearchSimpleMobile}>
-                <div className="flex flex-row gap-2 bg-blue-800 lg:px-[300px]  items-center justify-center text-gray-400 border-blue-600 z-40 ">
+                <div className="flex flex-row gap-2 bg-white lg:px-[300px]  items-center justify-center text-gray-400 border-blue-600 z-40 ">
                   <Input onPress={onOpen2} startContent={<Search />} autoComplete="off" labelPlacement="outside" name="terme" type="search" isRequired size="size" placeholder="Rechercher..." />
                   <button type="submit" className="bg-none w-fit bg-blue-300 rounded-lg h-10 px-3"><SearchIcon color="white" /></button>
                 </div>

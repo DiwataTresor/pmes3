@@ -18,9 +18,13 @@ import { Input } from 'antd';
 import SortIcon from '@mui/icons-material/Sort';
 
 import Card from "./Card"
+import {Card as CardNext, Skeleton} from "@nextui-org/react";
 
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd';
+import { useEffect, useState } from "react";
+import { BACKEND_URL, getData } from "../fcts/helper";
+import moment from "moment";
 const items = [
   {
     label: 'Kinshasa',
@@ -36,40 +40,51 @@ const items = [
   },
 ];
 
+export function SkeletonComponent() {
+  return (
+    <CardNext className="w-[300px] space-y-5 p-4" radius="lg">
+      <Skeleton className="rounded-lg">
+        <div className="h-24 rounded-lg bg-default-300"></div>
+      </Skeleton>
+      <div className="space-y-3">
+        <Skeleton className="w-3/5 rounded-lg">
+          <div className="h-3 w-3/5 rounded-lg bg-default-200"></div>
+        </Skeleton>
+        <Skeleton className="w-4/5 rounded-lg">
+          <div className="h-3 w-4/5 rounded-lg bg-default-200"></div>
+        </Skeleton>
+        <Skeleton className="w-2/5 rounded-lg">  
+          <div className="h-3 w-2/5 rounded-lg bg-default-300"></div>
+        </Skeleton>
+      </div>
+    </CardNext>
+  );
+}
+
 
 export default function Component() {
-  const evnts=[
-    {
-      dt:"05/12/2023",
-      titre:"Rencontre des entrepreneurs kinois",
-      lieu:"Kinshasa",
-      img:"https://images.unsplash.com/photo-1529070538774-1843cb3265df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      description:"Donec id justo. Morbi vestibulum volutpat enim.Morbi nec metus. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris.Phasellus viverra nulla ut metus varius laoreet. Suspendisse pulvinar, augue ac venenatis condimentum, sem libero volutpat nibh, nec pellentesque velit pede quis nunc."
-    },
-    {
-      dt:"24/11/2023",
-      titre:"Business Exposition ",
-      lieu:"Goma",
-      img:"https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3",
-      description:"Donec id justo. Morbi vestibulum volutpat enim.Morbi nec metus. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris.Phasellus viverra nulla ut metus varius laoreet. Suspendisse pulvinar, augue ac venenatis condimentum, sem libero volutpat nibh, nec pellentesque velit pede quis nunc."
-    },
-    {
-      dt:"10/11/2023",
-      titre:"Makutano Junior",
-      lieu:"Kisangani",
-      img:"https://images.unsplash.com/photo-1529070538774-1843cb3265df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      description:"Donec id justo. Morbi vestibulum volutpat enim.Morbi nec metus. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris.Phasellus viverra nulla ut metus varius laoreet. Suspendisse pulvinar, augue ac venenatis condimentum, sem libero volutpat nibh, nec pellentesque velit pede quis nunc."
-
-    },
-    {
-      dt:"10/10/2023",
-      titre:"Rencontre des entrepreneurs kinois",
-      lieu:"Lubumbashi",
-      img:"https://images.unsplash.com/photo-1529070538774-1843cb3265df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      description:"Donec id justo. Morbi vestibulum volutpat enim.Morbi nec metus. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris.Phasellus viverra nulla ut metus varius laoreet. Suspendisse pulvinar, augue ac venenatis condimentum, sem libero volutpat nibh, nec pellentesque velit pede quis nunc."
-
-    }
-  ];
+  const [evnts,setEvnts]=useState([]);
+  const [dataLoaded,setDataLoaded]=useState(false);
+  useEffect(()=>{
+    let d=[];
+    getData("adminEvenement").then((data)=>{
+      data.data.forEach(element => {
+        d.push({
+          dt:moment(element.dateDebut).format("DD/MM/YYYY"),
+          dtFin:moment(element.dateFin).format("DD/MM/YYYY"),
+          titre:element.nom,
+          lieu:element.lieu,
+          img:BACKEND_URL+element.img,
+          description:element.description,
+          organisateur:element.organisateur
+        })
+      });
+      setEvnts(d);
+      // console.log(data);
+    }).finally(()=>{
+      setDataLoaded(true);
+    });
+  },[])
   return (
     <div>
         <ParallaxProvider>
@@ -83,10 +98,10 @@ export default function Component() {
                     <div
                     className={
                         myContainer +
-                        " flex flex-col items-center justify-center text-white pt-[160px]"
+                        " flex flex-col items-center justify-center text-white pt-[80px] lg:pt-[160px]"
                     }
                     >
-                        <h1 className={`text-[30px] `}>Découvrez nos événements Business</h1>
+                        <h1 className={`text-[20px] lg:text-[30px] `}>Top événements</h1>
                         <h1 className="text-[14px] border border-white rounded-full px-3 py-1 mt-6">{"Accueil >> événements"}</h1>
                     
                     </div>
@@ -95,9 +110,9 @@ export default function Component() {
         </ParallaxProvider>
 
       <div className={myContainer + " py-[30px]"}>
-          <p className="items-center justify-between py-3 flex pr-6">
+          {/* <p className="items-center justify-between py-3 flex pr-6">
               <div className="flex gap-6 w-full">
-                {/* <span>Trouver par ville : </span> */}
+              
                 <Dropdown.Button
                   icon={<DownOutlined />}
                   menu={{
@@ -112,16 +127,22 @@ export default function Component() {
                 <SortIcon size="small" />
                 Filtrer par : 
               </div>
-          </p>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+          </p> */}
+          <div className="flex flex-row flex-wrap gap-3 h-fit">
              {
-              evnts.map((e,i)=>{
-                return(
-                  <div key={i} className="">
-                    <Card dt={e.dt} img={e.img} titre={e.titre} lieu={e.lieu} description={e.description} />
-                  </div>
-                )
-              })
+              dataLoaded?
+                evnts?.map((e,i)=>{
+                  return(
+                    <div key={i} className="">
+                      <Card dt={e.dt} dtFin={e.dtFin} img={e.img} titre={e.titre} lieu={e.lieu} description={e.description} />
+                    </div>
+                  )
+                }):
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                  <SkeletonComponent />
+                  <SkeletonComponent />
+                  <SkeletonComponent />
+                </div>
              }
           </div>
       </div>

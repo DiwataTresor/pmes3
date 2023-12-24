@@ -33,7 +33,7 @@ const page=({params})=>{
     }
     const getAssociationsaffiliees=async(utilisateur)=>{
         await getData("getAssociationsaffiliees&id="+utilisateur).then(r=>{
-            setAssociationsaffiliees(r.data[0]);
+            setAssociationsaffiliees(r.data);
             
         });
     }
@@ -227,25 +227,30 @@ const page=({params})=>{
                                     <div>
                                         <p>Associations / organisation affilliées</p>
                                         <div className="flex gap-4 mt-4">
-                                            {(associationsaffiliees && associationsaffiliees!=={})?
-                                                <div>
-                                                    {
-                                                    associationsaffiliees?.fec==="true" && <Chip color="success" className="font-bold text-white"><CheckOutlined style={{color:"white"}} /> FEC</Chip>
-                                                    }
-                                                    {
-                                                    associationsaffiliees?.copemeco==="true" && <Chip color="success" className="font-bold text-white"><CheckOutlined style={{color:"white"}} /> COPEMECO</Chip>
-                                                    }
-                                                    {
-                                                    associationsaffiliees?.fenapec==="true" && <Chip color="success" className="font-bold text-white"><CheckOutlined style={{color:"white"}} /> FENAPEC</Chip>
-                                                    }
-                                                    {
-                                                    associationsaffiliees?.fnje==="true" && <Chip color="success" className="font-bold text-white"><CheckOutlined style={{color:"white"}} /> FNJE</Chip>
-                                                    }
-                                                    {
-                                                    associationsaffiliees?.autre!=="" && <Chip color="success" className="font-bold text-white"><CheckOutlined style={{color:"white"}} /> {associationsaffiliees?.autre}</Chip>
-                                                    }
-                                                </div>:
-                                                <div className="flex items-center justify-center">Aucun enregistré</div>
+                                            {
+                                                associationsaffiliees.map((ass,i)=>{
+                                                    return(
+                                                        <Chip color="success" className="font-bold text-white"><CheckOutlined style={{color:"white"}} /> {ass.association}</Chip>
+                                                    )
+                                                })
+                                                // <div>
+                                                //     {
+                                                //     associationsaffiliees?.fec==="true" && <Chip color="success" className="font-bold text-white"><CheckOutlined style={{color:"white"}} /> FEC</Chip>
+                                                //     }
+                                                //     {
+                                                //     associationsaffiliees?.copemeco==="true" && <Chip color="success" className="font-bold text-white"><CheckOutlined style={{color:"white"}} /> COPEMECO</Chip>
+                                                //     }
+                                                //     {
+                                                //     associationsaffiliees?.fenapec==="true" && <Chip color="success" className="font-bold text-white"><CheckOutlined style={{color:"white"}} /> FENAPEC</Chip>
+                                                //     }
+                                                //     {
+                                                //     associationsaffiliees?.fnje==="true" && <Chip color="success" className="font-bold text-white"><CheckOutlined style={{color:"white"}} /> FNJE</Chip>
+                                                //     }
+                                                //     {
+                                                //     associationsaffiliees?.autre!=="" && <Chip color="success" className="font-bold text-white"><CheckOutlined style={{color:"white"}} /> {associationsaffiliees?.autre}</Chip>
+                                                //     }
+                                                // </div>:
+                                                // <div className="flex items-center justify-center">Aucun enregistré</div>
                                             }
                                         </div>
                                     </div>

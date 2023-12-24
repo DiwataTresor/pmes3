@@ -1,9 +1,9 @@
 "use client"
 import {useState,useEffect, useRef} from "react"
 
-import {Textarea,Button,Input,Checkbox,Image} from "@nextui-org/react"
+import {Textarea,Button,Input,Checkbox,Image, Select, SelectItem, Chip} from "@nextui-org/react"
 import {postData,getData,updateData, API_URL,BACKEND_URL} from "@/app/fcts/helper"
-import {Modal,Alert,Divider,notification} from "antd"
+import {Modal,Alert,Spin,Divider,notification} from "antd"
 import {Delete} from "@/app/components/icons/Delete"
 import {Upload} from "@/app/components/icons/Upload"
 import LayoutDashboard from "@/app/components/layouts/LayoutDashboard"
@@ -11,13 +11,49 @@ import LayoutDashboardMain from "@/app/components/layouts/LayoutDashboardMain"
 import NextImage from "next/image";
 import Cookies from "js-cookie"
 
+export const AssociationComp=({id,association})=>{
+    const [changing,setChanging]=useState(false);
+    const [status,setStatus]=useState(false);
+
+    const setStatut=()=>{
+        setChanging(true);
+        getData("affiliation&association="+id).then(r=>{
+            setStatus(r.success);
+        }).finally(()=>{
+            setChanging(false);
+        });
+    }
+    useEffect(()=>{
+        setStatut();
+    },[]);
+
+    const handleChange=(e)=>{
+        setChanging(true);
+        postData(e.target.checked?"addAffiliation":"removeAffiliation",{id:id}).then(r=>{
+            setStatut();
+            
+        }).finally(()=>{
+            setChanging(false);
+        })
+    }
+    return (
+        <Spin spinning={changing}>
+            <Checkbox  isSelected={status} onChange={handleChange} size="lg">{association}</Checkbox>
+        </Spin>
+    )
+
+}
 
 const page=()=>{
     const [feedBack,setFeedBack]=useState("");
     const [isLoading,setIsLoading]=useState(false);
     const [isLoadingLogo,setIsLoadingLogo]=useState(false);
     const [logo,setLogo]=useState("");
-    const [associationsaffiliees,setAssociationsAffiliees]=useState(null);
+    const [associations,setAssociations]=useState([]);
+    const [associationsToSelect,setAssociationsToSelect]=useState([]);
+    const [associationsSelected,setAssociationsSelected]=useState([]);
+
+  
     const [api, contextHolder] = notification.useNotification();
     const [profil,setProfil]=useState({});
     const [values,setValues]=useState({
@@ -25,6 +61,9 @@ const page=()=>{
         rccm:"",
         idnat:""
     });
+
+    let ass=[{}];
+
     const selectLogo=(e)=>{
         
         const file = e.target.files[0];
@@ -39,7 +78,6 @@ const page=()=>{
             dataURL: event.target.result
             };
             setLogo(imageProperties.dataURL);
-            console.log(logo);
 
             // Ajoutez l'élément image à votre page HTML où vous le souhaitez
         });
@@ -108,17 +146,25 @@ const page=()=>{
     }
     const getAssociationAffiliees=(u)=>{
         getData("getAssociationsaffiliees&id="+u).then(r=>{
-            setAssociationsAffiliees(r.data[0]);
+            // setAssociationsSelected(r.data[0]);
             console.log(r.data[0]);
         })
     }
+    const getAssociations=async() => {
+        await getData("associations").then(r=>{
+            setAssociations(r.data);
 
+        })
+    }
     useEffect(()=>{
-        getData("propreProfil").then(r=>{
+        getAssociations();
+        getData("propreProfil")
+        .then(r=>{
             setValues({nom:r.data.nom,rccm:r.data.rccm,idnat:r.data.idnat});
             setProfil(r.data);
             getAssociationAffiliees(r.data.id);
-        }).catch(e=>{
+        })
+        .catch(e=>{
             
         });
     },[]);
@@ -151,14 +197,22 @@ const page=()=>{
         }else
         {
             openNotificationError();
-            console.log(r.msg);
+           
         }
        }).catch(err=>{
             openNotificationError();
-            console.log(err);
+           
        }).finally(()=>{
         setIsLoading(false);
        })
+    }
+
+    const selectAssociation=(a)=>{
+        let ass=[...associationsSelected,a];
+        setAssociationsSelected(ass);
+        console.log(associations);
+       console.log(a);
+       console.log(associations.find(a=>{return a.id==a})).association;
     }
 
   return (
@@ -175,7 +229,7 @@ const page=()=>{
                                 Type Abonnement : {profil.typeabonnement}
                             </div>
                             <hr />
-                        <div className="flex flex-row gap-7 w-full">
+                        <div className="flex lg:flex-row flex-col-reverse gap-7 w-full">
                             <div className="flex flex-col gap-4 w-[220px] justify-center items-center bg-gray-200 rounded-md">
                                 Logo / Photo de profil
                                 <Button color="success" onClick={()=>{
@@ -225,62 +279,34 @@ const page=()=>{
             <LayoutDashboard titre="ASSOCIATIONS AFFILIEES " titreIcone={<svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path opacity="0.5" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" fill="#1C274C"></path> <path d="M16.807 19.0112C15.4398 19.9504 13.7841 20.5 12 20.5C10.2159 20.5 8.56023 19.9503 7.193 19.0111C6.58915 18.5963 6.33109 17.8062 6.68219 17.1632C7.41001 15.8302 8.90973 15 12 15C15.0903 15 16.59 15.8303 17.3178 17.1632C17.6689 17.8062 17.4108 18.5964 16.807 19.0112Z" fill="#1C274C"></path> <path d="M12 12C13.6569 12 15 10.6569 15 9C15 7.34315 13.6569 6 12 6C10.3432 6 9.00004 7.34315 9.00004 9C9.00004 10.6569 10.3432 12 12 12Z" fill="#1C274C"></path> </g></svg>}>
                     <div>
                         <form onSubmit={handleSubmitAssociation}>
-                            <div className="flex flex-col gap-4">
-                                <p>
+                            <div className="flex flex-col justify-center items-center gap-4">
+                                {/* <Select onChange={(e)=>{
+                                   selectAssociation(e.target.value)
+                                }} label="Selectionner l'association" className="max-w-[340px] h-12">
+                                {
+                                    associations?.map((a,i)=>{
+                                        return( 
+                                                <SelectItem key={a.id} value={a.id}>{a?.association}</SelectItem>
+                                                
+                                                )
+                                            })
+                                }
+                                </Select> */}
+                                <div>
+                                    Cochez les associations auxquelles vous appartenez
+                                </div>
+                                <div className="flex flex-row gap-7 flex-wrap">
                                     {
-                                        associationsaffiliees===null ?
-                                            <Checkbox name="fec" defaultSelected={false}>FEC</Checkbox>:
-                                            <div>
-                                               
-                                                <Checkbox name="fec" defaultSelected={associationsaffiliees?.fec==="true"?true:false}>FEC</Checkbox>
-                                            </div>
+                                        associations?.map((ass,i)=>{
+                                            return(<AssociationComp key={i} id={ass.id} association={ass.association} />)
+                                        })
                                     }
-                                    
-                                </p>
-                                <p>
-                                {
-                                        associationsaffiliees===null ?
-                                            <Checkbox name="copemeco" defaultSelected={false}>COPEMECO</Checkbox>:
-                                            <div>
-                                               
-                                                <Checkbox name="copemeco" defaultSelected={associationsaffiliees?.copemeco==="true"?true:false}>COPEMECO</Checkbox>
-                                            </div>
-                                    }
-                                </p>
-                                <p>
-                                {
-                                        associationsaffiliees===null ?
-                                            <Checkbox name="fenapec" defaultSelected={false}>FENAPEC</Checkbox>:
-                                            <div>
-                                               
-                                                <Checkbox name="fenapec" defaultSelected={associationsaffiliees?.fenapec==="true"?true:false}>FENAPEC</Checkbox>
-                                            </div>
-                                    }
-                                </p>
-                                <p>
-                                {
-                                        associationsaffiliees===null ?
-                                            <Checkbox name="fnje" defaultSelected={false}>FNJE</Checkbox>:
-                                            <div>
-                                               
-                                                <Checkbox name="fnje" defaultSelected={associationsaffiliees?.fnje==="true"?true:false}>FNJE</Checkbox>
-                                            </div>
-                                    }
-                                </p>
-                                <p>
-                                <Textarea
-                                    name="autres"
-                                    label="Autres"
-                                    labelPlacement="outside"
-                                    placeholder=""
-                                    defaultValue={associationsaffiliees?.autre}
-                                    className="max-w-lg"
-                                />
-                                </p>
+                                </div>
                             </div>
-                            <div className="flex items-center justify-center">
+                            
+                            {/* <div className="flex items-center justify-center mt-7">
                                  <Button isLoading={isLoading} color="primary" type="submit">Enregistrer</Button>       
-                            </div>
+                            </div> */}
                         </form>
                     </div>
             </LayoutDashboard>

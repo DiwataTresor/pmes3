@@ -9,8 +9,9 @@ export const CONFIRM_INSCRIPTION_URL="https://pmes.vercel.app/confirminscription
 // export const CONFIRM_INSCRIPTION_URL="http://localhost:3000/confirminscription/validation/";
 
 // export const BACKEND_URL="http://192.168.0.102/root/backend-annuaire-pmes/";
-// export const BACKEND_URL="http://localhost/root/backend-annuaire-pmes/";
-export const BACKEND_URL="https://bac.indexrdc.com/";
+export const BACKEND_URL="http://localhost/root/backend-annuaire-pmes/";
+// export const BACKEND_URL="https://bac.indexrdc.com/";
+
 export const API_URL=BACKEND_URL+"api.php";
 export const isMobile=()=>{
   try
