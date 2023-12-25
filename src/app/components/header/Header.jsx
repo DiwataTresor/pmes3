@@ -118,7 +118,6 @@ const Header = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     let formulaire = Object.fromEntries(new FormData(e.target));
-    alert("test")
     router.push(`/search?q=${formulaire.terme}&lieu=${formulaire.lieu}&secteur=${formulaire.secteur}`);
     // window.location.href = `/search?q=${formulaire.terme}&lieu=${formulaire.lieu}&secteur=${formulaire.secteur}`;
   }

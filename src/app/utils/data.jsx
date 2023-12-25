@@ -41,3 +41,17 @@ export const getProvinces=async()=>{
   })
   return res;
 }
+export const getVilles=async()=>{
+  
+  let res=[];
+  await getData("villes").then(r=>{
+   
+    res={"success":true,"data":r.data}
+  }).catch(r=>{
+   
+    res={
+      "success":false
+    };
+  })
+  return res;
+}
