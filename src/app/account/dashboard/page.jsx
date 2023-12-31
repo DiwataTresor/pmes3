@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from 'next/navigation'
 import { myContainerDashboard } from "@/app/style/global";
 import { Divider as dv } from "antd"
@@ -7,12 +7,20 @@ import Link from "next/link"
 import { Card, CardBody, CardFooter, Button, Switch, Image, Divider } from "@nextui-org/react"
 import NavigationComponent from "@/app/components/NavigationComponent"
 import { Delete } from "@/app/components/icons/Delete";
-import { getData } from "@/app/fcts/helper"
+import { getData, postData } from "@/app/fcts/helper"
 import moment from "moment"
 import { toast, Toaster } from "sonner"
 import Layout from "@/app/components/layouts/LayoutDashboard"
 import MainLayout from "@/app/components/layouts/LayoutDashboardMain"
 import Cookies from "js-cookie";
+import {
+    Modal, 
+    ModalContent, 
+    ModalHeader, 
+    ModalBody, 
+    ModalFooter,
+    useDisclosure
+  } from "@nextui-org/react";
 
 
 
@@ -60,28 +68,69 @@ const SectionTreeItem = ({ t, icone, lien }) => {
 }
 
 const page = () => {
-    const [optionSuspendre, setOptionSuspendre] = useState(false);
+    const [_profil, set_profil] = useState(Cookies.get("profil"));
+    const [optionSuspendre, setOptionSuspendre] = useState(null);
     const [isSelected, setIsSelected] = useState(false);
     const [profil, setProfil] = useState(null);
-    const [_profil, set_profil] = useState(Cookies.get("profil"));
+    const {isOpen, onOpen, onOpenChange} = useDisclosure();
+    const [suspendedStatus,setSuspendedStatus]=useState(_profil?.enabledUser=="A"?"B":"L")
+    const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
-    useEffect(() => {
-
-        console.log(JSON.parse(Cookies.get("profil")));
+    
+    useEffect(() => { 
         set_profil(JSON.parse(Cookies.get("profil")));
         try {
             getData("propreProfil",
                 { "id": _profil.id })
                 .then(r => {
                     setProfil(r.data);
+                    setOptionSuspendre(r?.data?.enabledUser=="A"?false:true);
                 })
         } catch (e) {
         }
     }, []);
 
+    const changeStatusCompte=() => {
+        setIsLoading(true);
+        if(suspendedStatus=="L"){
+            postData("blockCompte", { "id": _profil.id})
+            .then(r => {
+                
+                if(r.success){
+                    toast.success("Compte bien suspendu");
+                    setOptionSuspendre(true);
+                    document.querySelector("#btnAnnuler").click();
+                }else{
+                    setOptionSuspendre(false);
+                    toast.error("Echec d'operation");
+                }
+            }).finally(() => {
+                setIsLoading(false);
+                
+            })
+        }else{
 
+            postData("unblockCompte", { "id": _profil.id})
+            .then(r => {
+                console.log(r);
+                if(r.success){
+                    toast.success("Compte bien reactivé");
+                    setOptionSuspendre(false);
+                    document.querySelector("#btnAnnuler").click();
+                }else{
+                    setOptionSuspendre(false);
+                    toast.error("Echec d'operation");
+                }
+            }).finally(() => {
+                setIsLoading(false);
+            })
+        }
+        
+        // onClose();
+    };
 
     return (
+        <>
         <MainLayout showNavigation navigationBar="">
             <Toaster position="bottom-center" />
             <Layout headerBg={"bg-black"} titre={`Votre Abonnement | ${_profil?.nom}`} titreIcone={<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10.5 13.5H7.5M10.5 13.5V16.5M10.5 13.5L7 17" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.5 10.5H16.5M13.5 10.5V7.5M13.5 10.5L17 7" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M10.5 10.5H7.5M10.5 10.5V7.5M10.5 10.5L7 7" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.5 13.5H16.5M13.5 13.5V16.5M13.5 13.5L17 17" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" stroke="#1C274C" stroke-width="1.5"></path> </g></svg>}>
@@ -98,6 +147,13 @@ const page = () => {
                             <path stroke-linecap="round" d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25" />
                         </svg>
                         Votre compte : <Link className="text-blue-400 hover:underline" href={`/${_profil?.slug}`}>{_profil?.slug}</Link>
+
+                    </div>
+                    <div className="flex flex-row gap-4 text-gray-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25" />
+                        </svg>
+                        Votre secteur : {profil?.secteurDetail}
 
                     </div>
                     <div className="flex flex-row gap-4">
@@ -159,7 +215,20 @@ const page = () => {
                                 Susprendre mon compte provisoirement
                             </div>
                             <div>
-                                <Switch isSelected={optionSuspendre} onValueChange={setOptionSuspendre}>
+                                <Switch isSelected={optionSuspendre} onValueChange={
+                                    (e)=>{
+                                        // setOptionSuspendre(true);
+                                        if(e)
+                                        {
+                                            setSuspendedStatus("L");
+                                            onOpen();
+                                        }else
+                                        {
+                                            setSuspendedStatus("U");
+                                            onOpen();
+                                        }
+                                    }
+                                }>
 
                                 </Switch>
                             </div>
@@ -197,7 +266,57 @@ const page = () => {
                 </Card>
 
             </Layout>
+            
         </MainLayout>
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+            <ModalContent>
+            {(onClose) => (
+                <>
+                <ModalHeader className="flex flex-col gap-1">Suspension compte</ModalHeader>
+                <ModalBody>
+                    {
+                        suspendedStatus=="L"?
+                        <>
+                            <p> 
+                            Cette action va mettre votre compte en suspend, vous ne serez plus accessible jusqu'à ce que vous allez reactiver votre compte.
+                            </p>
+                            <p> 
+                            Confirmez-vous cette operation ?
+                            </p>
+                        </>:
+                        <>
+                            <p> 
+                                Par cette action, Vous allez reactiver votre compte
+                            </p>
+                            <p> 
+                                Confirmez-vous cette operation ?
+                            </p>
+                        </>
+                    }
+                    
+                </ModalBody>
+                <ModalFooter>
+                    <Button id="btnAnnuler" color="danger" variant="light" onPress={()=>{
+                        onClose();
+                    }}>
+                    Annuler
+                    </Button>
+                    <Button isLoading={isLoading} color="primary" onPress={()=>{
+                        // suspendedStatus =="L"?setOptionSuspendre(true):setOptionSuspendre(false);
+                        suspendedStatus =="L"?changeStatusCompte("L"):changeStatusCompte("U");
+                       
+                    }}>
+                        {
+                            suspendedStatus=="L"?
+                                "Suspendre" :"Reactiver"
+                        }
+                    </Button>
+                </ModalFooter>
+                </>
+            )}
+            </ModalContent>
+        </Modal>
+        </>
     )
 }
 export default page
