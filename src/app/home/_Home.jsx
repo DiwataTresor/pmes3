@@ -49,6 +49,7 @@ import { BACKEND_URL, getData } from "../fcts/helper";
 import { nl2br } from "react-js-nl2br";
 import { User } from "../components/icons/User";
 import { User2Icon } from "lucide-react";
+import SectionActu from "./components/SectionActu";
 
 const inter = Inter({ subsets: ['latin'] })
 const poppins = Poppins({ subsets: ['latin'], weight: "300" })
@@ -255,24 +256,11 @@ const Component = () => {
 
         </div>
 
-        {/* <Section2 
-          titre={<p>Explorez nos {secteurs.length || null} secteurs BTB</p>}
-          titreIcone={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" /></svg>
-        }
+        <Section2 
+          titre={<p>Actualités d'entreprises</p>}
         >
-          
-          <div className="overflow-x-hidden flex flex-row gap-3 flex-wrap justify-start items-start  py-2 px-3 rounded">
-         
-            {
-              secteurs.map((s,i)=>{
-                return (
-                  <SecteurItem item={s.secteur} v={s.secteurNb} slug={s.slug} />
-                )
-              })
-            }
-          
-          </div>
-        </Section2> */}
+         <SectionActu />
+        </Section2>
         <div className="mb-4 flex flex-col gap-4">
           <div className="flex gap-4 justify-center">
             <svg width="32px" strokeWidth="1.4" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#fb6a09"><path d="M4 19V5a2 2 0 012-2h13.4a.6.6 0 01.6.6v13.114" stroke="#fb6a09" strokeWidth="1.4" strokeLinecap="round"></path><path d="M8 3v8l2.5-1.6L13 11V3" stroke="#fb6a09" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"></path><path d="M6 17h14M6 21h14" stroke="#fb6a09" strokeWidth="1.4" strokeLinecap="round"></path><path d="M6 21a2 2 0 110-4" stroke="#fb6a09" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"></path></svg>
