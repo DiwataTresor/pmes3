@@ -58,17 +58,16 @@ const SectionActu = () => {
         )
     }
     const setData = (data) => {
-        console.log(data);
         let acts = [];
         data.map((a, i) => {
             acts.push({
                 label: 
                 <div>
                     <div className='flex gap-2'>
-                        <Image src={BACKEND_URL+a.img} width="60" height={70} />
+                        <Image src={BACKEND_URL+a.img} className='rounded-none' width="60" height={70} />
                         <div className='font-bold text-sm'>{a.titre}</div>
                     </div>
-                    {/* <div className='line-clamp-2 text-sm'>{a.contenu}</div> */}
+                    {/* <div className='line-clamp-1 text-sm flex-wrap flex-1'>{a.contenu}</div> */}
                 </div>,
                 key: i,
                 children: <DetailActu a={a} />

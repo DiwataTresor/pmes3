@@ -11,12 +11,12 @@ import {
 } from "@/app/style/global";
 import Sticky from "react-sticky-el";
 import { API_URL } from "@/app/fcts/helper"
-import { redirect, useRouter } from 'next/navigation'
+import { redirect, usePathname, useRouter } from 'next/navigation'
 import { getSecteurs, getProvinces } from "@/app/utils/data"
 import { postData, getData } from "@/app/fcts/helper"
 import "@szhsin/react-menu/dist/index.css";
 
-import { oldUrl, telephone, email } from "@/app/utils/helper";
+import { oldUrl, telephone, email,contactDetail } from "@/app/utils/helper";
 import {
   Badge,
   Button,
@@ -33,9 +33,10 @@ import { LockIcon } from "@/app/components/icons/LockIcon"
 import { Modal as ModalAnt, notification, Alert } from "antd"
 import moment from "moment"
 import Cookies from "js-cookie";
-import { Filter, MenuIcon, Search, SearchIcon, Sliders } from "lucide-react";
+import { Filter, Home, MenuIcon, Search, SearchIcon, Sliders } from "lucide-react";
 import filtersortfilteringsvgrepocom from "@/assets/filtersortfilteringsvgrepocom.png"
-
+import logoX from "@/app/components/icons/logoX.png";
+// import usePathname  from "next/navigation";
 
 const Header = () => {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -47,11 +48,14 @@ const Header = () => {
   const [feedBack, setFeedBack] = React.useState("");
   const [secteurs, setSecteurs] = React.useState([]);
   const [provinces, setProvinces] = React.useState([]);
+  const [villes, setVilles] = React.useState([]);
   const [profil, setProfil] = useState(Cookies.get("profil") || null);
   const [connected, setConnected] = useState(Cookies.get("connected") || null);
   const [visiteSite, setVisiteSite] = useState(Cookies.get("visiteSite") || null);
   const [visiteSiteJourn, setVisiteSiteJourn] = useState(Cookies.get("visiteSiteJourn") || null);
-  
+  const [contact,setContact]=useState();  
+  let pathname=usePathname().split("/");
+  pathname="/"+pathname[1] || "home";
 
   const [store, setStore] = useState({
     connected: connected,
@@ -130,10 +134,11 @@ const Header = () => {
   }
 
   useEffect(() => {
-
+   
     getSecteurs().then(r => { setSecteurs(r.data) });
     getProvinces().then(r => { setProvinces(r.data) });
-
+    getData("villes").then(r => { setVilles(r.data) });
+   
   }, []);
 
   const getMessage = () => {
@@ -151,6 +156,9 @@ const Header = () => {
   }
   useEffect(() => {
     getMessage();
+    getData("contact").then(r=>{
+      setContact(r?.data);
+    });
   }, [connected])
   // Pour visiteur du site
   
@@ -178,6 +186,8 @@ const Header = () => {
     }
   }, [])
 
+  const activeMenu="bg-blue-800 text-white rounded-full px-3 py-1";
+
   return (
     <div>
       {contextHolder}
@@ -186,7 +196,7 @@ const Header = () => {
         style={{ backgroundColor: "white" }}
       >
 
-        <div className="all-unset bg-blue-900 border-b border-gray-100 w-full h-[40px] lg:px-[300px] md:px-[20px] flex flex-row justify-between text-sm pt-3">
+        <div className="all-unset bg-indigo-500 border-b border-gray-100 w-full h-[40px] lg:px-[300px] md:px-[20px] flex flex-row justify-between text-sm pt-3">
           <div className="flex gap-3">
             <div className="border-r-0 border-gray-100 pr-4 justify-center flex flex-row gap-2">
               <svg
@@ -215,6 +225,7 @@ const Header = () => {
           </div>
           <div className="flex flex-row gap-2">
             <div className="border-r-0 border-gray-100 pr-4">
+              <a href={`${contact?.facebook}`}>
               <svg
                 width="20px"
                 height="20px"
@@ -232,76 +243,41 @@ const Header = () => {
                   strokeLinejoin="round"
                 ></path>
               </svg>
+              </a>
             </div>
+            
             <div className="border-r-0 border-gray-100 pr-4">
-              <svg
-                width="20px"
-                height="20px"
-                strokeWidth="1.4"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                color="#fff"
-              >
-                <path
-                  d="M14 12l-3.5 2v-4l3.5 2z"
-                  fill="#fff"
-                  stroke="#fff"
-                  strokeWidth="1.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                ></path>
-                <path
-                  d="M2 12.707v-1.415c0-2.895 0-4.343.905-5.274.906-.932 2.332-.972 5.183-1.053C9.438 4.927 10.818 4.9 12 4.9c1.181 0 2.561.027 3.912.065 2.851.081 4.277.121 5.182 1.053.906.931.906 2.38.906 5.274v1.415c0 2.896 0 4.343-.905 5.275-.906.931-2.331.972-5.183 1.052-1.35.039-2.73.066-3.912.066-1.181 0-2.561-.027-3.912-.066-2.851-.08-4.277-.12-5.183-1.052C2 17.05 2 15.602 2 12.708z"
-                  stroke="#fff"
-                  strokeWidth="1.4"
-                ></path>
-              </svg>
-            </div>
-            <div className="border-r-0 border-gray-100 pr-4">
-              <svg
-                width="20px"
-                height="20px"
-                strokeWidth="1.5"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                color="#fff"
-              >
-                <path
-                  d="M21 8v8a5 5 0 01-5 5H8a5 5 0 01-5-5V8a5 5 0 015-5h8a5 5 0 015 5zM7 17v-7"
-                  stroke="#fff"
+              <a href={`${contact?.linkedin}`}>
+                <svg
+                  width="20px"
+                  height="20px"
                   strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                ></path>
-                <path
-                  d="M11 17v-3.25M11 10v3.75m0 0c0-3.75 6-3.75 6 0V17M7 7.01l.01-.011"
-                  stroke="#fff"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                ></path>
-              </svg>
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  color="#fff"
+                >
+                  <path
+                    d="M21 8v8a5 5 0 01-5 5H8a5 5 0 01-5-5V8a5 5 0 015-5h8a5 5 0 015 5zM7 17v-7"
+                    stroke="#fff"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></path>
+                  <path
+                    d="M11 17v-3.25M11 10v3.75m0 0c0-3.75 6-3.75 6 0V17M7 7.01l.01-.011"
+                    stroke="#fff"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></path>
+                </svg>
+              </a>
             </div>
             <div className="border-r-0 border-gray-100 pr-4">
-              <svg
-                width="20px"
-                height="20px"
-                strokeWidth="1.4"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                color="#fff"
-              >
-                <path
-                  d="M23 3.01s-2.018 1.192-3.14 1.53a4.48 4.48 0 00-7.86 3v1a10.66 10.66 0 01-9-4.53s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5 0-.278-.028-.556-.08-.83C21.94 5.674 23 3.01 23 3.01z"
-                  stroke="#fff"
-                  strokeWidth="1.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                ></path>
-              </svg>
+              <a href={`${contact?.x}`}>
+              <Image src={logoX} width={19} height={19}  alt="" />
+              </a>
             </div>
           </div>
         </div>
@@ -317,7 +293,7 @@ const Header = () => {
                 <Link href="/home" className="pt-5">
                   <div className="hidden lg:block">
                     {/* <Image src={logo4} width={230} height={90} alt='' /> */}
-                    <Image src={logo_sans_fond} width={210} height={70} alt='' />
+                    <Image src={logo_sans_fond} width={180} height={40} alt='' />
                   </div>
                   <div className="block lg:hidden">
                     {/* <Image src={logo4} width={130} height={60} alt='' /> */}
@@ -328,19 +304,25 @@ const Header = () => {
               </NavbarBrand>
             </NavbarContent>
 
-            <NavbarContent className="hidden sm:flex gap-4 text-blue-700">
+            <NavbarContent className="hidden sm:flex gap-4 text-blue-700 pt-7">
+              
               <NavbarItem>
-                <Link color="foreground" href="/about">
+                <Link color="foreground" href="/about" className={pathname=="/about" && activeMenu}>
                   A Propos
                 </Link>
               </NavbarItem>
-              <NavbarItem isActive>
-                <Link href="/secteurbtb" color="foreground">
+              <NavbarItem>
+                <Link href="/secteurbtb" color="foreground" className={pathname=="/secteurbtb" && activeMenu}>
                   Secteurs B2B
                 </Link>
               </NavbarItem>
               <NavbarItem>
-                <Link color="foreground" href="/infoutile">
+                <Link href="/actualite" color="foreground" className={pathname=="/actualite" && activeMenu}>
+                  Actualités
+                </Link>
+              </NavbarItem>
+              <NavbarItem>
+                <Link color="foreground" href="/infoutile" className={pathname=="/infoutile" && activeMenu}>
                   Infos utiles
                 </Link>
               </NavbarItem>
@@ -350,19 +332,19 @@ const Header = () => {
                 </Link>
               </NavbarItem> */}
               <NavbarItem>
-                <Link color="foreground" href="/evenement">
+                <Link color="foreground" href="/evenement" className={pathname=="/evenement" && activeMenu}>
                   Évènements
                 </Link>
               </NavbarItem>
               <NavbarItem>
-                <Link color="foreground" href="/contact">
+                <Link color="foreground" href="/contact" className={pathname=="/contact" && activeMenu}>
                   Contact
                 </Link>
               </NavbarItem>
             </NavbarContent>
             {
               connected === "true" ?
-                <NavbarContent as="div" className="items-center" justify="end">
+                <NavbarContent as="div" className="items-center justify-center pt-6" justify="end">
                   <NavbarItem className="lg:flex">
                     <Badge content={msgNL} color="danger">
                       <Link href="/account/message">
@@ -424,7 +406,7 @@ const Header = () => {
                 </NavbarContent>
                 :
                 <div>
-                  <div className="hidden lg:block">
+                  <div className="hidden lg:block mt-4">
                     <NavbarContent justify="end">
                       <NavbarItem className="lg:flex">
                         <Button onPress={onOpen} as={Link} color="info" href="#" variant="flat" radius="full" className="text-white bg-blue-800 ">
@@ -449,7 +431,7 @@ const Header = () => {
                 </div>
 
             }
-            <NavbarMenu>
+            <NavbarMenu className="pt-3">
               {menuItems.map((item, index) => (
                 <NavbarMenuItem key={`${item.item}-${index}`}>
                   <Link
@@ -483,10 +465,10 @@ const Header = () => {
           <Sticky>
             <form onSubmit={handleSearch}>
               <div className="flex flex-row gap-2 bg-gray-300 px-[10px] lg:px-[300px] py-5 items-center justify-center text-gray-400 border-blue-600 z-40 ">
-                <Input name="terme" type="search" isRequired size="sm" label="Trouver par nom de l'entreprise" />
+                <Input name="terme" type="search" isRequired size="sm" label="Nom de l'organisation" />
                 <Select name="lieu" size={"sm"} label="Localisation" className="max-w-xs">
                   <SelectItem key="*" value="*">Partout</SelectItem>
-                  {provinces?.sort((a, b) => { return a.province > b.province })?.map(s => { return (<SelectItem key={s.id} value={s.id}>{s.province}</SelectItem>) })}
+                  {villes?.sort((a, b) => { return a.ville > b.ville })?.map(s => { return (<SelectItem key={s.id} value={s.id}>{s.ville}</SelectItem>) })}
                 </Select>
                 {/* <div className="bg-orange-500 w-[7px] h-[70px]">&nbsp;</div> */}
                 <Select name="secteur" color="bg-gra-700" className="" label="Secteur d'activité" size="sm">
@@ -519,13 +501,13 @@ const Header = () => {
         </div>
         <div className="lg:hidden">
           <Sticky>
-            <div className="flex flex-row gap-3 bg-white py-2 px-[10px]">
+            <div className="flex flex-row gap-3 bg-white py-2 px-[10px] w-full">
               <button className="bg-non outline-none border-0" onClick={onOpen2}>
                 {/* <Image src={filtersortfilteringsvgrepocom} width={40} height={40} /> */}
                 <Sliders color="black" />
               </button>
-              <form onSubmit={handleSearchSimpleMobile}>
-                <div className="flex flex-row gap-2 bg-white lg:px-[300px]  items-center justify-center text-gray-400 border-blue-600 z-40 ">
+              <form onSubmit={handleSearchSimpleMobile} className="flex-1">
+                <div className="w-full flex flex-row gap-2 bg-white lg:px-[300px]  items-center justify-center text-gray-400 border-blue-600 z-40 ">
                   <Input onPress={onOpen2} startContent={<Search />} autoComplete="off" labelPlacement="outside" name="terme" type="search" isRequired size="size" placeholder="Rechercher..." />
                   <button type="submit" className="bg-none w-fit bg-blue-300 rounded-lg h-10 px-3"><SearchIcon color="white" /></button>
                 </div>
@@ -616,7 +598,7 @@ const Header = () => {
                         <Input name="terme" type="search" fullWidth={true} isRequired size="sm" label="Trouver par nom de l'entreprise" />
                         <Select name="lieu" size={"sm"} fullWidth={true} label="Localisation" className="max-w-lg">
                           <SelectItem key="*" value="*">Partout</SelectItem>
-                          {provinces?.sort((a, b) => { return a.province > b.province })?.map(s => { return (<SelectItem key={s.id} value={s.id}>{s.province}</SelectItem>) })}
+                          {villes?.sort((a, b) => { return a.villes > b.villes })?.map(s => { return (<SelectItem key={s.id} value={s.id}>{s.province}</SelectItem>) })}
                         </Select>
                         {/* <div className="bg-orange-500 w-[7px] h-[70px]">&nbsp;</div> */}
                         <Select name="secteur" fullWidth={true} label="Secteur d'activité" size="sm">

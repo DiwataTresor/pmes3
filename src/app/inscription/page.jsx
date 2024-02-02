@@ -15,7 +15,7 @@ import connexion2 from "@/assets/connexion2.jpg";
 import connexion3 from "@/assets/connexion3.jpg";
 import connexion4 from "@/assets/connexion4.jpg";
 
-import { Button, Card, Row, Text, Input, Tabs, Tab, Chip, Select, SelectItem, Textarea } from "@nextui-org/react";
+import { Button, Card, Row, Text, Input, Tabs, Tab, Chip, Select, SelectItem, Textarea, Checkbox } from "@nextui-org/react";
 import { titre } from "./../../app/style/global"
 import { Divider } from "antd"
 import { BankOutlined } from "@ant-design/icons"
@@ -93,7 +93,9 @@ const page = () => {
                         })
                         .catch(r => {
                             console.log("Echec " + r);
-                        })
+                        }).finally(() => {
+                            setIsLoading(false);
+                        })    
                 }
             })
         }
@@ -205,30 +207,16 @@ const page = () => {
                                                 </Select>
                                                 <Input name="nom" className="w-full" label="Nom de l'organisation" labelPlacement="outside" />
                                             </div>
-                                            <div className="flex flex-row gap-6">
-                                                <Input type="text" name="rccm" className="w-full" label="RCCM" labelPlacement="outside" />
-                                                <Input type="text" name="idnat" className="w-full" label="Id-Nat" labelPlacement="outside" />
-                                            </div>
+                                           
                                             <Input name="email" className="w-full" label="E-mail" labelPlacement="outside" />
                                             <div className="flex flex-row gap-6">
                                                 <Input type="password" name="password" isRequired className="w-full" label="Mot de passe" labelPlacement="outside" />
                                                 <Input type="password" name="passwordRepeat" isRequired className="w-full" label="Retaper mot de passe" labelPlacement="outside" />
                                             </div>
-                                            <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
-                                                <Select name="province" isRequired className="w-full" label="Province" labelPlacement="outside">
-                                                    {
-                                                        provinces?.sort((a, b) => a.province > b.province).map((s) => { return <SelectItem key={s.id} value={s.id}>{s.province}</SelectItem> })
-                                                    }
-                                                </Select>
-                                                <Input name="territoire" className="w-full" label="Territoire" labelPlacement="outside" />
-                                                <Input name="ville" className="w-full" label="Ville" labelPlacement="outside" />
+                                           
+                                            <div className="flex flex-row justify-center items-center">
+                                                <Checkbox defaultSelected></Checkbox> J'accepte &nbsp;<a href="#" className="text-blue-400">les termes et conditions</a> &nbsp;d'utilisation         
                                             </div>
-                                            <div className="flex flex-row gap-6">
-                                                <Input type="text" name="adresse" className="w-full" label="Adresse" labelPlacement="outside" />
-                                                <Input type="telephone" name="telephone" className="w-full" label="Téléphone" labelPlacement="outside" />
-                                            </div>
-                                            <Input type="url" name="siteweb" className="w-full" label="Votre site web (URL)" labelPlacement="outside" />
-                                            <Textarea name="description" isRequired minRows={3} className="w-full" label="Decrivez votre organisation" labelPlacement="outside" />
                                             <div className="flex items-center justify-center">
                                                 <ReCAPTCHA ref={captcha} sitekey={"6LdTJMIoAAAAAL74aT4mOU3uJhEjuhHNXU8Asp11"}
                                                     onChange={handleCaptcha} />
@@ -288,6 +276,7 @@ const page = () => {
                                                 <Input type="password" name="password" isRequired className="w-full" label="Mot de passe" labelPlacement="outside" />
                                                 <Input type="password" name="passwordRepeat" isRequired className="w-full" label="Retaper mot de passe" labelPlacement="outside" />
                                             </div>
+                                           
                                             <div className="flex items-center justify-center">
                                                 <ReCAPTCHA ref={captcha} sitekey={"6LdTJMIoAAAAAL74aT4mOU3uJhEjuhHNXU8Asp11"}
                                                     onChange={handleCaptcha} />

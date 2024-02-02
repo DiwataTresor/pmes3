@@ -1,4 +1,5 @@
 "use client";
+import {useEffect,useState} from "react"
 import { Parallax } from "react-scroll-parallax";
 import {
   ParallaxProvider,
@@ -18,11 +19,15 @@ import { Input,Divider } from 'antd';
 import TitrePage from "@/app/components/TitrePage"
 
 const Formulaire=()=>{
+    const [contact,setContact]=useState({});
     const fContainer="flex flex-col mb-4";
     const fInput="w-[100%] border-0 border-gray-300 py-2 px-4 rounded-sm";
     const fLabel="text-gray-700 font-400 pl-3"
     const { TextArea } = Input;
     const onChange = (e) => {};
+    useEffect(()=>{
+       
+    },[]);
     return (
   <>
     <div className="flex flex-row gap-5 px-[20px] lg:px-[80px] mx-auto">

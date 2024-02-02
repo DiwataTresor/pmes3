@@ -10,7 +10,7 @@ const LayoutClient=({children,header,hideHeader})=>{
             > */}
             {
                 !hideHeader && 
-                <div className="w-full  items-center justify-center flex min-h-[250px] bg-gray-200 text-2xl font-bold">
+                <div className="w-full overflow-hidden items-center justify-center flex min-h-[250px] bg-gray-200 text-2xl font-bold">
                     {header}
                 </div>
             }

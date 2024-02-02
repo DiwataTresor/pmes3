@@ -38,7 +38,7 @@ const page=()=>{
         formData.append("add","actualite");
         formData.append('file', fichier.files[0]); 
         formData.append("data",JSON.stringify(Object.fromEntries(new FormData(e.target))))
-        formData.append('id',pr.id);
+        formData.append('id',JSON.parse(Cookies.get("profil")).id);
         const options = {
             method: 'POST',
             body: formData,

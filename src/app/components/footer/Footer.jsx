@@ -37,9 +37,9 @@ const Footer = () => {
   return (
     <>
       <Toaster />
-      <div className="pt-10 w-full overflow-x-hidden bg-slate-800">
+      <div className="pt-10 w-full overflow-x-hidden bg-blue-500">
         <div className=' flex flex-col md:flex-col lg:flex-row justify-between px-10 md:px-60 lg:px-60 gap-10 '>
-          <div className="border-l-2 border-blue-400 text-blue-400 pl-2 md:pl-6 lg-pl-6">
+          <div className="border-l-2 border-white text-white pl-2 md:pl-6 lg-pl-6">
             <h2 className="text-xl md:text-3xl lg:text-3xl">Newsletters</h2>
             <p className="text-sm">Souscrivez-vous pour obtenir des mises à jour et des informations en temps utiles</p>
           </div>
@@ -60,28 +60,26 @@ const Footer = () => {
         </div>
         <div className="pt-5">
 
-          <div className="px-[10px] pb-[25px] md:px-4 lg:px-[150px] flex lg:flex-row flex-col text-[12px]" style={{ backgroundColor: bgPrimary }}>
+          <div className="px-[10px] pb-[25px] md:px-4 lg:px-[150px] flex lg:flex-row flex-col text-[12px] bg-blue-600" style={{ backgroundColor: "" }}>
             <div className={styles.colone + " max-w-[320px] mr-[40px] xs:w-4/4 flex flex-col gap-4  items-start"}>
-              <Image src={logo} width={200} height={80} alt='' />
+              <Image src={"/logo_sans_fond.png"} width={200} height={80} alt='' />
               <p className="text-justify text-white text-[11px]">
                 Une disposition incontournable, trouvez beaucoup plus des coordonées professionnelles et promotionnellres. Annonces, Actualités, Appel d'offre, Achat en ligne, Evènements, Agenda des pmes, ...
               </p>
               <div>
                 <h2 className="font-bold mb-4 text-xl text-start items-start">Retrouvez-nous sur : </h2>
                 <div className="flex flex-row gap-2">
-                  <div className="border rounded-md items-center justify-center border-gray-100 px-2 py-1">
+                  <div className="border rounded-full items-center justify-center border-gray-100 px-2 py-2">
                     <svg width="20px" height="20px" strokeWidth="1.3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#fff"><path d="M17 2h-3a5 5 0 00-5 5v3H6v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     </path>
                     </svg>
                   </div>
-                  <div className="border rounded-md items-center justify-center border-gray-100 px-2 py-1">
-                    <svg width="20px" height="20px" strokeWidth="1.4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#fff"><path d="M14 12l-3.5 2v-4l3.5 2z" fill="#fff" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"></path><path d="M2 12.707v-1.415c0-2.895 0-4.343.905-5.274.906-.932 2.332-.972 5.183-1.053C9.438 4.927 10.818 4.9 12 4.9c1.181 0 2.561.027 3.912.065 2.851.081 4.277.121 5.182 1.053.906.931.906 2.38.906 5.274v1.415c0 2.896 0 4.343-.905 5.275-.906.931-2.331.972-5.183 1.052-1.35.039-2.73.066-3.912.066-1.181 0-2.561-.027-3.912-.066-2.851-.08-4.277-.12-5.183-1.052C2 17.05 2 15.602 2 12.708z" stroke="#fff" strokeWidth="1.4"></path></svg>
-                  </div>
-                  <div className="border rounded-md items-center justify-center border-gray-100 px-2 py-1">
+                  
+                  <div className="border rounded-full items-center justify-center border-gray-100 px-2 py-2">
                     <svg width="20px" height="20px" strokeWidth="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#fff"><path d="M21 8v8a5 5 0 01-5 5H8a5 5 0 01-5-5V8a5 5 0 015-5h8a5 5 0 015 5zM7 17v-7" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M11 17v-3.25M11 10v3.75m0 0c0-3.75 6-3.75 6 0V17M7 7.01l.01-.011" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                   </div>
-                  <div className="border rounded-md items-center justify-center border-gray-100 px-2 py-1">
-                    <svg width="20px" height="20px" strokeWidth="1.4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#fff"><path d="M23 3.01s-2.018 1.192-3.14 1.53a4.48 4.48 0 00-7.86 3v1a10.66 10.66 0 01-9-4.53s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5 0-.278-.028-.556-.08-.83C21.94 5.674 23 3.01 23 3.01z" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+                  <div className="border rounded-full items-center justify-center border-gray-100 px-2 py-2">
+                    <img src={"/logoX.png"} width={16} height={16} />
                   </div>
                 </div>
               </div>

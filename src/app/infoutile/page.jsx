@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import { Parallax } from "react-scroll-parallax";
 import {
   ParallaxProvider,
@@ -19,9 +20,25 @@ import Layout from "@/app/components/layouts/LayoutClient"
 import {Tabs,Tab} from "@nextui-org/react"
 import Section from "@/app/components/section/Section"
 import Section2 from "@/app/components/section/Section2"
+import { BACKEND_URL, getData } from "../fcts/helper";
+import { Info, PaperclipIcon } from "lucide-react";
+import moment from "moment";
+import Link from "next/link";
 
 
-export default function Component() {
+export default function page() {
+  const [infos,setInfos]=useState([]);
+  useEffect(() => {
+   getData("infoutile").then((r) => {
+    setInfos(r?.data);
+    console.log(r);
+   })
+  }, [])
+
+  useEffect(() => {
+    console.log(infos);
+  },[infos])
+  
   return (
     <Layout header={
         <ParallaxProvider>
@@ -48,17 +65,90 @@ export default function Component() {
     }>
 
       <Section2 cl="mt-2" titre="Decouvez des informations utiles">
-          <div className="flex flex-wrap gap-4 justify-between pt-0">
-            <div className="items-center justify-center content-center">
+          <div className="flex flex-wrap gap-4 justify-between pt-0 w-full bg-white py-3">
+            <div className="items-center justify-center content-center w-full py-4">
               {/* <Divider /> */}
               <Tabs key={1} radius={"full"} color="danger" aria-label="Tabs radius" className="itens-center justify-center flex">
                 <Tab key="photos" title="infos utiles">
-                  
+                    <div className="w-full ">
+                      {
+                        infos?.length<1?
+                        <div className="text-lg text-center w-full mt-5">Aucune information trouvée pour l'instant</div>:
+                        
+                        <div className="mt-3">
+                          {
+                            infos?.filter(info=>(info?.fichier==null))?.map((info,index)=>{
+                            return (
+                              <div key={index} className="border-b-0  mb-5 shadow-sm px-3 overflow-hidden">
+                                <div className="text-center border-b-0 py-3 flex justify-between">
+                                  <div className="text-blue-600 flex gap-3 items-center underline flex-1"><Info size={18} />{info?.titre}</div>
+                                  <div className="font-thin text-end text-medium">Concerne : {info?.concerne}</div>
+                                </div>
+                                <div className="px-3 border-0 rounded-md py-3">
+                                  <p className="text-sm italic border-b-0 mb-4 text-gray-700 text-center">Publié le {moment(info?.dateCreation).format("DD/MM/YYYY HH:mm:SS")}</p>
+                                  <div className="font-thin text-medium line-clamp-6 text-justify">{info?.description}</div>
+                                </div>
+                              </div>)
+                            })
+                          }
+                        </div>
+                      }
+                    </div>
                 </Tab>
                 <Tab key="music" title="Documents">
-
+                  <div className="w-full ">
+                      {
+                        infos?.length<1?
+                        <div className="text-lg text-center w-full mt-5">Aucune information trouvée pour l'instant</div>:
+                        
+                        <div className="mt-3">
+                          {
+                            infos?.filter(info=>(info?.fichier!==null))?.map((info,index)=>{
+                            return (
+                              <div key={index} className="border-b-0  mb-5 shadow-sm px-3 overflow-hidden">
+                                <div className="text-center border-b-0 py-3 flex justify-between">
+                                  <div className="text-blue-600 flex gap-3 items-center underline flex-1"><Info size={18} />{info?.titre}</div>
+                                  <div className="font-thin text-end text-medium">Concerne : {info?.concerne}</div>
+                                </div>
+                                <div className="px-3 border-0 rounded-md py-3">
+                                  <p className="text-sm italic border-b-0 mb-4 text-gray-700 text-center">Publié le {moment(info?.dateCreation).format("DD/MM/YYYY HH:mm:SS")}</p>
+                                  <div><Link className="flex items-start justify-start text-medium underline gap-3" href={BACKEND_URL+info?.fichier} target="_blank"><PaperclipIcon size={17} /> Télécharger</Link></div>
+                                  <div className="font-thin text-medium line-clamp-6 text-justify">{info?.description}</div>
+                                </div>
+                              </div>)
+                            })
+                          }
+                        </div>
+                      }
+                    </div>
                 </Tab>
-                
+                <Tab key="all" title="Tous les infos">
+                  <div className="w-full ">
+                      {
+                        infos?.length<1?
+                        <div className="text-lg text-center w-full mt-5">Aucune information trouvée pour l'instant</div>:
+                        
+                        <div className="mt-3">
+                          {
+                            infos?.map((info,index)=>{
+                            return (
+                              <div key={index} className="border-b-0  mb-5 shadow-sm px-3 overflow-hidden">
+                                <div className="text-center border-b-0 py-3 flex justify-between">
+                                  <div className="text-blue-600 flex gap-3 items-center underline flex-1"><Info size={18} />{info?.titre}</div>
+                                  <div className="font-thin text-end text-medium">Concerne : {info?.concerne}</div>
+                                </div>
+                                <div className="px-3 border-0 rounded-md py-3">
+                                  <p className="text-sm italic border-b-0 mb-4 text-gray-700 text-center">Publié le {moment(info?.dateCreation).format("DD/MM/YYYY HH:mm:SS")}</p>
+                                  {info?.fichier!==null && <div><Link className="flex items-start justify-start text-medium underline gap-3" href={BACKEND_URL+info?.fichier} target="_blank"><PaperclipIcon size={17} /> Télécharger</Link></div>}
+                                  <div className="font-thin text-medium line-clamp-6 text-justify">{info?.description}</div>
+                                </div>
+                              </div>)
+                            })
+                          }
+                        </div>
+                      }
+                    </div>
+                </Tab>
               </Tabs>
             </div>
             

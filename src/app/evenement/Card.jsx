@@ -1,37 +1,68 @@
 import { inter, lora, poiret, pignon, poppins, michroma } from "../style/fonts";
-import {CalendarOutlined} from "@ant-design/icons"
-import {Divider} from "antd"
-import {Chip} from "@nextui-org/react"
-import {Image} from "@nextui-org/react";
+import { CalendarOutlined } from "@ant-design/icons"
+import { Divider } from "antd"
+import { Chip } from "@nextui-org/react"
+import { Image } from "@nextui-org/react";
 import { BACKEND_URL } from "../fcts/helper";
 import { CalendarPlusIcon, LocateFixedIcon, MapIcon, MapPinIcon, Zap } from "lucide-react";
+import moment from "moment";
 
-const Card=({dt,dtFin,img,titre,description,lieu})=>{
-    return(
-       <div>
-            <div className="hidden overflow-hidden lg:block bg-white rounded-md h-[550px] px-2 py-3 mb-[30px] flex flex-col lg:flex-row gap-6 w-[400px]">
-                <Image width={380} height={250} isZoomed src={img} alt={titre}  className="max-h-[250px] rounded-md w-full img"  />
-                <h1 className="font-extrabold text-lg text-center mb-4 mt-4 flex justify-center items-center gap-4">
-                    <Zap />
-                    {titre}
-                </h1>
-                <p className="max-h-[140px] h-[140px] text-wrap text-sm">
-                    {description}
-                </p>
-                <p className="text-center text-orange-500 bg-gray-50 rounded-full font-bold  flex gap-3 justify-center items-center mt-4 text-sm border-t-0 py-2">
-                    <CalendarPlusIcon size={15} />
-                    <div>{`Du ${dt} au ${dtFin}`}</div>
-                </p>
-                <p className="text-center mt-3 flex gap-3 justify-center items-center text-blue-600">
-                    {/* <LocateFixedIcon /> */}
-                   
-                    <MapPinIcon size={15} />
-                    {lieu}
-                </p>
+const Card = ({ dt, dtFin, img, titre, description, lieu, dtStartUnformated, dtEndUnformated }) => {
+    return (
+        <div>
+            <div className="hidden shadow-sm bg-white   overflow-hidden lg:block rounded-md h-[500px] mb-[30px] flex flex-col lg:flex-row gap-6 w-[400px]">
+                <img width={380} height={250} isZoomed src={img} alt={titre} className="max-h-[250px] rounded-none w-full img" />
+                <div className="mb-3 pl-3 flex mt-4 items-center justify-between bg-white">
+                    <div className="w-[100px] flex flex-col gap-3 justify-center items-center">
+                        <div className="text-center  bg-indigo-500 font-bold  flex flex-col gap-1 justify-center items-center px-3 py-2 text-white">
+                            {/* <CalendarPlusIcon size={15} /> */}
+                            <div className="text-3xl ">{moment(dtStartUnformated).format("DD")}</div>
+                            <div>{moment(dtStartUnformated).format("MM/YYYY")}</div>
+                        </div>
+                        <p className="text-center font-bold flex gap-3 justify-center items-center text-xl">
+
+                            <div>AU</div>
+                        </p>
+                        <div className="text-center  bg-indigo-500 font-bold  flex flex-col gap-1 justify-center items-center px-3 py-2 text-white">
+                            {/* <CalendarPlusIcon size={15} /> */}
+                            <div className="text-3xl ">{moment(dtEndUnformated).format("DD")}</div>
+                            <div>{moment(dtEndUnformated).format("MM/YYYY")}</div>
+                        </div>
+                    </div>
+                    <div className="min-h-[230px] rounded-md border-0 w-full mx-2 mb-4 flex flex-col justify-between">
+                        <div className="font-extrabold flex-1 text-lg text-center  flex justify-center items-center uppercase ">
+
+                            {titre}
+                        </div>
+                        <div className="flex-1 py-2 line-clamp-3 text-sm border-b text-justify ">
+                            {description}
+                        </div>
+                        <div className="text-center flex-1 mt-3 flex gap-3 justify-center items-center italic py-2">
+                            <MapPinIcon size={15} />
+                            {lieu}
+                        </div>
+                    </div>
+                    {/* <div className="flex-1 bg-black pr-3 h-full flex-col justify-between">
+                        <div className="font-extrabold flex-1 text-lg text-center  flex justify-center items-center uppercase ">
+                           
+                            {titre}
+                        </div>
+                        <div className="flex-1 py-2  line-clamp-3 text-sm border-b text-justify">
+                            {description}
+                        </div>
+                        <div className="text-center flex-1 mt-3 flex gap-3 justify-center items-center italic py-2">
+                            <MapPinIcon size={15} />
+                            {lieu}
+                        </div>
+                    </div> */}
+                </div>
+
+
+
             </div>
             {/* Mobile */}
             <div className="lg:hidden overflow-hidden bg-white rounded-md h-[610px] px-2 py-3 mb-[30px] flex flex-col lg:flex-row gap-6 w-[380px]">
-                <Image width={350} height={150} isZoomed src={img} alt={titre}  className="max-h-[250px] rounded-md w-full img"  />
+                <Image width={350} height={150} isZoomed src={img} alt={titre} className="max-h-[250px] rounded-md w-full img" />
                 <h1 className="font-extrabold text-base text-center mb-1 mt-1 flex justify-center items-center gap-4">
                     <Zap />
                     {titre}
@@ -45,7 +76,7 @@ const Card=({dt,dtFin,img,titre,description,lieu})=>{
                 </p>
                 <p className="text-center mt-3 flex gap-3 justify-center items-center text-blue-600">
                     {/* <LocateFixedIcon /> */}
-                   
+
                     <MapPinIcon size={15} />
                     {lieu}
                 </p>

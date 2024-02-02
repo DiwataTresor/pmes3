@@ -33,21 +33,26 @@ const page = ({ params }) => {
   return (
     <Layout hideHeader={true}>
       <div className="w-full mt-4">
-        <Section titre={"Actualité"}>
+        <Section titre={<div className='text-2xl text-center w-full'>{actualite?.titre}</div>}>
           <div className="flex flex-col gap-3">
             {actualite !== null ?
               <div className="flex flex-row gap-4">
-                <Image isZoomed src={BACKEND_URL + actualite.img} width={"100%"} height={"400"} />
+                
                 <div className="">
-                  <div className="font-bold mb-5 text-lg text-start border-b  text-black uppercase rounded-lg py-2">
+                  {/* <div className="font-bold mb-5 text-lg text-center border-b  text-black uppercase py-2">
                     {actualite == null ? <span className="font-extrabold uppercase">Actualité</span> : actualite.titre}
-                  </div>
-                  <div className=" items-end">
-                    <div className="flex gap-3 text-sm items-end justify-end pr-16">
-                      <Calendar size={15} /> 
+                  </div> */}
+                  <div className=" items-start">
+                    <div className="flex gap-3 text-sm items-end justify-end pr-16 italic">
+                      <Calendar size={15} /> Publié :
                       {moment(actualite?.datePub).format("DD/MM/YYYY")}
                     </div>
-                    <div className="mt-6">{nl2br(actualite?.contenu)}</div>
+                    <div className="mt-6">
+                      <div className=" mr-3 mb-3 w-[100%] lg:w-[450px] float-left">
+                        <Image  isZoomed src={BACKEND_URL + actualite.img} width={""} height={"400"} />
+                      </div>
+                      {nl2br(actualite?.contenu)}
+                    </div>
                   </div>
                 </div> 
               </div>:

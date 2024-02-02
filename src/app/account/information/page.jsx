@@ -95,7 +95,7 @@ const page=()=>{
         const formData = new FormData();
         formData.append("add","logo");
         formData.append('file', fichier.files[0]); 
-        formData.append('utilisateur',pr.id);
+        formData.append('utilisateur',JSON.parse(Cookies.get("profil")).id);
         const options = {
             method: 'POST',
             body: formData,

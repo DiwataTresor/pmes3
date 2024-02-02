@@ -72,6 +72,8 @@ export default function Component() {
         d.push({
           dt:moment(element.dateDebut).format("DD/MM/YYYY"),
           dtFin:moment(element.dateFin).format("DD/MM/YYYY"),
+          dtStartUnformated:element.dateDebut,
+          dtEndUnformated:element.dateFin,
           titre:element.nom,
           lieu:element.lieu,
           img:BACKEND_URL+element.img,
@@ -128,13 +130,13 @@ export default function Component() {
                 Filtrer par : 
               </div>
           </p> */}
-          <div className="flex flex-row flex-wrap gap-3 h-fit">
+          <div className="flex flex-row flex-wrap gap-3 h-fit justify-center">
              {
               dataLoaded?
                 evnts?.map((e,i)=>{
                   return(
                     <div key={i} className="">
-                      <Card dt={e.dt} dtFin={e.dtFin} img={e.img} titre={e.titre} lieu={e.lieu} description={e.description} />
+                      <Card dtStartUnformated={e.dtStartUnformated} dtEndUnformated={e.dtEndUnformated} dt={e.dt} dtFin={e.dtFin} img={e.img} titre={e.titre} lieu={e.lieu} description={e.description} />
                     </div>
                   )
                 }):

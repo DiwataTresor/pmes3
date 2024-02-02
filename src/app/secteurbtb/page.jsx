@@ -6,10 +6,10 @@ import {
   ParallaxBanner,
   ParallaxBannerLayer,
 } from "react-scroll-parallax";
-import Image from "next/image"
+
 import { myContainer, titrePrincipal } from "@/app/style/global";
 import { getSecteurs } from "@/app/utils/data"
-import { Button, Badge } from "@nextui-org/react"
+import { Button, Badge, Image } from "@nextui-org/react"
 import Link from "next/link"
 import { Divider } from "antd"
 import Layout from "@/app/components/layouts/LayoutClient"
@@ -18,6 +18,8 @@ import { Plus } from "@/app/components/icons/Plus"
 import { AppstoreOutlined } from "@ant-design/icons"
 import Section from "@/app/components/section/Section2"
 import Section2 from "@/app/components/section/Section"
+import { LucideSortDesc } from "lucide-react";
+import { BACKEND_URL, getData } from "../fcts/helper";
 
 
 
@@ -37,7 +39,7 @@ export default function Component() {
       <div className="hidden lg:block">
         <Layout
           header={<ParallaxProvider>
-            <ParallaxBanner style={{ aspectRatio: "4 / 1" }}>
+            <ParallaxBanner style={{ aspectRatio: "5 / 1" }}>
               <ParallaxBannerLayer
                 speed={-20}
                 // image="https://images.unsplash.com/photo-1578574577315-3fbeb0cecdc2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -48,11 +50,11 @@ export default function Component() {
                 <div
                   className={
                     myContainer +
-                    " flex flex-col items-center justify-center text-white pt-[40px]"
+                    " flex flex-col items-center justify-center text-white pt-[190px]"
                   }
                 >
-                  <h1 className={`text-[30px] `}>Nos secteurs B2B</h1>
-                  <h1 className="text-[14px] border border-white rounded-full px-3 py-1 mt-6">{"Accueil >> secteurs B2B"}</h1>
+                  <h1 className={`text-[30px] text-indigo-500`}>Nos secteurs B2B</h1>
+                  {/* <h1 className="text-[14px] border border-white rounded-full px-3 py-1 mt-6">{"Accueil >> secteurs B2B"}</h1> */}
 
                 </div>
               </ParallaxBannerLayer>
@@ -60,21 +62,31 @@ export default function Component() {
           </ParallaxProvider>}
         >
           <div className="my-2">&nbsp;</div>
+          <p className="mb-5 justify-center items-center flex">
+            <Link href={"/secteurbtb/sorted/a"} className="flex gap-3 hover:bg-blue-600 rounded-full px-3 py-3 w-fit bg-blue-400 text-white"><LucideSortDesc /> Profils par ordre alphabetique</Link>
+          </p>
           <Section
             titre={"Tous les secteurs B2B"}
-            titreIcone={<AppstoreOutlined style={{ fontSize: 30 }} />}
+          // titreIcone={<AppstoreOutlined style={{ fontSize: 30 }} />}
           >
-            <div className="grid grid-cols-3 gap-3 mt-8">
+            <div className="grid grid-cols-4 gap-4 mt-8">
               {
                 secteurs?.sort((a, b) => { a.secteur > b.secteur })?.map((s, i) => {
                   return (
-                    <div className="mb-5" key={i}>
+                    <div className="" key={i}>
                       <Link href={`/secteurbtb/${s.slug}`}>
-                        <Badge content={s.secteurNb} color={s.secteurNb > 0 ? "success" : "danger"} placement="top-right" className="text-white">
+                        {/* <Badge content={s.secteurNb} color={s.secteurNb > 0 ? "success" : "danger"} placement="top-right" className="text-white">
                           <Button variant="flat" color="primary" startContent={<Svg />} className="w-full">
                             {s.secteur}
                           </Button>
-                        </Badge>
+                        </Badge> */}
+                        <div className="h-[80px] py-4 border hover:border-blue-200 bg-white rounded-md hover:bg-blue-200 hover:text-white flex flex-col justify-between items-start ">
+                          <div className="flex justify-between items-center w-full px-3">
+                            <div className="text-gray-800 font-bold text-[15px] text-center">{s.secteur}</div>
+                            <div><Image src={BACKEND_URL + s.img} width={30} height={30} className="rounded-full bg-gray-600" /></div>
+                          </div>
+                          <div className=" text-[11px] pl-3 text-start">{s.secteurNb} profil(s)</div>
+                        </div>
                       </Link>
                     </div>
                   )
@@ -84,7 +96,7 @@ export default function Component() {
           </Section>
         </Layout>
       </div>
-      <div className="block lg:hidden">
+      <div className="block lg:hidden pt-10">
         <Layout
           header={<ParallaxProvider>
             <ParallaxBanner style={{ aspectRatio: "1 / 1" }}>
@@ -109,6 +121,7 @@ export default function Component() {
           </ParallaxProvider>}
         >
           <div className="my-2">&nbsp;</div>
+          <p>Par ordre alphabetique</p>
           <Section
             titre={"Tous les secteurs B2B"}
             titreIcone={<AppstoreOutlined style={{ fontSize: 30 }} />}

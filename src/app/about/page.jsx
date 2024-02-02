@@ -49,78 +49,14 @@ const radiusList = [
 ];
 
 
+// image="https://images.unsplash.com/photo-1695031060519-270c2128a5c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 export default function Component() {
   return (
     <Layout
       header={
-        <div>
-          <div className="hidden lg:block"> 
-            <ParallaxProvider>
-              <ParallaxBanner style={{ aspectRatio: "4 / 1" }}>
-                <ParallaxBannerLayer
-                  speed={-20}
-                  image="https://images.unsplash.com/photo-1695031060519-270c2128a5c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  // image="https://images.unsplash.com/photo-1695031060519-270c2128a5c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  
-                />
-                <ParallaxBannerLayer speed={-4}>
-                  <div
-                    className={
-                      myContainer +
-                      " flex flex-col items-center justify-center text-white pt-[140px]"
-                    }
-                  >
-                      <h1 className="text-[30px]">A Propos</h1>
-                      <h1 className="text-[14px] border border-white rounded-full px-3 py-1 mt-6">{"Accueil >> A Propos"}</h1>
-                      <p className={`font-bold text-xl text-center mb-8 text-white mt-[32px] mx-auto`}>
-                      {/* " Nous vous aidons à développer votre entreprise partant de nos meilleurs services et en économisez du temps et de l'argent partout où vous pouvez vous retrouver." */}
-                      <Typewriter
-                      options={{
-                          strings: ['" Nous vous aidons à développer votre entreprise partant de nos meilleurs services et en économisez du temps et de l\'argent partout où vous pouvez vous retrouver."'],
-                          autoStart: true,
-                          loop: true,
-                      }}
-                      />
-                      </p>
-                  </div>
-                </ParallaxBannerLayer>
-              </ParallaxBanner>
-            </ParallaxProvider>
-          </div>
-          <div className="block lg:hidden">
-            <ParallaxProvider>
-              <ParallaxBanner style={{ aspectRatio: "4 / 1" }}>
-                <ParallaxBannerLayer
-                  speed={-20}
-                  image="https://images.unsplash.com/photo-1695031060519-270c2128a5c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  // image="https://images.unsplash.com/photo-1695031060519-270c2128a5c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  
-                />
-                <ParallaxBannerLayer speed={-4}>
-                  <div
-                    className={
-                      myContainer +
-                      " flex flex-col items-center justify-center text-white pt-[140px]"
-                    }
-                  >
-                      <h1 className="text-[30px]">A Propos</h1>
-                      <h1 className="text-[14px] border border-white rounded-full px-3 py-1 mt-6">{"Accueil >> A Propos"}</h1>
-                      <p className={`font-bold text-xl text-center mb-8 text-white mt-[32px] mx-auto`}>
-                      {/* " Nous vous aidons à développer votre entreprise partant de nos meilleurs services et en économisez du temps et de l'argent partout où vous pouvez vous retrouver." */}
-                      <Typewriter
-                      options={{
-                          strings: ['" Nous vous aidons à développer votre entreprise partant de nos meilleurs services et en économisez du temps et de l\'argent partout où vous pouvez vous retrouver."'],
-                          autoStart: true,
-                          loop: true,
-                      }}
-                      />
-                      </p>
-                  </div>
-                </ParallaxBannerLayer>
-              </ParallaxBanner>
-            </ParallaxProvider>
-          </div>
-        </div>
+        <div className='h-[250px] font-bold text-2xl pt-[80px] text-center w-full flex-1 bg-cover' style={{backgroundSize:"cover",backgroundPosition:"bottom", backgroundImage:`url(https://images.unsplash.com/photo-1695031060519-270c2128a5c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`}}>
+            <span className='text-3xl text-indigo-500'>A Propos de nous</span>
+    </div>
        }
     >
       <div className={myContainer + " py-[30px] bg-white"}>
@@ -153,7 +89,7 @@ export default function Component() {
             </div>
             <div className="pt-[40px] flex flex-row justify-center items-center order-1">
               {/* <div className="bg-white py-[30px] rounded-md shadow-md h-full px-30"> */}
-              <Image src={logo} width={600} alt="Logo"  />
+              <img src={"/logo_sans_fond.png"} width={600} alt="Logo"  />
               {/* </div> */}
                 {/* <Image src={fond2} width={600} height={300} className="rounded-md " /> */}
                 {/* <img src={`${fond2}`} width={400} height={300} /> */}
@@ -168,9 +104,6 @@ export default function Component() {
               </Tab>
               <Tab key="music" title="Notre Mission">
               Description de la Mission à completer
-              </Tab>
-              <Tab key="videos" title="Nos réalisations">
-              Description de la vision à completer
               </Tab>
             </Tabs>
           </div>
