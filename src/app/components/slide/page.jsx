@@ -1,7 +1,11 @@
 "use client"
 import { Tabs, Slider, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
-import Section from '../../components/layouts/section/Section'
+// Pour slide coté Backoffice
+// import Section from '../../components/layouts/section/Section'
+
+// POur slide coté client
+import Section from '../section/Section'
 import thumb1 from "./modele_slide_1/thumb.png"
 import user1 from "./modele_slide_1/user.png"
 import thumb2 from "./modele_slide_1/thumb2.png"
@@ -17,7 +21,12 @@ import { deleteData, getData } from '../../fcts/helper'
 import Slide from './modele_slide_1/Slide'
 import Link from 'next/link'
 import {Modal as ModalAnt} from "antd"
-import { postData } from '../utils/helper'
+
+// Pour backoffice
+// import { postData } from '../utils/helper'
+
+// Pour cote client
+import { postData } from '../../fcts/helper'
 import { Toast,Toaster,toast } from 'react-hot-toast'
 
 
