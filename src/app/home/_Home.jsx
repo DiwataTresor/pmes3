@@ -51,6 +51,7 @@ import { User } from "../components/icons/User";
 import { Eye, User2Icon } from "lucide-react";
 import SectionActu from "./components/SectionActu";
 import Slide from "../components/slide/modele_slide_1/Slide";
+import { Fade,Slide as SlideAwesome } from "react-awesome-reveal";
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -256,6 +257,7 @@ const Component = () => {
               <span className={inter.className}>Explorez nos {secteurs?.length || 0} secteurs BTB</span>
             </h3>
           }>
+            <SlideAwesome damping={4} direction="right">
           <div className={`w-full overflow-x-hidden ${secteurs?.length > 1 ? "flex flex-row gap-5 flex-wrap justify-start items-start " : "justify-center items-center flex"}  py-2 px-3 rounded`}>
 
             {
@@ -267,6 +269,7 @@ const Component = () => {
             }
 
           </div>
+          </SlideAwesome>
 
           {/* <div className="w-[30%]">
             <Image src={zoom} className="rounded-md h-[180px]" />
@@ -287,11 +290,13 @@ const Component = () => {
           titreIcone={<svg width="32px" strokeWidth="1.4" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#fb6a09"><path d="M4 19V5a2 2 0 012-2h13.4a.6.6 0 01.6.6v13.114" stroke="#fb6a09" strokeWidth="1.4" strokeLinecap="round"></path><path d="M8 3v8l2.5-1.6L13 11V3" stroke="#fb6a09" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"></path><path d="M6 17h14M6 21h14" stroke="#fb6a09" strokeWidth="1.4" strokeLinecap="round"></path><path d="M6 21a2 2 0 110-4" stroke="#fb6a09" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"></path></svg>
           }
         >
+          <SlideAwesome direction="down">
           <div className={"grid grid-cols-1 lg:grid-cols-3 gap-3"}>
             <Card img={book2} titre={"Annuaire des PMES"} contenu={"Il est un référentiel décrivant l’ensemble de ressources des entreprises, synchronisées au sein d’un système d’information."} />
             <Card img={who} titre={"Pour qui ? "} contenu={"Entreprises, Entrepreneurs, Start up, Organisations des financements, Médias, Hommes et Femmes d’affaires, structures internationales."} />
             <Card img={success} titre={"Pour quels avantages ?"} contenu={"Service marketing pour l’accès des Informations économiques et financières en relation aux partenaires."} />
           </div>
+          </SlideAwesome>
         </Section2>
       </div>
 

@@ -6,7 +6,8 @@ const nextConfig = {
             "lh3.googleusercontent.com",
             "indexrdc.com",
             "pmes.vercell.app",
-            "localhost"
+            "localhost",
+            "bac.indexrdc.com",
         ]
     }
 }
