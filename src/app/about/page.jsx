@@ -1,5 +1,5 @@
 "use client";
-import {useState,useEffect} from "react"
+import { useState, useEffect } from "react"
 import { Parallax } from "react-scroll-parallax";
 import {
   ParallaxProvider,
@@ -7,93 +7,98 @@ import {
   ParallaxBannerLayer,
 } from "react-scroll-parallax";
 import Image from "next/image"
-import { myContainer,titrePrincipal } from "@/app/style/global";
+import { myContainer, titrePrincipal } from "@/app/style/global";
 import fond2 from "@/assets/fond2.jpg"
-import {colorPrimary,borderSecondary,colorSecondary} from "@/app/style/global"
+import { colorPrimary, borderSecondary, colorSecondary } from "@/app/style/global"
 import Marquee from "react-fast-marquee"
 import logo from "@/assets/logo.png"
 import Typewriter from 'typewriter-effect';
 // import ScrollAnimation from 'react-animate-on-scroll';
-import {Divider} from "antd"
-import {Tabs, Tab} from "@nextui-org/react"; 
+import { Divider } from "antd"
+import { Tabs, Tab } from "@nextui-org/react";
 import Layout from "@/app/components/layouts/LayoutClient";
-const partenaires=[
-    {
-        "nom":"AtonProxy"
-    },
-    {
-        "nom":"Copemeko"
+import { BACKEND_URL, getData } from "../fcts/helper";
+import Link from "next/link";
 
-    },
-    {
-        "nom":"Anadec"
 
-    },
-    {
-        "nom":"Crafod"
-
-    },
-    {
-        "nom":"Frenk Consulting"
-    },
-    {
-        "nom":"Crdc"
-    }
-];
-const radiusList = [
-  "full",
-  "lg",
-  "md",
-  "sm",
-  "none",
-];
 
 
 // image="https://images.unsplash.com/photo-1695031060519-270c2128a5c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-export default function Component() {
+export default function page() {
+  const [partenaires, setPartenanires] = useState([
+    // {
+    //   "nom": "AtonProxy"
+    // },
+    // {
+    //   "nom": "Copemeko"
+
+    // },
+    // {
+    //   "nom": "Anadec"
+
+    // },
+    // {
+    //   "nom": "Crafod"
+
+    // },
+    // {
+    //   "nom": "Frenk Consulting"
+    // },
+    // {
+    //   "nom": "Crdc"
+    // }
+  ]);
+
+  useEffect(() => {
+    getData("partenaires").then((data) => {
+      console.clear();
+      console.log(data);
+      setPartenanires(data?.data)
+    });
+  }, [])
   return (
     <Layout
       header={
-        <div className='h-[250px] font-bold text-2xl pt-[80px] text-center w-full flex-1 bg-cover' style={{backgroundSize:"cover",backgroundPosition:"bottom", backgroundImage:`url(https://images.unsplash.com/photo-1695031060519-270c2128a5c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`}}>
-            <span className='text-3xl text-indigo-500'>A Propos de nous</span>
-    </div>
-       }
+        <div className='h-[250px] font-bold text-2xl pt-[80px] text-center w-full flex-1 bg-cover' style={{ backgroundSize: "cover", backgroundPosition: "bottom", backgroundImage: `url(https://images.unsplash.com/photo-1695031060519-270c2128a5c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)` }}>
+          <span className='text-3xl text-indigo-500'>A Propos de nous</span>
+        </div>
+      }
     >
       <div className={myContainer + " py-[30px] bg-white"}>
-        
+
         <div className="flex flex-col lg:flex-row gap-9 justify-between">
-            <div className="w-full text-justify items-center flex flex-col gap-5">
-                <div animateIn="fadeIn">
-                    <div className={`flex flex-col gap-2 text-gray-600 items-center justify-center`}>
-                    <Divider><h3 className={"text-lg font-bold"}>Qui sommes-nous ?</h3></Divider>
-                    <p className="items-center">
-                        Index RDC est une entreprise des annuaires des pmes de droit congolais ;
-                        enregistrée au tribunal de commerce de la République Démocratique du
-                        Congo. Nous vous offrons des solutions pour booster vos grandes et
-                        petites entreprises dans l'échelle international. </p>
-                        <p>Un personnel efficace,
-                        avec des compétences et expérience requise pour répondre aux attentes de
-                        nos clients, entreprises et individus à travers la fourniture de nos
-                        services.</p> 
-                        <p>Nos annonces font leur preuve sur le marché actuel bien en
-                        raison du fait qu'elles apportent des solutions durables aux personnels  
-                        des entreprises clientes en général ainsi qu'aux hommes et femmes
-                        d'affaires en particulier en rendant leur rendement efficace.</p>
-                        
-                        <p>Faite vous
-                        plaisir et soyer rassuré que vos attentent sur votre entreprise peuvent
-                        être réalisé grâce à toutes les opportunités offertes près de votre
-                        localité. </p>
-                    </div>
-                </div>
+          <div className="w-full text-justify items-center flex flex-col gap-5">
+            <div animateIn="fadeIn">
+              <div className={`flex flex-col gap-2 text-gray-600 items-center justify-center`}>
+                <Divider><h3 className={"text-lg font-bold"}>Qui sommes-nous ?</h3></Divider>
+                <p className="items-center">
+                  Index RDC est une entreprise des annuaires des pmes de droit congolais ;
+                  enregistrée au tribunal de commerce de la République Démocratique du
+                  Congo. Nous vous offrons des solutions pour booster vos grandes et
+                  petites entreprises dans l'échelle international. </p>
+                <p>Un personnel efficace,
+                  avec des compétences et expérience requise pour répondre aux attentes de
+                  nos clients, entreprises et individus à travers la fourniture de nos
+                  services.</p>
+                <p>Nos annonces font leur preuve sur le marché actuel bien en
+                  raison du fait qu'elles apportent des solutions durables aux personnels
+                  des entreprises clientes en général ainsi qu'aux hommes et femmes
+                  d'affaires en particulier en rendant leur rendement efficace.</p>
+
+                <p>Faite vous
+                  plaisir et soyer rassuré que vos attentent sur votre entreprise peuvent
+                  être réalisé grâce à toutes les opportunités offertes près de votre
+                  localité. </p>
+              </div>
             </div>
-            <div className="pt-[40px] flex flex-row justify-center items-center order-1">
-              {/* <div className="bg-white py-[30px] rounded-md shadow-md h-full px-30"> */}
-              <img src={"/logo_sans_fond.png"} width={600} alt="Logo"  />
-              {/* </div> */}
-                {/* <Image src={fond2} width={600} height={300} className="rounded-md " /> */}
-                {/* <img src={`${fond2}`} width={400} height={300} /> */}
-            </div>
+          </div>
+          <div className="pt-[40px] flex flex-row justify-center items-center order-1">
+            {/* <div className="bg-white py-[30px] rounded-md shadow-md h-full px-30"> */}
+            <img src={"/logo_sans_fond.png"} width={600} alt="Logo" />
+            {/* </div> */}
+            {/* <Image src={fond2} width={600} height={300} className="rounded-md " /> */}
+            {/* <img src={`${fond2}`} width={400} height={300} /> */}
+          </div>
         </div>
         <div className="flex flex-wrap gap-4 justify-between pt-10">
           <div className="items-center justify-center content-center">
@@ -103,7 +108,7 @@ export default function Component() {
                 Description de la vision à completer
               </Tab>
               <Tab key="music" title="Notre Mission">
-              Description de la Mission à completer
+                Description de la Mission à completer
               </Tab>
             </Tabs>
           </div>
@@ -116,17 +121,28 @@ export default function Component() {
           <Divider><h1 className={"font-bold text-lg"}>Nos partenaires</h1></Divider>
         </div>
         <div>
-                <Marquee gradient={true} className="pt-8 overflow-hidden">
-                  {
-                      partenaires.map((p,i)=>{
-                          return(
-                              <h2 key={i} className={`border rounded-md px-3 py-3 mr-3 ${colorPrimary} bg-white my-4`}>
-                                  {p.nom}
-                              </h2>
-                          )
-                      })
-                  }
-                </Marquee>
+          <Marquee gradient={true} className="pt-8 overflow-hidden">
+            {
+              partenaires.map((p, i) => {
+                return (
+                  <h2 key={i} className={`${p?.lien!==null && "hover:bg-slate-900 hover:text-white"} shadow-md h-[200px] py-5 px-10 border rounded-md items-center justify-center flex flex-col mr-3 ${colorPrimary} bg-white my-4`}>
+                    
+                    {
+                      p?.lien!==null?
+                      <div className="">
+                        {p?.logo!==null && <img src={BACKEND_URL+p?.logo} className="w-[80px] h-[80px] rounded-full" />}
+                        <Link href={p?.lien}>{p?.nom}</Link>
+                      </div>:
+                      <div>
+                        {p?.logo!==null && <img src={BACKEND_URL+p?.logo} className="w-[80px] h-[80px] rounded-full" />}
+                        {p?.nom}
+                      </div>
+                    }
+                  </h2>
+                )
+              })
+            }
+          </Marquee>
         </div>
       </div>
     </Layout>

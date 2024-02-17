@@ -536,7 +536,7 @@ const Header = () => {
                         }
                         name="login"
                         type="email"
-                        label="Votre Login"
+                        label="Votre Email/Telephone"
                         labelPlacement="outside"
 
                       />

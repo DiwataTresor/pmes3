@@ -16,12 +16,14 @@ import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 import Section from "@/app/components/section/Section"
 import Section2 from "@/app/components/section/Section2"
+import { Check, CheckCircle, FlaskConical, Info, ListChecks, NewspaperIcon } from "lucide-react"
 
 
 
 const page=({params})=>{
     const [profil,setProfil]=useState(null);
     const [motscles,setMotscles]=useState([])
+    const [services,setServices]=useState([])
     const [associationsaffiliees,setAssociationsaffiliees]=useState([])
     const [actualites,setActualites]=useState([])
     const [evenements,setEvenements]=useState([])
@@ -29,6 +31,11 @@ const page=({params})=>{
     const getMotscles=async(utilisateur)=>{
         await getData("getKeywordsByUser&id="+utilisateur).then(r=>{
             setMotscles(r.data);
+        });
+    }
+    const getSevices=async(utilisateur)=>{
+        await getData("getServicesByUser&id="+utilisateur).then(r=>{
+            setServices(r.data);
         });
     }
     const getAssociationsaffiliees=async(utilisateur)=>{
@@ -54,6 +61,7 @@ const page=({params})=>{
         getData(`profil&colone=slug&v=${slug}`).then(r=>{
             setProfil(r.data);
             r.data?.id && getMotscles(r.data.id);
+            r.data?.id && getSevices(r.data.id);
             r.data?.id && getAssociationsaffiliees(r.data.id);
             r.data?.id && getActualites(r.data.id);
             r.data?.id && getEvenements(r.data.id);
@@ -86,7 +94,7 @@ const page=({params})=>{
         
     },[]);
     return(
-        <div className="bg-gray-100">
+        <div className="bg-slate-50">
         <Layout 
             header={
             <div className="w-full bg-gray-100">
@@ -125,7 +133,7 @@ const page=({params})=>{
             <div className="flex flex-col lg:flex-row gap-5 py-4">
                 <div className="w-full lg:w-[400px]">
                     {/* <Dashboard titre={<span className="font-bold text-red-500">Contact</span>} titreIcone={<div className="text-red-500"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /></svg></div>}> */}
-                    <Section2 titre={<span className="font-bold">Contact</span>} titreIcone={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /></svg>}>
+                    <Section2 cl={"bg-white shadow-sm"} titre={<span className="font-bold">Contact</span>} titreIcone={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /></svg>}>
                             {
                                 profil ? 
                                 <div className="flex flex-col gap-3 text-sm">
@@ -173,7 +181,7 @@ const page=({params})=>{
                                 </div>
                             }
                     </Section2>
-                    <Section2 titre="Localisation" titreIcone={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /></svg>}>
+                    <Section2 cl={"bg-white shadow-sm"} titre="Localisation" titreIcone={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /></svg>}>
                         <div className="flex flex-col gap-3 text-sm">
                             <p>
                                 Province : <span className="text-sm">{profil?.provincenom}</span>
@@ -187,7 +195,7 @@ const page=({params})=>{
                             
                         </div>
                     </Section2>
-                    <Section2 titre="Réseaux sociaux" titreIcone={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /></svg>}>
+                    <Section2 cl={"bg-white shadow-sm"} titre="Réseaux sociaux" titreIcone={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /></svg>}>
                         <div className="flex flex-col gap-3 text-sm">
                             <p>
                                 whatsapp : {profil?.whatsapp?<span className="text-sm">{profil.whatsapp}</span>:<span className="text-sm">Aucun</span>}
@@ -211,16 +219,16 @@ const page=({params})=>{
                     </Section2>
                 </div>
                 <div className="w-full">
-                    <Section titre="Informations">
+                    <Section titre="Informations" titreIcone={<Info />}>
                         <div className="flex flex-col gap-3">
                             {profil!==null?
                                 <div className="flex flex-col gap-4">
                                     <div className="flex flex-row gap-7">
                                         <p>
-                                            RCCM : {profil.rccm?<Chip className="text-sm font-bold">{profil.rccm}</Chip>:<span>Aucun</span>}
+                                            RCCM : {profil?.rccm?<Chip className="text-sm font-bold">{profil?.rccm}</Chip>:<span>Aucun</span>}
                                         </p>
                                         <p>
-                                            IDNAT : {profil.idnat?<Chip className="text-sm font-bold">{profil.idnat}</Chip>:<span>Aucun</span>}
+                                            IDNAT : {profil?.idnat?<Chip className="text-sm font-bold">{profil?.idnat}</Chip>:<span>Aucun</span>}
                                         </p>
                                     </div>
                                 
@@ -271,7 +279,26 @@ const page=({params})=>{
                             }
                         </div>
                     </Section>
-                    <Section titre="Actualités / Evénements">
+                    <Section titre="Services/produits proposés" titreIcone={<ListChecks />}>
+                        <div className="flex flex-col gap-3">
+                            {profil!==null?
+                                <div className="flex flex-col gap-4">
+                                   {
+                                    services?.map(service=>(
+                                        <div className="flex gap-3 items-center"><CheckCircle size={14} /> {service.service}</div>
+                                    ))
+                                   }
+                                </div>:
+                                
+                                <div className="space-y-3">
+                                    <Skeleton className="w-3/5 rounded-lg">
+                                    <div className="h-3 w-3/5 rounded-lg bg-default-200"></div>
+                                    </Skeleton>
+                                </div>
+                            }
+                        </div>
+                    </Section>
+                    <Section titre="Actualités / Evénements" titreIcone={<NewspaperIcon />}>
                         <div className="flex flex-col gap-3">
                             <Tabs 
                                 aria-label="Options" 
@@ -307,7 +334,7 @@ const page=({params})=>{
                                                                 <Chip color="primary" className="text-sm">Publiée le {moment(e.dateEnr).format("DD/MM/YYYY")}</Chip>
                                                             </div>
                                                             <h1 className="text-center ietms-center font-bold justify-center flex">{e.titre}</h1>
-                                                            <div className="w-full h-full">{e.description}</div>
+                                                            <div className="w-full h-full">{e?.description}</div>
                                                         </div>
                                                     </div>} />
                                                 )

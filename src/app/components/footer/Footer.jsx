@@ -7,7 +7,7 @@ import { bgPrimary, bgSecondary, colorSecondary, bgThird } from '@/app/style/glo
 import { bgSecondaryColor } from '../../style/global';
 import { Alert, Spin } from 'antd'
 import { Toaster, toast } from 'sonner'
-import { postData } from '@/app/fcts/helper'
+import { getData, postData } from '@/app/fcts/helper'
 
 const soulignement = "w-[70px] h-1 bg-blue-300 mb-10";
 const titre = `text-[${bgSecondary}]`;
@@ -17,6 +17,7 @@ const titre = `text-[${bgSecondary}]`;
 const Footer = () => {
   const [spinningNewsletters, setSpinningNewsletters] = useState(false);
   const [feedback, setFeedback] = useState("");
+  const [partenanires,setPartenaires] = useState([])
   const handleNewsletters = (e) => {
     e.preventDefault();
     setFeedback("");
@@ -34,10 +35,42 @@ const Footer = () => {
       setSpinningNewsletters(false)
     })
   }
+  useEffect(() => {
+    getData("partenaires").then((data) => {
+      setPartenaires(data.data);
+    });
+  }, [])
+  
   return (
     <>
       <Toaster />
+
       <div className="pt-10 w-full overflow-x-hidden bg-blue-500">
+        
+        {/* <div className=' flex flex-col md:flex-col lg:flex-row justify-between px-10 md:px-60 lg:px-10 gap-10 '>
+          <div className="border-l-0 border-white text-white pl-2 md:pl-6 lg-pl-6">
+            <h2 className="text-xl md:text-3xl lg:text-3xl">Nos partenaires</h2>
+            <div className="text-sm flex gap-3">
+              {
+                
+              }
+            </div>
+          </div>
+          <div>
+
+            <Spin spinning={spinningNewsletters}>
+              <form onSubmit={handleNewsletters}>
+                <div className="border flex flex-row rounded-tl-lg rounded-br-lg flex-wrap overflow-hidden" style={{ borderColor: bgSecondary }}>
+                  <input required name='mailAdress' type="email" className={`text-black w-[120px] md:w-[120px] rounded-none lg:w-[300px] outline-none flex-1 text-sm pl-4 ${colorSecondary}`} placeholder="Votre adresse Email" />
+                  <button type="submit" className={`${bgSecondaryColor} h-[40px] text-white px-2`}>S'INSCRIRE</button>
+                </div>
+              </form>
+            </Spin>
+            <div className='mt-3'>
+              {feedback}
+            </div>
+          </div>
+        </div> */}
         <div className=' flex flex-col md:flex-col lg:flex-row justify-between px-10 md:px-60 lg:px-60 gap-10 '>
           <div className="border-l-2 border-white text-white pl-2 md:pl-6 lg-pl-6">
             <h2 className="text-xl md:text-3xl lg:text-3xl">Newsletters</h2>

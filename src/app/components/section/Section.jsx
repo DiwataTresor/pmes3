@@ -1,8 +1,8 @@
 import {Card, CardHeader, CardBody, CardFooter,Button,Switch, Image,Divider} from "@nextui-org/react"
-const Section=({children,titre,titreIcone,center,footer,footerCenter,cl,bg})=>{
+const Section=({children,titre,titreCl,titreIcone,center,footer,footerCenter,cl,bg})=>{
     return (
         <div className={`mb-3 ${cl}`}>
-            <h1 className={` shadow-md text-indigo-900 flex gap-3 text-xl mb-1 font-bold  border-b-1 py-3 px-2 rounded-tl-md rounded-tr-md border-blue-800 items-center`} style={{backgroundSize:"cover",backgroundImage:"url()"}}>
+            <h1 className={` shadow-md text-indigo-900 flex gap-3 text-xl mb-1 font-bold  border-b-1 py-3 px-2 rounded-tl-md rounded-tr-md border-blue-800 items-center ${titreCl}`} style={{backgroundSize:"cover",backgroundImage:"url()"}}>
             {/* <h1 className={`${bg?"bg-gray-100":"bg-white"} shadow-md text-indigo-900 flex gap-3 text-xl mb-1 font-bold  border-b-2 py-3 px-2 rounded-tl-md rounded-tr-md border-blue-800 items-center`} style={{backgroundSize:"cover",backgroundImage:"url()"}}> */}
             {/* <h1 className={`"bg-gray-100":"bg-white"} shadow-md text-indigo-900 flex gap-3 text-xl mb-2 font-bold  border-b-2 py-3 px-2 rounded-tl-md rounded-tr-md border-blue-800`}> */}
                 {titreIcone ||
