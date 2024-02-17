@@ -25,7 +25,8 @@ const Entreprise = ({ detail, presentation }) => {
                 <h2 className="text-xl text-blue-400 flex-1 font-bold">
                     {detail.utilisateurNom || detail.nom}
                 </h2>
-                <span>{detail.certification=="Y" && <Popover content="Ce compte est certifié par Index RDC"><BadgeCheck color="green" size={19} /></Popover>}</span> 
+                <span>{detail.certification=="Y" && 
+                    <Popover content={<div>Ce compte est certifié par Index RDC <br />Detail</div>}><BadgeCheck color="green" size={19} /></Popover>}</span> 
 
             </div>
         }

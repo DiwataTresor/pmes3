@@ -34,7 +34,7 @@ const page=({params})=>{
         });
     }
     const getSevices=async(utilisateur)=>{
-        await getData("getServicesByUser&id="+utilisateur).then(r=>{
+        await getData("getServicesByUser&idUtilisateur="+utilisateur).then(r=>{
             setServices(r.data);
         });
     }
@@ -109,7 +109,7 @@ const page=({params})=>{
                     {
                         profil?.logo!==null?
                         <div className="w-[150px] h-[150px] bg-gray-300 rounded-full absolute -mt-5 overflow-hidden border-2 shadow-sm">
-                            <Zoom><img src={`${BACKEND_URL}${profil?.logo}`} className="w-[150px] h-[150px] rounded-ful overflow-hidden" /></Zoom>
+                            <Avatar size="lg" src={`${BACKEND_URL}${profil?.logo}`} className="w-[150px] h-[150px] rounded-ful overflow-hidden" />
                             {/* <Avatar isBordered icon={<Image src={BACKEND_URL + profil?.logo} />}  className="w-[100px] h-[100px] absolute" /> */}
                         </div>
                         :
@@ -119,8 +119,8 @@ const page=({params})=>{
                 </div>
                 <div className="mt-[70px] bg-gray-100">
                     
-                    <h4 className="flex items-center justify-center text-[10px]">
-                    {profil?.description? <div className="text-[12px] pl-3">{profil?.description}</div> : 
+                    <h4 className="flex items-center justify-center ">
+                    {profil?.description? <div className="px-[220px] text-[13px] text-justify">{profil?.description}</div> : 
                         <div>
                             <Skeleton className="w-full" />
                             <Skeleton className="w-full" />
@@ -141,7 +141,7 @@ const page=({params})=>{
                                         Adresse : <span className="text-sm text-blue-400">{profil?.adresse}</span>
                                     </p>
                                     <p>
-                                        Téléhone : 
+                                        Téléphone : 
                                         {(!profil?.telephone && !profil?.telephone2) ? " : Aucun" :
                                             <span className="text-sm text-blue-400">
                                                 {profil?.telephone}  

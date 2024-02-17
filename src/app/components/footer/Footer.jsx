@@ -8,6 +8,7 @@ import { bgSecondaryColor } from '../../style/global';
 import { Alert, Spin } from 'antd'
 import { Toaster, toast } from 'sonner'
 import { getData, postData } from '@/app/fcts/helper'
+import Link from 'next/link'
 
 const soulignement = "w-[70px] h-1 bg-blue-300 mb-10";
 const titre = `text-[${bgSecondary}]`;
@@ -18,6 +19,7 @@ const Footer = () => {
   const [spinningNewsletters, setSpinningNewsletters] = useState(false);
   const [feedback, setFeedback] = useState("");
   const [partenanires,setPartenaires] = useState([])
+  const [contact,setContact] = useState(null);
   const handleNewsletters = (e) => {
     e.preventDefault();
     setFeedback("");
@@ -39,6 +41,10 @@ const Footer = () => {
     getData("partenaires").then((data) => {
       setPartenaires(data.data);
     });
+    getData("contact").then((data) => {
+     setContact(data.data);
+    })
+
   }, [])
   
   return (
@@ -103,16 +109,22 @@ const Footer = () => {
                 <h2 className="font-bold mb-4 text-xl text-start items-start">Retrouvez-nous sur : </h2>
                 <div className="flex flex-row gap-2">
                   <div className="border rounded-full items-center justify-center border-gray-100 px-2 py-2">
-                    <svg width="20px" height="20px" strokeWidth="1.3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#fff"><path d="M17 2h-3a5 5 0 00-5 5v3H6v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    </path>
-                    </svg>
+                    <a href={"https://"+contact?.facebook} target='_blank'>
+                      <svg width="20px" height="20px" strokeWidth="1.3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#fff"><path d="M17 2h-3a5 5 0 00-5 5v3H6v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      </path>
+                      </svg>
+                    </a>
                   </div>
                   
                   <div className="border rounded-full items-center justify-center border-gray-100 px-2 py-2">
+                  <a href={"https://"+contact?.linkedin} target='_blank'>
                     <svg width="20px" height="20px" strokeWidth="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#fff"><path d="M21 8v8a5 5 0 01-5 5H8a5 5 0 01-5-5V8a5 5 0 015-5h8a5 5 0 015 5zM7 17v-7" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M11 17v-3.25M11 10v3.75m0 0c0-3.75 6-3.75 6 0V17M7 7.01l.01-.011" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+                   </a>
                   </div>
                   <div className="border rounded-full items-center justify-center border-gray-100 px-2 py-2">
+                    <a href={"https://"+contact?.x} target='_blank'>
                     <img src={"/logoX.png"} width={16} height={16} />
+                    </a>
                   </div>
                 </div>
               </div>
@@ -134,13 +146,14 @@ const Footer = () => {
               <div className="mt-5">
                 <div className="flex flex-col gap-3">
                   <p className="text-justify">
-                    Tombalbay Nr 44-48, Immeuble ACP, 3é étage, Local 49 10004453 Kinshasa Gombe, RD Congo
+                    {/* Tombalbay Nr 44-48, Immeuble ACP, 3é étage, Local 49 10004453 Kinshasa Gombe, RD Congo */}
+                    {contact?.adresse}
                   </p>
                   <p>
-                    contact@pmes.cd
+                    {contact?.e_mail}
                   </p>
                   <p>
-                    +243 899917959
+                  {contact?.telephone} {contact?.telephone2 && ` - ${contact?.telephone2}`}
                   </p>
                 </div>
 

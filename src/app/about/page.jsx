@@ -108,7 +108,20 @@ export default function page() {
                 Description de la vision à completer
               </Tab>
               <Tab key="music" title="Notre Mission">
-                Description de la Mission à completer
+                <div className="text-justify mt-2">
+              Index RDC en tant qu'annuaire des PME (Petites et Moyennes Entreprises), sa mission est de fournir une plateforme où les entreprises de ce segment de marché peuvent se faire connaître, échanger des informations et des ressources, et créer des opportunités de collaboration.  <br /><br />
+                1.	Mise en relation des entreprises : Permettre aux PME de se connecter entre elles pour discuter de partenariats commerciaux, d'échanges de services ou de conseils professionnels. <br /><br />
+
+                2.	Promotion des entreprises : En offrant un espace où les PME peuvent présenter leurs produits et services, nous les aidons à se faire connaître auprès d'un plus grand public et à trouver de nouveaux clients. <br /><br />
+
+                3.	Fourniture d'informations utiles : Nous fournissons des informations utiles sur la gestion d'entreprise, les dernières tendances du marché, les opportunités de financement, les changements de réglementation, etc. <br /><br />
+
+                4.	Création d'une communauté : En facilitant les interactions entre les PME, vous pouvez contribuer à créer une communauté où les membres peuvent partager leurs expériences, s'entraider et se soutenir mutuellement. <br /><br />
+
+                5.	Soutien aux PME dans leurs démarches : De commun accord avec la COPEMECO, nous pouvons également fournir des ressources pour aider les PME à naviguer dans les aspects administratifs, fiscaux et juridiques de leur activité. copemeco@indexrdc.com <br /><br /><br />
+
+                En résumé, notre mission en tant qu'annuaire des PME est de créer une plateforme qui facilite la croissance, le développement et la réussite des petites et moyennes entreprises en mettant à leur disposition des ressources, des informations et des opportunités pour se connecter, apprendre et collaborer. <br />
+                </div>
               </Tab>
             </Tabs>
           </div>
@@ -125,18 +138,18 @@ export default function page() {
             {
               partenaires.map((p, i) => {
                 return (
-                  <h2 key={i} className={`${p?.lien!==null && "hover:bg-slate-900 hover:text-white"} shadow-md h-[200px] py-5 px-10 border rounded-md items-center justify-center flex flex-col mr-3 ${colorPrimary} bg-white my-4`}>
-                    
+                  <h2 key={i} className={`${p?.lien !== null && "hover:bg-slate-900 hover:text-white"} shadow-md h-[200px] py-5 px-10 border rounded-md items-center justify-center flex flex-col mr-3 ${colorPrimary} bg-white my-4`}>
+
                     {
-                      p?.lien!==null?
-                      <div className="">
-                        {p?.logo!==null && <img src={BACKEND_URL+p?.logo} className="w-[80px] h-[80px] rounded-full" />}
-                        <Link href={p?.lien}>{p?.nom}</Link>
-                      </div>:
-                      <div>
-                        {p?.logo!==null && <img src={BACKEND_URL+p?.logo} className="w-[80px] h-[80px] rounded-full" />}
-                        {p?.nom}
-                      </div>
+                      p?.lien !== null ?
+                        <div className="">
+                          {p?.logo !== null && <img src={BACKEND_URL + p?.logo} className="w-[80px] h-[80px] rounded-full" />}
+                          <Link href={p?.lien}>{p?.nom}</Link>
+                        </div> :
+                        <div>
+                          {p?.logo !== null && <img src={BACKEND_URL + p?.logo} className="w-[80px] h-[80px] rounded-full" />}
+                          {p?.nom}
+                        </div>
                     }
                   </h2>
                 )

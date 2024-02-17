@@ -54,6 +54,7 @@ const Header = () => {
   const [visiteSite, setVisiteSite] = useState(Cookies.get("visiteSite") || null);
   const [visiteSiteJourn, setVisiteSiteJourn] = useState(Cookies.get("visiteSiteJourn") || null);
   const [contact,setContact]=useState();  
+  const [contacts,setContacts]=useState();  
   let pathname=usePathname().split("/");
   pathname="/"+pathname[1] || "home";
 
@@ -137,6 +138,7 @@ const Header = () => {
    
     getSecteurs().then(r => { setSecteurs(r.data) });
     getProvinces().then(r => { setProvinces(r.data) });
+    getData("contacts").then(r => { setContacts(r.data)});
     getData("villes").then(r => { setVilles(r.data) });
    
   }, []);

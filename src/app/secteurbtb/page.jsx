@@ -9,9 +9,9 @@ import {
 
 import { myContainer, titrePrincipal } from "@/app/style/global";
 import { getSecteurs } from "@/app/utils/data"
-import { Button, Badge, Image } from "@nextui-org/react"
+import { Button, Badge, Image, Avatar } from "@nextui-org/react"
 import Link from "next/link"
-import { Divider } from "antd"
+import { Divider, Popover } from "antd"
 import Layout from "@/app/components/layouts/LayoutClient"
 import LayoutDashboard from "@/app/components/layouts/LayoutDashboard"
 import { Plus } from "@/app/components/icons/Plus"
@@ -20,7 +20,6 @@ import Section from "@/app/components/section/Section2"
 import Section2 from "@/app/components/section/Section"
 import { LucideSortDesc } from "lucide-react";
 import { BACKEND_URL, getData } from "../fcts/helper";
-
 
 
 export default function Component() {
@@ -74,6 +73,7 @@ export default function Component() {
                 secteurs?.sort((a, b) => { a.secteur > b.secteur })?.map((s, i) => {
                   return (
                     <div className="" key={i}>
+                      <Popover content={s.secteur}>
                       <Link href={`/secteurbtb/${s.slug}`}>
                         {/* <Badge content={s.secteurNb} color={s.secteurNb > 0 ? "success" : "danger"} placement="top-right" className="text-white">
                           <Button variant="flat" color="primary" startContent={<Svg />} className="w-full">
@@ -82,12 +82,15 @@ export default function Component() {
                         </Badge> */}
                         <div className="h-[80px] py-4 border hover:border-blue-200 bg-white rounded-md hover:bg-blue-200 hover:text-white flex flex-col justify-between items-start ">
                           <div className="flex justify-between items-center w-full px-3">
-                            <div className="text-gray-800 font-bold text-[15px] text-center">{s.secteur}</div>
-                            <div><Image src={BACKEND_URL + s.img} width={30} height={30} className="rounded-full bg-gray-600" /></div>
+                            <div className="text-gray-800 font-bold text-[15px] text-center line-clamp-1">{s.secteur}</div>
+                            <div>
+                              <Avatar src={BACKEND_URL + s.img} size="md" />
+                            </div>
                           </div>
                           <div className=" text-[11px] pl-3 text-start">{s.secteurNb} profil(s)</div>
                         </div>
                       </Link>
+                      </Popover>
                     </div>
                   )
                 })
