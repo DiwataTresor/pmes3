@@ -105,7 +105,9 @@ export default function page() {
             {/* <Divider /> */}
             <Tabs key={1} radius={"full"} color="danger" aria-label="Tabs radius">
               <Tab key="photos" title="Notre vision">
-                Description de la vision à completer
+              Un outil de mise en relation, des conseils de gestion, de présentation des opportunités d’affaires <br /><br />
+
+              Avec une interface intuitive et conviviale. Cela permettra aux utilisateurs de trouver rapidement les informations dont ils ont besoin.
               </Tab>
               <Tab key="music" title="Notre Mission">
                 <div className="text-justify mt-2">
@@ -142,11 +144,11 @@ export default function page() {
 
                     {
                       p?.lien !== null ?
-                        <div className="">
+                        <div className="flex flex-col justify-center items-center">
                           {p?.logo !== null && <img src={BACKEND_URL + p?.logo} className="w-[80px] h-[80px] rounded-full" />}
                           <Link href={p?.lien}>{p?.nom}</Link>
                         </div> :
-                        <div>
+                        <div className="flex flex-col items-center justify-center">
                           {p?.logo !== null && <img src={BACKEND_URL + p?.logo} className="w-[80px] h-[80px] rounded-full" />}
                           {p?.nom}
                         </div>

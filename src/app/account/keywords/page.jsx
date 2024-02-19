@@ -16,6 +16,7 @@ const page=()=>{
     const [api, contextHolder] = notification.useNotification();
     const [feedBack,setFeedBack]=useState("");
     const [liste,setListe]=useState([]);
+    const [nbreCaractere,setNbreCaractere]=useState(0);
     const handleSubmit=(e)=>{
         e.preventDefault();
         if(liste.length>14)
@@ -87,9 +88,10 @@ const page=()=>{
             <Layout titre={<h2>Les mots clés liés à votre organisation</h2>} center>
                 
                 <div className="w-[40%] pt-9">
-                    <form id="f" onSubmit={handleSubmit} className="flex flex-row justify-center items-center gap-3">
-                        <Input isRequired name="v" type="text" label="Votre mot clé" labelPlacement="outside" 
-                                maxLength={"300"} />
+                    <form id="f" onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-3">
+                        <Input onChange={(e)=>setNbreCaractere(e.target.value.length)} isRequired name="v" type="text" label="Votre mot clé" labelPlacement="outside" 
+                                maxLength={"30"} />
+                                <div className="text-sm">{30-nbreCaractere} caracteres restants</div>
                         <Button isLoading={isLoading} color="primary" type="submit">Enregistrer</Button>
                     </form>
                     <div className="mt-5">{feedBack}</div>
@@ -105,7 +107,8 @@ const page=()=>{
                             liste.map(r=>{
                                 return(
                                     <form className="flex gap-2" onSubmit={(e)=>e.preventDefault()}>
-                                        <Input isRequired type="text" value={r.keyword} maxLength={300}  />
+                                        <Input isRequired type="text" value={r.keyword} maxLength={30}  />
+                                        
                                         <Button type="button" isIconOnly color="danger" variant="faded" aria-label="Supprimer" onPress={()=>deleteKeyword(r.id)}>
                                             <Delete />
                                         </Button>

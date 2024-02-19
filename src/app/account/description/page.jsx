@@ -15,6 +15,7 @@ const page=()=>{
     const [api, contextHolder] = notification.useNotification();
     const [profil,setProfil]=useState({});
     const [isLoading,setIsLoading]=useState(false)
+    const [nbreCaracteres,setNbreCaracteres]=useState(0);
     const handleSubmit=(e)=>{
         e.preventDefault();
        
@@ -86,8 +87,10 @@ const page=()=>{
                             className="w-[100%] lg:w-[800px]"
                             placeholder="Description de votre organisation...."
                             rows={4}
+                            maxLength={500}
+                            onChange={(e)=>setNbreCaracteres(e.target.value.length)}
                         />
-                        <span className="text-sm">Limite de 500 caractères</span>
+                        <span className="text-sm">{500-nbreCaracteres} caractères restant</span>
                         <p>&nbsp;</p>
                         <Button isLoading={isLoading} color={"primary"} type="submit">Mettre à jour</Button>
                     </div>

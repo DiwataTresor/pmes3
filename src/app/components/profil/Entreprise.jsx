@@ -52,7 +52,7 @@ const Entreprise = ({ detail, presentation }) => {
                     }
                     <div className='mt-2 items-center w-full justify-center flex'>
                         <Link href={`/${detail.utilisateurSlug || detail.slug}`}>
-                            <Button color="primary" size="sm" variant="light">visiter</Button>
+                            <Button color="primary" size="sm" variant="light">Profil</Button>
                         </Link>
                     </div>
                 </div>

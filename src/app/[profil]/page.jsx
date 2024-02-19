@@ -45,7 +45,7 @@ const page=({params})=>{
         });
     }
     const getActualites=async(utilisateur)=>{
-        await getData("actualites&id="+utilisateur).then(r=>{
+        await getData("actualites&idUtilisateur="+utilisateur).then(r=>{
             setActualites(r.data);
             
         });
@@ -120,7 +120,7 @@ const page=({params})=>{
                 <div className="mt-[70px] bg-gray-100">
                     
                     <h4 className="flex items-center justify-center ">
-                    {profil?.description? <div className="px-[220px] text-[13px] text-justify">{profil?.description}</div> : 
+                    {profil?.description? <div className="px-[220px] text-[13px] text-justify font-normal mb-2" style={{lineHeight:"1.3rem"}}>{profil?.description}</div> : 
                         <div>
                             <Skeleton className="w-full" />
                             <Skeleton className="w-full" />
@@ -326,17 +326,19 @@ const page=({params})=>{
                                             actualites?.length<1?
                                             <div>Aucune actualité trouvée pour le moment</div>:
                                             actualites?.map((e)=>{
-                                                return(
-                                                    <Alert className="w-full h-full mb-5" message={<div className="flex gap-2 mb-2 ">
-                                                        <img src={BACKEND_URL+e.img} className="w-[150px] h-[150px] rounded-md" />
-                                                        <div className="flex-1">
-                                                            <div className="flex justify-end items-end w-full">
-                                                                <Chip color="primary" className="text-sm">Publiée le {moment(e.dateEnr).format("DD/MM/YYYY")}</Chip>
+                                                return (
+                                                    <div className="w-full h-full mb-5 border-b ">
+                                                        <div className="flex gap-2 mb-2 ">
+                                                            <img src={BACKEND_URL + e.img} className="w-[150px] h-[150px] rounded-md" />
+                                                            <div className="flex-1">
+                                                                <div className="flex justify-end items-end w-full">
+                                                                    <Chip color="primary" className="text-sm">Publiée le {moment(e.dateEnr).format("DD/MM/YYYY")}</Chip>
+                                                                </div>
+                                                                <h1 className="text-center ietms-center font-bold justify-center flex">{e.titre}</h1>
+                                                                <div className="w-full h-full">{e?.description}</div>
                                                             </div>
-                                                            <h1 className="text-center ietms-center font-bold justify-center flex">{e.titre}</h1>
-                                                            <div className="w-full h-full">{e?.description}</div>
                                                         </div>
-                                                    </div>} />
+                                                    </div>
                                                 )
                                             })
                                         }
