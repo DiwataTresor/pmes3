@@ -10,6 +10,8 @@ import LayoutDashboard from "@/app/components/layouts/LayoutDashboard"
 import LayoutDashboardMain from "@/app/components/layouts/LayoutDashboardMain"
 import NextImage from "next/image";
 import Cookies from "js-cookie"
+import connexion1 from "@/assets/connexion1.jpg"
+import { BoxSelect, ImageIcon, Save } from "lucide-react"
 
 export const AssociationComp=({id,association})=>{
     const [changing,setChanging]=useState(false);
@@ -49,10 +51,12 @@ const page=()=>{
     const [isLoading,setIsLoading]=useState(false);
     const [isLoadingLogo,setIsLoadingLogo]=useState(false);
     const [logo,setLogo]=useState("");
+    const [bg,setBg]=useState("/connexion1.jpg");
     const [associations,setAssociations]=useState([]);
     const [associationsToSelect,setAssociationsToSelect]=useState([]);
     const [associationsSelected,setAssociationsSelected]=useState([]);
 
+    const [isLoadingBg,setIsLoadingBg]=useState(false);
   
     const [api, contextHolder] = notification.useNotification();
     const [profil,setProfil]=useState({});
@@ -78,6 +82,26 @@ const page=()=>{
             dataURL: event.target.result
             };
             setLogo(imageProperties.dataURL);
+
+            // Ajoutez l'élément image à votre page HTML où vous le souhaitez
+        });
+
+        reader.readAsDataURL(file);
+    }
+    const selectBg=(e)=>{
+        
+        const file = e.target.files[0];
+
+        const reader = new FileReader();
+
+        reader.addEventListener('load', (event) => {
+            const imageProperties = {
+            name: file.name,
+            type: file.type,
+            size: file.size,
+            dataURL: event.target.result
+            };
+            setBg(imageProperties.dataURL);
 
             // Ajoutez l'élément image à votre page HTML où vous le souhaitez
         });
@@ -114,6 +138,38 @@ const page=()=>{
                 openNotificationError();
             }).finally(()=>{
                 setIsLoadingLogo(false);
+            })
+    }
+    const saveBg=(e)=>{
+        try
+        {
+            let pr=JSON.parse(Cookies.get("profil"));
+        }catch(e) {
+            let pr={}
+        }
+        let fichier=document.querySelector("#bg");
+        const formData = new FormData();
+        formData.append("add","bg");
+        formData.append('file', fichier.files[0]); 
+        formData.append('utilisateur',JSON.parse(Cookies.get("profil")).id);
+        const options = {
+            method: 'POST',
+            body: formData,
+            // headers: {
+            //   // Ajouter les en-têtes nécessaires, par exemple pour spécifier le type de contenu
+            //   'Content-Type': 'multipart/form-data'
+            // }
+        };
+        setIsLoadingBg(true);
+        fetch(API_URL, options)
+            .then(r=>r.json()).then(response => {
+                openNotification();
+            })
+            .catch(error => {
+                // Gérer les erreurs de la requête
+                openNotificationError();
+            }).finally(()=>{
+                setIsLoadingBg(false);
             })
     }
     const handleSubmit=(e)=>{
@@ -308,6 +364,23 @@ const page=()=>{
                                  <Button isLoading={isLoading} color="primary" type="submit">Enregistrer</Button>       
                             </div> */}
                         </form>
+                    </div>
+            </LayoutDashboard>
+            <LayoutDashboard titre="VOTRE IMAGE DU JOURNAL" titreIcone={<ImageIcon />}>
+                    <div>
+                        <div className="mb-3 flex justify-between">
+                            <Button startContent={<BoxSelect />} onClick={()=>{
+                                    document.getElementById("bg").click(); 
+                                }}>Selectionner</Button>
+                            <input  onChange={selectBg} type="file" name="bg" id="bg" className="hidden" />
+                            <div className="flex gap-4">
+                            <Button onPress={()=>saveBg()} isLoading={isLoadingBg} variant="flat" color="success">
+                                <Save /> Enregistrer
+                            </Button>
+                            <Button color="primary" variant="light" onClick={()=>setLogo("")}>Annuler</Button>
+                            </div>
+                        </div>
+                       <img src={bg} className="w-full h-[250px] border rounded-md" />
                     </div>
             </LayoutDashboard>
     </LayoutDashboardMain> 

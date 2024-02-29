@@ -1,4 +1,11 @@
 import {getData} from "./../fcts/helper"
+export const typeAbonnement={
+  "B":"Pack Free",
+  "F":"Pack Free",
+  "P":"Pack Pro",
+  "K":"Pack Konzo",
+  "X":"Pack Premium"
+};
 export const getSecteurs=async()=>{
   
   let res=[];

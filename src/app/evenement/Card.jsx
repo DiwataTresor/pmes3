@@ -6,8 +6,11 @@ import { Image } from "@nextui-org/react";
 import { BACKEND_URL } from "../fcts/helper";
 import { CalendarPlusIcon, LocateFixedIcon, MapIcon, MapPinIcon, Zap } from "lucide-react";
 import moment from "moment";
+import Link from "next/link";
 
-const Card = ({ dt, dtFin, img, titre, description, lieu, dtStartUnformated, dtEndUnformated }) => {
+const Card = ({ id,dt, dtFin, img, titre, description, lieu, dtStartUnformated, dtEndUnformated }) => {
+    // const contenu=description?.substr(0,90) + description?.length>90 && "...";
+    const contenu=description?.substr(0,90);
     return (
         <div>
             <div className="hidden shadow-sm bg-white   overflow-hidden lg:block rounded-md h-[500px] mb-[30px] flex flex-col lg:flex-row gap-6 w-[400px]">
@@ -34,8 +37,10 @@ const Card = ({ dt, dtFin, img, titre, description, lieu, dtStartUnformated, dtE
 
                             {titre}
                         </div>
-                        <div className="flex-1 py-2 line-clamp-3 text-sm border-b text-justify ">
-                            {description}
+                        <div  dangerouslySetInnerHTML={{__html:contenu}} className="flex-1 py-2 line-clamp-3 text-sm text-justify " />
+                        
+                        <div className="flex justify-center items-center">
+                            <Link href={`/evenement/${id}`} className="text-sm"><span className="border rounded-md px-3 py-1">Detail</span></Link>
                         </div>
                         <div className="text-center flex-1 mt-3 flex gap-3 justify-center items-center italic py-2">
                             <MapPinIcon size={15} />

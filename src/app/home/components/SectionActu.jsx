@@ -27,14 +27,14 @@ const SectionActu = () => {
                 </div> */}
                 <Card
                     isBlurred
-                    className="border-none bg-background/60 dark:bg-default-100/50 max-w-[100%]"
+                    className="border-none bg-background/60 dark:bg-default-100/50 h-full max-w-[100%]"
                     shadow="sm"
                 >
                     <CardBody>
                         <div className="grid grid-cols-6 md:grid-cols-12 gap-6 md:gap-4 items-center justify-center">
                             <div className="relative col-span-6 md:col-span-4">
                                 <Image
-                                    alt="Album cover"
+                                    alt=""
                                     className="object-cover"
                                     height={200}
                                     shadow="md"
@@ -45,7 +45,7 @@ const SectionActu = () => {
                           
                                 <div className="flex flex-col col-span-6 md:col-span-8">
                                     <p className='font-bold mb-5'>{a.titre}</p>
-                                    <p className='line-clamp-6'>{nl2br(a.contenu)}</p>
+                                    <p className='line-clamp-6 font-thin text-justify'>{nl2br(a.contenu)}</p>
                                     <div className='w-full justify-center items-center flex pt-4'>
                                         <Button href={`/actualite/detail/${a.slug}`}>Lire article</Button>
                                     </div>
@@ -65,7 +65,7 @@ const SectionActu = () => {
                 <div>
                     <div className='flex gap-2'>
                         <Image src={BACKEND_URL+a.img} className='rounded-none' width="60" height={70} />
-                        <div className='font-bold text-sm'>{a.titre}</div>
+                        <div className='font-light text-sm'>{a.titre?.substr(0,40)}</div>
                     </div>
                     {/* <div className='line-clamp-1 text-sm flex-wrap flex-1'>{a.contenu}</div> */}
                 </div>,
@@ -77,7 +77,7 @@ const SectionActu = () => {
         console.log(actualites);
     }
     useEffect(() => {
-        getData("adminActualite").then(r => {
+        getData("adminActualite&limit=5").then(r => {
             // setActualites(r.data);
             setData(r.data);
         });
@@ -88,7 +88,7 @@ const SectionActu = () => {
     return (
         <div className='h-fit overflow-auto'>
             <Tabs items={actualites}
-                tabPosition={tabPosition}
+                tabPosition={'right'}
             // items={new Array(18).fill(null).map((_, i) => {
             //   const id = String(i + 1);
             //   return {

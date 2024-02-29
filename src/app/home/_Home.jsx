@@ -283,7 +283,9 @@ const Component = () => {
           titre={<p>Actualités d'entreprises</p>}
           titreIcone={<Rss size={30} />}
         >
-          <SectionActu />
+          <div className="bg-white py-2 px-2">
+            <SectionActu />
+          </div>
         </Section2>
         <Section2 titre={
           <div className="flex gap-4 justify-center">

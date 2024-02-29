@@ -69,7 +69,9 @@ const page=()=>{
                                             {
                                                 resultat?.map((r,i)=>{
                                                     return(
-                                                        <Entreprise key={i} detail={r} />
+                                                        <div className="border-b mb-3">
+                                                            <Entreprise key={i} detail={r} />
+                                                        </div>
                                                     )
                                                 })
                                             }

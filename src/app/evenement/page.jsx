@@ -70,6 +70,7 @@ export default function Component() {
     getData("adminEvenement").then((data)=>{
       data.data.forEach(element => {
         d.push({
+          id: element.id,
           dt:moment(element.dateDebut).format("DD/MM/YYYY"),
           dtFin:moment(element.dateFin).format("DD/MM/YYYY"),
           dtStartUnformated:element.dateDebut,
@@ -136,7 +137,15 @@ export default function Component() {
                 evnts?.map((e,i)=>{
                   return(
                     <div key={i} className="">
-                      <Card dtStartUnformated={e.dtStartUnformated} dtEndUnformated={e.dtEndUnformated} dt={e.dt} dtFin={e.dtFin} img={e.img} titre={e.titre} lieu={e.lieu} description={e.description} />
+                      <Card 
+                        id={e.id}
+                        dtStartUnformated={e.dtStartUnformated} 
+                        dtEndUnformated={e.dtEndUnformated} 
+                        dt={e.dt} dtFin={e.dtFin} 
+                        img={e.img} 
+                        titre={e.titre} 
+                        lieu={e.lieu} 
+                        description={e.description} />
                     </div>
                   )
                 }):

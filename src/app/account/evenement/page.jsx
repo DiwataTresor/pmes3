@@ -10,6 +10,7 @@ import Layout from "@/app/components/layouts/LayoutDashboard"
 import MainLayout from "@/app/components/layouts/LayoutDashboardMain"
 import moment from "moment"
 import Cookies from "js-cookie";
+import Link from "next/link";
 
 
 const page=()=>{
@@ -240,7 +241,10 @@ const page=()=>{
                                                             <span> - {moment(ac.dateFin).format("DD/MM/YYYY")}</span>
                                                         </div>} />
                                                         
-                                                        <div>{ac.description}</div>
+                                                        <div className="">{ac.description}</div>
+                                                        {/* <div>
+                                                            <Link href={`/evenement/${ac}`}>Detail</Link>
+                                                        </div> */}
                                                 </div>
                                             </div>
                                             <div className="flex items-end justify-end border-t py-2">

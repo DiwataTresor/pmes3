@@ -4,10 +4,10 @@ import { useRouter } from 'next/navigation'
 import { myContainerDashboard } from "@/app/style/global";
 import { Divider as dv } from "antd"
 import Link from "next/link"
-import { Card, CardBody, CardFooter, Button, Switch, Image, Divider } from "@nextui-org/react"
+import { Card, CardBody, CardFooter, Button, Switch, Image, Divider, Avatar } from "@nextui-org/react"
 import NavigationComponent from "@/app/components/NavigationComponent"
 import { Delete } from "@/app/components/icons/Delete";
-import { getData, postData } from "@/app/fcts/helper"
+import { BACKEND_URL, getData, postData } from "@/app/fcts/helper"
 import moment from "moment"
 import { toast, Toaster } from "sonner"
 import Layout from "@/app/components/layouts/LayoutDashboard"
@@ -21,7 +21,8 @@ import {
     ModalFooter,
     useDisclosure
   } from "@nextui-org/react";
-import { BadgeCheck, BadgeMinus } from "lucide-react";
+  import { typeAbonnement } from "@/app/utils/data";
+import { BadgeCheck, BadgeMinus, CheckCheck, RefreshCw } from "lucide-react";
 
 
 
@@ -133,7 +134,7 @@ const page = () => {
     return (
         <>
         <MainLayout showNavigation navigationBar="">
-            <Toaster position="bottom-center" />
+            {/* <Toaster position="bottom-center" /> */}
             <Layout headerBg={"bg-black"} titre={`Votre Abonnement | ${_profil?.nom}`} titreIcone={<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10.5 13.5H7.5M10.5 13.5V16.5M10.5 13.5L7 17" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.5 10.5H16.5M13.5 10.5V7.5M13.5 10.5L17 7" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M10.5 10.5H7.5M10.5 10.5V7.5M10.5 10.5L7 7" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.5 13.5H16.5M13.5 13.5V16.5M13.5 13.5L17 17" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" stroke="#1C274C" stroke-width="1.5"></path> </g></svg>}>
                 <div className="flex flex-col gap-6">
                     <div className="flex flex-row gap-4 justify-between">
@@ -167,18 +168,20 @@ const page = () => {
                         Votre compte : <Link className="text-blue-400 hover:underline" href={`/${_profil?.slug}`}>{_profil?.slug} </Link>
 
                     </div>
-                    <div className="flex flex-row gap-4 text-gray-800">
+                    <div className="flex flex-row gap-4 text-gray-800 items-center justify-start">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25" />
                         </svg>
-                        Votre secteur : {profil?.secteurDetail}
+                        <span>Votre secteur :</span> 
+                        <Avatar size="md" src={BACKEND_URL+_profil?.secteurIcone} />
+                        <span>{profil?.secteurDetail}</span>
 
                     </div>
                     <div className="flex flex-row gap-4">
                         <svg width="22px" height="22px" viewBox="0 0 1024 1024" fill="#000000" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M110.4 923.2c-56.8 0-102.4-48-102.4-106.4V285.6c0-58.4 45.6-106.4 102.4-106.4h800.8c56.8 0 102.4 48 102.4 106.4V816c0 58.4-45.6 106.4-102.4 106.4H110.4z m0-701.6c-34.4 0-61.6 28.8-61.6 64V816c0 35.2 28 64 61.6 64h800.8c34.4 0 61.6-28.8 61.6-64V285.6c0-35.2-28-64-61.6-64H110.4z" fill=""></path><path d="M541.6 392c-12.8 0-23.2-10.4-23.2-24s10.4-24 23.2-24h328c12.8 0 23.2 10.4 23.2 24s-10.4 24-23.2 24h-328zM541.6 511.2c-12.8 0-23.2-10.4-23.2-24s10.4-24 23.2-24h328c12.8 0 23.2 10.4 23.2 24s-10.4 24-23.2 24h-328zM541.6 638.4c-12.8 0-23.2-10.4-23.2-24s10.4-24 23.2-24h276.8c12.8 0 23.2 10.4 23.2 24s-10.4 24-23.2 24H541.6zM58.4 886.4c-2.4 0-4.8 0-7.2-0.8-12.8-4-20-18.4-16-32 23.2-78.4 77.6-142.4 148-176l16-8-13.6-12c-40-34.4-63.2-85.6-63.2-139.2 0-100 78.4-180.8 173.6-180.8 96 0 173.6 80.8 173.6 180.8 0 53.6-23.2 104.8-63.2 139.2l-13.6 12 16 8c68 32 132.8 112 157.6 194.4 16 52.8-16.8 36-1.6 16-3.2 4.8-16.8-5.6-32-5.6-12.8 0-19.2 24.8-19.2 22.4-31.2-104-120.8-203.2-217.6-203.2-99.2 0-186.4 67.2-216 166.4-1.6 11.2-11.2 18.4-21.6 18.4z m239.2-498.4c-69.6 0-126.4 58.4-126.4 130.4s56.8 130.4 126.4 130.4c69.6 0 126.4-58.4 126.4-130.4-0.8-72-56.8-130.4-126.4-130.4z" fill=""></path></g></svg>
                         Type abonnement :
                         <span className="bg-green-600 text-white rounded-md flex flex-col justify-center items-center px-3">
-                            {_profil?.typeabonnement}
+                            {typeAbonnement[_profil?.typeabonnement]}
                         </span>
 
                     </div>
@@ -198,8 +201,12 @@ const page = () => {
                     </div>
 
                     <div className="flex flex-row gap-3 justify-center items-center mt-4">
-                        <Button color="primary" size="sm" onClick={() => { openModule("abonChange") }}>Changer mon abonnement</Button>
-                        <Button color="success" size="sm">Renouveller abonnement</Button>
+                        <Link href="/account/abonnement">
+                            <Button color="primary" size="sm" onClick={() => { openModule("abonChange") }}   startContent={<CheckCheck />}>Changer mon abonnement</Button>
+                        </Link>
+                        <Link href="/account/renouvellement">
+                            <Button color="success" size="sm" className="text-white" startContent={<RefreshCw />}> Renouveller abonnement</Button>
+                        </Link>
                     </div>
                 </div>
             </Layout>

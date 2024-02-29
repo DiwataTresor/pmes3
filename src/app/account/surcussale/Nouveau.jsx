@@ -59,7 +59,7 @@ const Nouveau = ({callBack}) => {
                         <SelectItem key={""} value={""}>--Selectionner</SelectItem>
                         {
                             villes?.map((ville) =>(
-                                <SelectItem key={ville.villeId} value={ville.villeId}>{ville.ville}</SelectItem>
+                                <SelectItem key={ville.id} value={ville.id}>{ville.ville}</SelectItem>
                             ))
                         }
                     </Select>

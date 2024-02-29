@@ -24,6 +24,7 @@ import { BACKEND_URL, getData } from "../fcts/helper";
 import { Info, PaperclipIcon } from "lucide-react";
 import moment from "moment";
 import Link from "next/link";
+import { nl2br } from "react-js-nl2br";
 
 
 export default function page() {
@@ -80,13 +81,16 @@ export default function page() {
                             infos?.filter(info=>(info?.fichier==null))?.map((info,index)=>{
                             return (
                               <div key={index} className="border-b-0  mb-5 shadow-sm px-3 overflow-hidden">
-                                <div className="text-center border-b-0 py-3 flex justify-between">
-                                  <div className="text-blue-600 flex gap-3 items-center underline flex-1"><Info size={18} />{info?.titre}</div>
-                                  <div className="font-thin text-end text-medium">Concerne : {info?.concerne}</div>
+                                <div className="text-center border-b-0 py-3 flex flex-col justify-between">
+                                  <div className="text-white flex gap-3 items-center bg-blue-500 py-2 pl-3 flex-1"><Info size={18} />{info?.titre}</div>
+                                  <div className="font-thin text-start mt-3 text-medium">Concerne : {nl2br(info?.concerne)}</div>
                                 </div>
                                 <div className="px-3 border-0 rounded-md py-3">
                                   <p className="text-sm italic border-b-0 mb-4 text-gray-700 text-center">Publié le {moment(info?.dateCreation).format("DD/MM/YYYY HH:mm:SS")}</p>
-                                  <div className="font-thin text-medium line-clamp-6 text-justify">{info?.description}</div>
+                                  <div className="font-thin text-medium line-clamp-6 text-justify">{nl2br(info?.description)}</div>
+                                  <div className="my-4">
+                                    <Link href={`/infoutile/${info.id}`} className="text-sm text-center items-center justify-center flex rounded-sm py-2 px-2">Tout lire</Link>
+                                  </div>
                                 </div>
                               </div>)
                             })
@@ -140,7 +144,7 @@ export default function page() {
                                 <div className="px-3 border-0 rounded-md py-3">
                                   <p className="text-sm italic border-b-0 mb-4 text-gray-700 text-center">Publié le {moment(info?.dateCreation).format("DD/MM/YYYY HH:mm:SS")}</p>
                                   {info?.fichier!==null && <div><Link className="flex items-start justify-start text-medium underline gap-3" href={BACKEND_URL+info?.fichier} target="_blank"><PaperclipIcon size={17} /> Télécharger</Link></div>}
-                                  <div className="font-thin text-medium line-clamp-6 text-justify">{info?.description}</div>
+                                  <div className="font-thin text-medium line-clamp-6 text-justify" dangerouslySetInnerHTML={{__html:info?.description}} />
                                 </div>
                               </div>)
                             })

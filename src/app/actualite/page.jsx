@@ -14,12 +14,12 @@ const CardActualite=({data})=>{
   return(<div className='w-full '>
     <Link href={`/actualite/detail/${data?.slug}`}>
     <div>
+      <div className='text-[13px] text-center line-clamp-1 mb-3'>{data?.titre}</div>
       <Image src={BACKEND_URL+data.img} />
     </div>
     <div className='flex flex-col gap-3'>
-      <div className='text-base text-center line-clamp-1'>{data?.titre}</div>
       <div className='text-sm text-justify line-clamp-2 font-thin'>{data?.contenu}</div>
-      <div className=' line-clamp-2 font-thin text-[10px] italic'>Publié le {moment(data?.datePub).format("DD/MM/YYYY HH:mm:SS")}</div>
+      <div className=' line-clamp-2 font-thin text-[10px] italic text-center'>Publié le {moment(data?.datePub).format("DD/MM/YYYY HH:mm:SS")}</div>
       </div>
       </Link>
   </div>)

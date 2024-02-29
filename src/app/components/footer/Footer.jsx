@@ -5,10 +5,12 @@ import logo from "./../../../assets/logo.png"
 import styles from './footer.module.css'
 import { bgPrimary, bgSecondary, colorSecondary, bgThird } from '@/app/style/global'
 import { bgSecondaryColor } from '../../style/global';
-import { Alert, Spin } from 'antd'
+import { Alert, Spin,notification } from 'antd'
 import { Toaster, toast } from 'sonner'
 import { getData, postData } from '@/app/fcts/helper'
 import Link from 'next/link'
+import Cookies from 'js-cookie'
+import { Button } from '@nextui-org/react'
 
 const soulignement = "w-[70px] h-1 bg-blue-300 mb-10";
 const titre = `text-[${bgSecondary}]`;
@@ -20,6 +22,7 @@ const Footer = () => {
   const [feedback, setFeedback] = useState("");
   const [partenanires,setPartenaires] = useState([])
   const [contact,setContact] = useState(null);
+  const [api, contextHolder] = notification.useNotification();
   const handleNewsletters = (e) => {
     e.preventDefault();
     setFeedback("");
@@ -38,6 +41,31 @@ const Footer = () => {
     })
   }
   useEffect(() => {
+    if(Cookies.get("cookiesValidated")=="Y")
+    {
+     
+    }else
+    {
+      api.open({
+        key:"1",
+        message: "",
+        closeIcon:false,
+        description:<div className='text-justify'>
+          Ce site utilise des Cookies et vous donne le contrôle sur ce que vous souhaitez activer. <br />
+          En cliquant sur "Accepter tous les cookies", vous accepter le stockage de cookies sur votre navigateur enfin d'ameliorer votre experience
+          <p className='flex items-center justify-center gap-4 mt-3'>
+            <Button onPress={()=>{
+              Cookies.set("cookiesValidated","Y");
+              // notification.destroy("1");
+              api.destroy("1")
+            }} color='primary' variant='solid'>Tout accepter</Button>
+            <Button color='default' variant='flat'>Tout refuser</Button>
+          </p>
+          </div>,
+        duration:0,placement:"bottomLeft"
+      })
+    }
+   
     getData("partenaires").then((data) => {
       setPartenaires(data.data);
     });
@@ -50,7 +78,7 @@ const Footer = () => {
   return (
     <>
       <Toaster />
-
+      {contextHolder}
       <div className="pt-10 w-full overflow-x-hidden bg-blue-500">
         
         {/* <div className=' flex flex-col md:flex-col lg:flex-row justify-between px-10 md:px-60 lg:px-10 gap-10 '>

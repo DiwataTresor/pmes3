@@ -10,6 +10,7 @@ import { Delete } from "@/app/components/icons/Delete"
 import Layout from "@/app/components/layouts/LayoutDashboard"
 import MainLayout from "@/app/components/layouts/LayoutDashboardMain"
 import { Toaster, toast } from "sonner"
+import Cookies from "js-cookie";
 
 const page = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -44,7 +45,7 @@ const page = () => {
     }
 
     const getKeywords = () => {
-        getData("getServicesByUser").then(r => {
+        getData("getServicesByUser&idUtilisateur="+JSON.parse(Cookies.get("profil")).id).then(r => {
             setListe(r.data);
         })
     }

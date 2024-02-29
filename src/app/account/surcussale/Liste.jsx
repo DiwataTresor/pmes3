@@ -58,7 +58,7 @@ const Detail = ({data,callBack}) => {
                         <div>
                             <p className='text-center'>{data?.ville}</p> <Divider />
                             <div className='flex flex-col gap-3'>
-                                <p className='flex gap-2 text-[12px] items-center'><Map size={11} />Adresse : {data?.telephone}</p>
+                                <p className='flex gap-2 text-[12px] items-center'><Map size={11} />Adresse : {data?.adresse}</p>
                                 <p className='flex gap-2 text-[12px] items-center'><Phone size={11} />Téléphone : {data?.telephone} - {data?.telephone2} </p>
                                 <p className='flex gap-2 text-[12px] items-center'><Mail size={11} />Email : {data?.emailAdresse}</p>
                             </div>
