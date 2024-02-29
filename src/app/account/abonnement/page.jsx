@@ -18,7 +18,7 @@ import Image from 'next/image';
 const page = () => {
     const { token } = theme.useToken();
     const [current, setCurrent] = useState(0);
-    const [abonnementSelected,setAbonnementSelected] = useState(JSON.parse(Cookies.get("profil")).typeabonnement=="B"?"F":JSON.parse(Cookies.get("profil")).typeabonnement);
+    const [abonnementSelected,setAbonnementSelected] = useState(null);
     const [nbreAnnee,setNbreAnnee] = useState(1);
     const [isLoading,setIsLoading] = useState(false);
     const [spinning,setSpinning]=useState(true);
@@ -124,6 +124,7 @@ const page = () => {
         })
     }
     useEffect(()=>{
+        setAbonnementSelected(JSON.parse(Cookies.get("profil")).typeabonnement=="B"?"F":JSON.parse(Cookies.get("profil")).typeabonnement);
         init()
     },[]);
     
