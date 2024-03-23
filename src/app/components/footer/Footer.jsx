@@ -204,6 +204,7 @@ const Footer = () => {
                 <div className='flex-wrap'><a className="flex-wrap" target='_blank' href="http://padempme.cd">http://padempme.cd</a></div>
                 <div className='flex-wrap'><a className="flex-wrap" target='_blank' href="http://anadec.cd">http://anadec.cd</a></div>
                 <div className='flex-wrap'><a className="flex-wrap" target='_blank' href="http://arsp.cd">http://arsp.cd</a></div>
+                <div className='flex-wrap'><a className="flex-wrap" target='_blank' href="http://investindrc.cd">http://investindrc.cd</a></div>
               </div>
             </div>
 
