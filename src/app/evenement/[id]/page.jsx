@@ -33,7 +33,7 @@ const page = ({ params }) => {
                     
                     <div>
                         <div>
-                            <div className='flex gap-4 text-blue-300 font-bold text-xl mb-4'>
+                            <div className='flex gap-4 text-blue-800 font-bold text-xl mb-4'>
                                 <User2Icon /> Organisateur :
                                 <div className='text-center flex gap-3'>
                                     <span>{detail?.organisateur}</span>
@@ -42,7 +42,7 @@ const page = ({ params }) => {
                             </div>
                         </div>
                         <div>
-                            <div className='flex gap-4 text-blue-300 font-bold text-xl mb-4'>
+                            <div className='flex gap-4 text-blue-800 font-bold text-xl mb-4'>
                                 <CalendarCheck /> Date :
                                 <div className='text-center flex gap-3'>
                                     <span>{moment(detail?.dateDebut).format("DD/MM/YYYY")}</span>
@@ -51,14 +51,14 @@ const page = ({ params }) => {
                             </div>
                         </div>
                         <div>
-                            <div className='flex gap-4 text-blue-300 text-xl mb-4 '>
+                            <div className='flex gap-4 text-blue-800 text-xl mb-4 '>
                                 <Info /> Description
                             </div>
                             <div className='flex gap-4'>
                                 <div className=''>
                                     <Image src={BACKEND_URL+detail?.img} width={"1300px"} height={"1300px"} />
                                 </div>
-                                <div dangerouslySetInnerHTML={{__html:detail?.description}} />
+                                <div className='text-justify' dangerouslySetInnerHTML={{__html:detail?.description}} />
                             </div>
                         </div>
                     </div>

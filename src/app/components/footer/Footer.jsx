@@ -59,7 +59,7 @@ const Footer = () => {
               // notification.destroy("1");
               api.destroy("1")
             }} color='primary' variant='solid'>Tout accepter</Button>
-            <Button color='default' variant='flat'>Tout refuser</Button>
+            <Button color='default' variant='flat' onPress={()=>{api.destroy("1")}}>Tout refuser</Button>
           </p>
           </div>,
         duration:0,placement:"bottomLeft"
@@ -127,7 +127,7 @@ const Footer = () => {
         </div>
         <div className="pt-5">
 
-          <div className="px-[10px] pb-[25px] md:px-4 lg:px-[150px] flex lg:flex-row flex-col text-[12px] bg-blue-600" style={{ backgroundColor: "" }}>
+          <div className="px-[10px] pb-[25px] md:px-4 lg:px-[150px] flex lg:flex-row justify-between flex-col text-[12px] bg-blue-600" style={{ backgroundColor: "" }}>
             <div className={styles.colone + " max-w-[320px] mr-[40px] xs:w-4/4 flex flex-col gap-4  items-start"}>
               <Image src={"/logo_sans_fond.png"} width={200} height={80} alt='' />
               <p className="text-justify text-white text-[11px]">
@@ -191,14 +191,23 @@ const Footer = () => {
               <h1 className={titre} style={{ color: bgSecondary, fontSize: 18, fontWeight: "bold" }}>Liens utiles</h1>
               <div className={soulignement} style={{ backgroundColor: bgSecondary }}>&nbsp;</div>
               <div className="mt-5">
-                <div><a href="#">http://exemple.org</a></div>
-                <div className='flex-wrap'><a className="flex-wrap" href="#">http://pmes.gouv.cd</a></div>
+                <div><a target='_blank' href="http://presidence.cd">http://presidence.cd</a></div>
+                <div className='flex-wrap'><a className="flex-wrap" target='_blank' href="http://pme.gouv.cd">http://pme.gouv.cd</a></div>
+                <div className='flex-wrap'><a className="flex-wrap" target='_blank' href="http://industrie.gouv.cd">http://industrie.gouv.cd</a></div>
+                <div className='flex-wrap'><a className="flex-wrap" target='_blank' href="http://fogec.cd">http://fogec.cd</a></div>
+                <div className='flex-wrap'><a className="flex-wrap" target='_blank' href="http://copemeco.cd">http://copemeco.cd</a></div>
+                <div className='flex-wrap'><a className="flex-wrap" target='_blank' href="http://fec-rdc.com">http://fec-rdc.com</a></div>
+                <div className='flex-wrap'><a className="flex-wrap" target='_blank' href="http://ccikc.com">http://ccikc.com</a></div>
+                <div className='flex-wrap'><a className="flex-wrap" target='_blank' href="http://economie.gouv">http://economie.gouv.cd</a></div>
+                <div className='flex-wrap'><a className="flex-wrap" target='_blank' href="http://bcc.cd">http://bcc.cd</a></div>
+                <div className='flex-wrap'><a className="flex-wrap" target='_blank' href="http://guichetunique.cd">http://guichetunique.cd</a></div>
+                <div className='flex-wrap'><a className="flex-wrap" target='_blank' href="http://padempme.cd">http://padempme.cd</a></div>
               </div>
             </div>
 
           </div>
         </div>
-        <div className="bg-blue-900 text-[10px] text-center text-white border-t-0 py-3 border-white">© 2023, INDEX RDC <sup>TM</sup> OS. Powered By AtonProxy <br /> Conditions générales d'utilisation | Politique de confidentialité</div>
+        <div className="bg-blue-900 text-[10px] text-center text-white border-t-0 py-3 border-white">© 2023, INDEX RDC <sup>TM</sup> OS. Powered By AtonProxy <br /> <Link href="/conditions-utilisation" className='underline'>Conditions générales d'utilisation </Link> | <Link href="/politique-confidentialite" className='underline'>Politique de confidentialité</Link></div>
       </div>
     </>
   )
