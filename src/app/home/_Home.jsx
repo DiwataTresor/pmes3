@@ -107,13 +107,13 @@ export const SlideItem = ({ text, img }) => {
 export const SecteurItem = ({ item, v, slug }) => {
   return (
     <Link href={`/secteurbtb/${slug}`} className="flex gap-2 text-white">
-      <Badge content={v} color="primary">
+      {/* <Badge content={v} color="primary"> */}
         {/* <Button radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"> */}
         <div className="border-l-3 border-blue-900 bg-slate-200 rounded-none text-blue-800 px-6 hover:underline hover:border transition  shadow-sm py-3">
           <div className="text-sm hover:underline">{item}</div>
           {/* <div className="text-sm">{v}</div> */}
         </div>
-      </Badge>
+      {/* </Badge> */}
     </Link>
   )
 }
