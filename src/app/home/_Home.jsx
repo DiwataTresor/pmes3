@@ -43,7 +43,7 @@ import { Modal } from "antd"
 import Layout from "@/app/components/layouts/LayoutClient"
 import LayoutDashboard from "@/app/components/layouts/LayoutDashboard"
 import { getSecteurs } from "@/app/utils/data"
-import Section from "@/app/components/section/Section"
+import Section from "@/app/components/section/Section" 
 import Section2 from "@/app/components/section/Section2"
 import { BACKEND_URL, getData } from "../fcts/helper";
 import { nl2br } from "react-js-nl2br";
