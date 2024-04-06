@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react'
 import Layout from "@/app/components/layouts/LayoutClient"
 import { BACKEND_URL, getData } from '@/app/fcts/helper';
 import { Image } from '@nextui-org/react';
-import { MapPin } from 'lucide-react';
+import { Globe, MapPin } from 'lucide-react';
+import { nl2br } from 'react-js-nl2br';
+
 
 const page = ({ params }) => {
     const id = params.id;
@@ -20,13 +22,13 @@ const page = ({ params }) => {
                         <div>
                             <Image isZoomed src={BACKEND_URL + produit?.img} className='object-center max-w-[300px]' />
                         </div>
-                        <div>
+                        <div className='flex flex-col gap-4 justify-center items-center w-full'>
                             <div className='font-bold text-2xl mb-4 text-blue-950'>{produit.nom}</div>
                             <div className='flex gap-2 italic text-sm'><MapPin />{produit.proprietaire} - {produit.lieu}</div>
-                            <div>{produit?.lien && <a href={produit?.lien}>Lien de l'article</a>}</div>
+                            <div>{produit?.lien && <a href={produit?.lien} className='flex gap-3'><Globe size={18} /> Lien de l'article</a>}</div>
                             <hr className='my-3' />
                             <div className='text-justify'>
-                                {produit.description}
+                                {nl2br(produit.description)}
                             </div>
                             
                         </div>
