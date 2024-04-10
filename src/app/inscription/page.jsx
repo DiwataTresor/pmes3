@@ -78,6 +78,7 @@ const page = () => {
                                             router.push("/confirminscription");
                                             console.log("Mail bien envoyer")
                                         }).catch((err)=>{
+                                            
                                             console.log("Erreur mail"+err.message)
                                         })
                                 // FIN MAIL

@@ -4,17 +4,19 @@ import NavigationComponent from "@/app/components/NavigationComponent"
 import { myContainerDashboard } from "@/app/style/global";
 import {Input,Button,Chip,Select,SelectItem} from "@nextui-org/react"
 import {postData,getData,updateData} from "@/app/fcts/helper"
-import {Modal,Alert,Divider,notification} from "antd"
+import {Modal,Alert,Divider,notification, message} from "antd"
 import {Delete} from "@/app/components/icons/Delete"
 import {getProvinces, getVilles} from "@/app/utils/data"
 import Layout from "@/app/components/layouts/LayoutDashboard"
 import MainLayout from "@/app/components/layouts/LayoutDashboardMain"
+import { SelectStyle } from "@/app/utils/constant";
 
 const page=()=>{
     const [feedBack,setFeedBack]=useState("");
     const [api, contextHolder] = notification.useNotification();
     const [provinces,setProvinces]=useState([]);
     const [villes,setVilles]=useState([]);
+    const [defaultCommune,setDefaultCommune]=useState(null);
     const [communes,setCommunes]=useState([]);
     const [communesSorted,setCommunesSorted]=useState([]);
     const [liste,setListe]=useState([]);
@@ -93,31 +95,42 @@ const page=()=>{
         getData("propreProfil").then(r=>{
             const data=r.data;
             setProfil({
-                adresse:data.adresse,
-                ville:data.ville,
-                villeDetail:data.villeDetail,
-                commune:data.commune,
-                communeDetail:data.communeDetail,
-                email:data.emailAdresse,
-                email2:data.emailAdresse2,
-                siteweb:data.siteweb,
-                siteweb2:data.siteweb2,
-                facebook:data.facebook,
-                whatsapp:data.whatsapp,
-                instagram:data.instagram,
-                linkedin:data.linkedin,
-                twitter:data.twitter,
-                youtube:data.youtube,
-                tiktok:data.tiktok,
+                adresse:data?.adresse,
+                ville:data?.ville,
+                villeDetail:data?.villeDetail,
+                commune:data?.commune,
+                communeDetail:data?.communeDetail,
+                email:data?.emailAdresse,
+                email2:data?.emailAdresse2,
+                siteweb:data?.siteweb,
+                siteweb2:data?.siteweb2,
+                facebook:data?.facebook,
+                whatsapp:data?.whatsapp,
+                instagram:data?.instagram,
+                linkedin:data?.linkedin,
+                twitter:data?.twitter,
+                youtube:data?.youtube,
+                tiktok:data?.tiktok,
 
-                telephone:data.telephone,
-                telephone2:data.telephone2
+                telephone:data?.telephone,
+                telephone2:data?.telephone2
             });
+            if(data?.ville!==null)
+            {
+                setCommunesSorted(communes.filter((f)=>f.id==data?.ville))
+                // console.log(communes.filter((f)=>f.id==data?.ville));
+                getData("communesByVille&ville="+data?.ville).then(r=>{
+                   setCommunesSorted(r.data);
+                   setDefaultCommune(data?.commune)
+                });
+            }
             // console.clear()
             // console.log(r.data.ville);
-            prov=r.data.province;
+            prov=r.data?.province;
         }).catch(e=>{
-            alert("erreur");
+            message.error("Une erreur s'est produite pendant le chargement des données");
+            console.clear()
+            console.log(e);
         });
     },[]);
     const card="bg-white rounded-md flex-1 w-full shadow-md py-3 px-2 h-full"
@@ -313,32 +326,47 @@ const page=()=>{
                         </div>
                         <Divider />
                         <form onSubmit={handleSubmitAdresse}>
-                        <div className="flex flex-col gap-4">
+                        <div className="flex flex-col gap-4 pt-4">
+                            <label>Ville :</label>
                             {
                                 
-                                <Select name="ville"  
+                                <select name="ville"  
                                     label={`Ville (${profil?.villeDetail})`}
-                                    defaultSelectedKeys={[`${profil?.ville}`]} 
-                                    isRequired 
-                                    startContent={<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M6.5 1.75C6.5 1.33579 6.16421 1 5.75 1C5.33579 1 5 1.33579 5 1.75V21.75C5 22.1642 5.33579 22.5 5.75 22.5C6.16421 22.5 6.5 22.1642 6.5 21.75V13.6V3.6V1.75Z" fill="#1C274C"></path> <path d="M13.3486 3.78947L13.1449 3.70801C11.5821 3.08288 9.8712 2.9258 8.22067 3.25591L6.5 3.60004V13.6L8.22067 13.2559C9.8712 12.9258 11.5821 13.0829 13.1449 13.708C14.8385 14.3854 16.7024 14.5119 18.472 14.0695L18.6864 14.0159C19.3115 13.8597 19.75 13.298 19.75 12.6538V5.28673C19.75 4.50617 19.0165 3.93343 18.2592 4.12274C16.628 4.53055 14.9097 4.41393 13.3486 3.78947Z" fill="#1C274C"></path> </g></svg>}
+                                    defaultValue={profil?.ville} 
+                                    required 
+                                   className={SelectStyle}
                                     onChange={(e)=>{
+                                        // console.log(communes);
+
                                         setCommunesSorted(communes.filter((f)=>f.id==e.target.value))
+                                        // let newCommuneSorted=communesSorted.unshift({})
+                                        // console.log(communes.filter((f)=>f.id==e.target.value));
 
                                     }}
                                 >
-                                    {villes?.sort((a,b)=>a.ville>b.ville)?.map(r=>{return(<SelectItem  key={r.id} value={r.id}>{r.ville}</SelectItem>)})}
-                                </Select>
+                                    {villes?.sort((a,b)=>a.ville>b.ville)?.map(r=>(<option  key={r.id} value={r.id}>{r.ville}</option>))}
+                                </select>
                             }
+                            <label>Commune</label>
                             {
-                                
-                                <Select 
+                                <select 
                                     name="commune"  
-                                    label={`Commune ${profil?.communeDetail && <>(${profil?.communeDetail})</>}`} defaultSelectedKeys={[`${profil?.commune}`]} isRequired startContent={<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M6.5 1.75C6.5 1.33579 6.16421 1 5.75 1C5.33579 1 5 1.33579 5 1.75V21.75C5 22.1642 5.33579 22.5 5.75 22.5C6.16421 22.5 6.5 22.1642 6.5 21.75V13.6V3.6V1.75Z" fill="#1C274C"></path> <path d="M13.3486 3.78947L13.1449 3.70801C11.5821 3.08288 9.8712 2.9258 8.22067 3.25591L6.5 3.60004V13.6L8.22067 13.2559C9.8712 12.9258 11.5821 13.0829 13.1449 13.708C14.8385 14.3854 16.7024 14.5119 18.472 14.0695L18.6864 14.0159C19.3115 13.8597 19.75 13.298 19.75 12.6538V5.28673C19.75 4.50617 19.0165 3.93343 18.2592 4.12274C16.628 4.53055 14.9097 4.41393 13.3486 3.78947Z" fill="#1C274C"></path> </g></svg>}>
+                                    // label={`Commune ${profil?.communeDetail && <>(${profil?.communeDetail})</>}`} 
+                                    // defaultSelectedKeys={[`${profil?.commune}`]} 
+                                    className={SelectStyle}
+                                    defaultValue={defaultCommune}
+                                    required 
+                                    onChange={(e)=>{
+                                        console.clear()
+                                        console.log(e);
+                                    }}
+                                    // startContent={<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M6.5 1.75C6.5 1.33579 6.16421 1 5.75 1C5.33579 1 5 1.33579 5 1.75V21.75C5 22.1642 5.33579 22.5 5.75 22.5C6.16421 22.5 6.5 22.1642 6.5 21.75V13.6V3.6V1.75Z" fill="#1C274C"></path> <path d="M13.3486 3.78947L13.1449 3.70801C11.5821 3.08288 9.8712 2.9258 8.22067 3.25591L6.5 3.60004V13.6L8.22067 13.2559C9.8712 12.9258 11.5821 13.0829 13.1449 13.708C14.8385 14.3854 16.7024 14.5119 18.472 14.0695L18.6864 14.0159C19.3115 13.8597 19.75 13.298 19.75 12.6538V5.28673C19.75 4.50617 19.0165 3.93343 18.2592 4.12274C16.628 4.53055 14.9097 4.41393 13.3486 3.78947Z" fill="#1C274C"></path> </g></svg>}
+                                >
                                     {communesSorted
                                     ?.sort((a,b)=>a.commune>b.commune)
-                                    ?.map(r=>{return(<SelectItem key={r.id} value={r.id}>{r.commune}</SelectItem>)})
+                                    ?.map(r=>(<option selected={profil.commune==r.communeId} key={r.id} value={r.communeId}>{r.commune}</option>))
                                     }
-                                </Select>
+                                </select>
                             }
                             
                             <div className="flex flex-row gap-3">

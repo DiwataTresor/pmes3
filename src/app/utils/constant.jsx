@@ -1,0 +1,1 @@
+export const SelectStyle="border p-3 rounded-md outline-none bg-gray-100";
