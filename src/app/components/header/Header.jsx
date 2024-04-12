@@ -563,7 +563,7 @@ const Header = () => {
                       >
                         Se souvenir de moi
                       </Checkbox>
-                      <Link color="primary" href="#" size="sm">
+                      <Link color="primary" href="/password-refound" onClick={()=>{isOpen(false)}} size="sm">
                         Mot de passe oublié?
                       </Link>
                     </div>

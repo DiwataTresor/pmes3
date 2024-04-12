@@ -9,7 +9,7 @@ const NavigationComponent=({titre})=>{
     // const profil=JSON.parse(localStorage.getItem("profil")) || {};
     const [profil,setProfil] = useState(null);
     useEffect(()=>{
-        setProfil(JSON.parse(Cookies.get("profil")));
+        setProfil(JSON.parse(Cookies.get("profil") ||"{}"));
     },[])
     return (
         <div className="flex flex-row justify-between rounded-md bg-yellow-50 py-3 px-4 text-black border border-yellow-400 mb-4">
