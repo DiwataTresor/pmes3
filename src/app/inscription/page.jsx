@@ -209,6 +209,7 @@ const page = () => {
                                                 <Input name="nom" className="w-full" label="Nom de l'organisation" labelPlacement="outside" />
                                             </div>
                                            
+                                            <Input name="telephone" className="w-full" label="Téléphone" labelPlacement="outside" isRequired />
                                             <Input name="email" className="w-full" label="E-mail" labelPlacement="outside" />
                                             <div className="flex flex-row gap-6">
                                                 <Input type="password" name="password" isRequired className="w-full" label="Mot de passe" labelPlacement="outside" />
@@ -216,7 +217,7 @@ const page = () => {
                                             </div>
                                            
                                             <div className="flex flex-row justify-center items-center">
-                                                <Checkbox defaultSelected></Checkbox> J'accepte &nbsp;<a href="#" className="text-blue-400">les termes et conditions</a> &nbsp;d'utilisation         
+                                                <Checkbox defaultSelected></Checkbox> J'accepte &nbsp;<a href="conditions-utilisation" className="text-blue-400">les termes et conditions</a> &nbsp;d'utilisation         
                                             </div>
                                             <div className="flex items-center justify-center">
                                                 <ReCAPTCHA ref={captcha} sitekey={"6LdTJMIoAAAAAL74aT4mOU3uJhEjuhHNXU8Asp11"}
