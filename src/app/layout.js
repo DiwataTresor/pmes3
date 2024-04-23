@@ -7,6 +7,7 @@ import Header from "./components/header/Header"
 import { isMobile } from "@/app/fcts/helper"
 import { FloatButton } from 'antd'
 import { ToTopOutlined } from '@ant-design/icons'
+import Script from 'next/script'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -32,6 +33,17 @@ export default function RootLayout({ children }) {
       <link rel="icon" href="/logo.png" sizes="any" />
       <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"></link>
+        <Script strategy="lazyOnload" async src="https://www.googletagmanager.com/gtag/js?id=G-4YR7ZLLGW8"></Script> 
+        <Script strategy="lazyOnload"> 
+          {`
+          window.dataLayer = window.dataLayer || []; 
+          function gtag(){
+            dataLayer.push(arguments)
+          } 
+          gtag('js', new Date()); 
+          gtag('config', 'G-4YR7ZLLGW8',{page_path: window.location.pathname}) 
+          `}
+        </Script>
       </head>
 
       <body className={sourcecode.className}>
