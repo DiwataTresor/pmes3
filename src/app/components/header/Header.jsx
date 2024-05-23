@@ -39,6 +39,7 @@ import logoX from "@/app/components/icons/logoX.png";
 // import usePathname  from "next/navigation";
 
 const Header = () => {
+  
   const [isLoading, setIsLoading] = React.useState(false);
   const [msgNL, setMsgNL] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -446,6 +447,10 @@ const Header = () => {
                     }
                     className="w-full"
                     href={item.href}
+                    // href={"#"}
+                    onClick={()=>{
+                     window.location.reload();
+                    }}
                     size="lg"
                   >
                     {item.item}
