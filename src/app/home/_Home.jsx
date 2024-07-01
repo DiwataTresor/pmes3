@@ -127,13 +127,14 @@ export const ProduitItem = ({ id, adresse, lien, text, img, description, proprie
       </CardHeader>
       <Divider />
       <CardBody>
-        <img src={BACKEND_URL + img} className="w-[100%] h-[220px] rounded-md" />
+        <img src={BACKEND_URL + img} className="w-[100%] h-[320px] rounded-md" />
         <p className="mt-4 font-bold text-medium flex items-center justify-center gap-3"><User2Icon size={14} />{proprietaire}</p>
-        <p className="mt-[0%] rounded-full px-5 py-3 text-[12px] text-justify line-clamp-3">{description}</p>
+        <p className="mt-[0%] rounded-full px-5 py-3 text-[12px] line-clamp-3" style={{lineHeight:1.3, alignContent:"center"}}>{description}</p>
         <p className="text-center flex justify-center">
-          <Link href={`/produit/${id}`} className="border text-[12px] px-3 py-2 rounded-full hover:bg-blue-300 hover:text-white hover:border-0 flex gap-3 items-center">
-            <Eye size={14} />
+          <Link href={`/produit/${id}`} className="flex gap-3 items-center lining-nums">
+            <Button color="primary" radius="full" startContent={<Eye size={14} />}>
             Plus de detail
+            </Button>
           </Link>
         </p>
       </CardBody>

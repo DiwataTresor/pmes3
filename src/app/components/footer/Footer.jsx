@@ -181,7 +181,7 @@ const Footer = () => {
                     {contact?.e_mail}
                   </p>
                   <p>
-                  {contact?.telephone} {contact?.telephone2 && ` - ${contact?.telephone2}`}
+                  {contact?.telephone} {contact?.telephone2 && ` - ${contact?.telephone2} - ${contact?.telephone3}`}
                   </p>
                 </div>
 

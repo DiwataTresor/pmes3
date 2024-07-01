@@ -30,7 +30,7 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure
 import { myContainer, titrePrincipal } from "@/app/style/global";
 import { MailIcon } from "@/app/components/icons/MailIcon"
 import { LockIcon } from "@/app/components/icons/LockIcon"
-import { Modal as ModalAnt, notification, Alert } from "antd"
+import { Modal as ModalAnt, notification, Alert, Space } from "antd"
 import moment from "moment"
 import Cookies from "js-cookie";
 import { Filter, Home, MenuIcon, Search, SearchIcon, Sliders } from "lucide-react";
@@ -99,8 +99,8 @@ const Header = () => {
           });
           Cookies.set('connected', "true");
           Cookies.set('profil', JSON.stringify(r.profil));
-          router.push('/account/dashboard', { scroll: false });
-          window.location.reload();
+          // router.push('/account/dashboard', { scroll: false });
+          window.location.href="http://localhost:3000/account/dashboard";
 
         } else {
           setFeedBack(<Alert message="utilisateur non reconnu" type="error" showIcon />);
@@ -228,7 +228,7 @@ const Header = () => {
           </div>
           <div className="flex flex-row gap-2">
             <div className="border-r-0 border-gray-100 pr-4">
-              <a href={`${contact?.facebook}`}>
+              <a href={`${contact?.facebook}`} target="_blank">
               <svg
                 width="20px"
                 height="20px"
@@ -250,7 +250,7 @@ const Header = () => {
             </div>
             
             <div className="border-r-0 border-gray-100 pr-4">
-              <a href={`${contact?.linkedin}`}>
+              <a href={`${contact?.linkedin}`} target="_blank">
                 <svg
                   width="20px"
                   height="20px"
@@ -468,10 +468,12 @@ const Header = () => {
             </NavbarMenu>
           </Navbar>
         </div>
-        <div className="lg:block hidden">
+        <div className="lg:block hidden order-last" style={{order:100000}}>
+          
           <Sticky>
+
             <form onSubmit={handleSearch}>
-              <div className="flex flex-row gap-2 bg-gray-300 px-[10px] lg:px-[300px] py-5 items-center justify-center text-gray-400 border-blue-600 z-40 ">
+              <div className="flex flex-row gap-2 bg-gray-300 px-[10px] lg:px-[300px] py-5 items-center justify-center text-gray-400 border-blue-600 z-40" style={{order:100000,zIndex:100000}}>
                 <Input name="terme" type="search" isRequired size="sm" label="Nom de l'organisation" />
                 <Select name="lieu" size={"sm"} label="Localisation" className="max-w-xs">
                   <SelectItem key="*" value="*">Partout</SelectItem>
@@ -505,6 +507,7 @@ const Header = () => {
               </div>
             </form>
           </Sticky>
+         
         </div>
         <div className="lg:hidden">
           <Sticky>
