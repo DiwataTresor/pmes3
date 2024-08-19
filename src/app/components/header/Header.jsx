@@ -10,7 +10,7 @@ import {
   bgPrimary,
 } from "@/app/style/global";
 import Sticky from "react-sticky-el";
-import { API_URL } from "@/app/fcts/helper"
+import { API_URL, SITEWEB_URL } from "@/app/fcts/helper"
 import { redirect, usePathname, useRouter } from 'next/navigation'
 import { getSecteurs, getProvinces } from "@/app/utils/data"
 import { postData, getData } from "@/app/fcts/helper"
@@ -85,41 +85,75 @@ const Header = () => {
     setFeedBack("");
     setIsLoading(true);
     let data = Object.fromEntries(new FormData(e.target));
-
     let form = new FormData();
+    
+
+    let login=data.login;
+    let password=data.password;
+    let typeLogin=login.substr(0,3);
+
+   if(typeLogin=="ad-")
+   {
+    form.append("action", "ad-");
+    form.append("data", JSON.stringify(data));
+     fetch(API_URL, { method: "POST", body: form }).then(r => r.json())
+       .then(r => {
+         if (r.success) {
+           setFeedBack(<Alert message="Connexion bien établie" type="success" showIcon />)
+           api.success({
+             message: "Authentification",
+             description: "Connexion bien établie"
+           });
+           Cookies.set('connected', "true");
+           Cookies.set('profil', JSON.stringify(r.profil));
+           
+           window.location.href=SITEWEB_URL+"account/dashboard";
+ 
+         } else {
+           setFeedBack(<Alert message="utilisateur non reconnu" type="error" showIcon />);
+          
+         }
+ 
+       }).catch(e => {
+         api.warning({
+           message: `Authentification`,
+           description: "Impossible de se connecter pour le moment",
+           duration: 3
+         });
+       }).finally(() => {
+         setIsLoading(false);
+       })
+   }else{
     form.append("action", "login");
     form.append("data", JSON.stringify(data));
-    fetch(API_URL, { method: "POST", body: form }).then(r => r.json())
-      .then(r => {
-        if (r.success) {
-          setFeedBack(<Alert message="Connexion bien établie" type="success" showIcon />)
-          api.success({
-            message: "Authentification",
-            description: "Connexion bien établie"
-          });
-          Cookies.set('connected', "true");
-          Cookies.set('profil', JSON.stringify(r.profil));
-          // router.push('/account/dashboard', { scroll: false });
-          window.location.href="http://localhost:3000/account/dashboard";
-
-        } else {
-          setFeedBack(<Alert message="utilisateur non reconnu" type="error" showIcon />);
-          // api.danger({
-          //   message: `Authentification`,
-          //   description:"Utilisateur non reconnu",
-          //   duration:3
-          // });
-        }
-
-      }).catch(e => {
-        api.warning({
-          message: `Authentification`,
-          description: "Impossible de se connecter pour le moment",
-          duration: 3
-        });
-      }).finally(() => {
-        setIsLoading(false);
-      })
+     fetch(API_URL, { method: "POST", body: form }).then(r => r.json())
+       .then(r => {
+         if (r.success) {
+           setFeedBack(<Alert message="Connexion bien établie" type="success" showIcon />)
+           api.success({
+             message: "Authentification",
+             description: "Connexion bien établie"
+           });
+           Cookies.set('connected', "true");
+           Cookies.set('profil', JSON.stringify(r.profil));
+           
+           window.location.href=SITEWEB_URL+"account/dashboard";
+ 
+         } else {
+           setFeedBack(<Alert message="utilisateur non reconnu" type="error" showIcon />);
+          
+         }
+ 
+       }).catch(e => {
+         api.warning({
+           message: `Authentification`,
+           description: "Impossible de se connecter pour le moment",
+           duration: 3
+         });
+       }).finally(() => {
+         setIsLoading(false);
+       })
+   }
   }
   const handleSearch = (e) => {
     e.preventDefault();
@@ -545,7 +579,7 @@ const Header = () => {
                           <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                         }
                         name="login"
-                        type="email"
+                        type="text"
                         label="Votre Email/Telephone"
                         labelPlacement="outside"
 
