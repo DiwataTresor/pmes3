@@ -230,7 +230,7 @@ const Header = () => {
       {contextHolder}
       <div
         className=" w-screen  text-white"
-        style={{ backgroundColor: "white" }}
+        style={{ backgroundColor: "white", zIndex:20000000, position:"fixed", width:"100%" }}
       >
 
         <div className="all-unset bg-indigo-500 border-b border-gray-100 w-full h-[40px] lg:px-[300px] md:px-[20px] flex flex-row justify-between text-sm pt-3">
@@ -502,7 +502,7 @@ const Header = () => {
             </NavbarMenu>
           </Navbar>
         </div>
-        <div className="lg:block hidden order-last" style={{order:100000}}>
+        <div className="lg:block hidden order-last" style={{order:100000, zIndex:20000000, position:"fixed", width:"100%"}}>
           
           <Sticky>
 
